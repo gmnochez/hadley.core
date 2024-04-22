@@ -31,11 +31,11 @@ rm -rf ./$KTC_VAR.tmp
 
 
 
-cp ../../../../modules/vm/variables.tf ../../../../modules/vm/${vm_create_option}/variables.tf
-cp ../../../../modules/vm/providers.tf ../../../../modules/vm/${vm_create_option}/providers.tf
-cp ../../../../modules/vm/variables.tf ./variables.tf
-cp ../../../providers.tf ./providers.tf
-cp ../../../main.tf ./main.tf
+# cp ../../../../modules/vm/variables.tf ../../../../modules/vm/${vm_create_option}/variables.tf
+# cp ../../../../modules/vm/providers.tf ../../../../modules/vm/${vm_create_option}/providers.tf
+# cp ../../../../modules/vm/variables.tf ./variables.tf
+# cp ../../../providers.tf ./providers.tf
+# cp ../../../main.tf ./main.tf
 
 
 
