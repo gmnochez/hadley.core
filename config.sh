@@ -7,7 +7,7 @@ KTC_PLAN_JSON=$4
 KTC_VAR=$5
 
 
-
+ 
 apk --no-cache add jq
 alias convert_report="jq -r '([.resource_changes[]?.change.actions?]|flatten)|{\"create\":(map(select(.==\"create\"))|length),\"update\":(map(select(.==\"update\"))|length),\"delete\":(map(select(.==\"delete\"))|length)}'"
 cd $TF_ROOT
