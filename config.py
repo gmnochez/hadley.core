@@ -42,7 +42,7 @@ def parseHadleyFile ():
             else:
                 print("Configuration File doesn't exist")
             
-
+            print(isok_iac_tool + ' ' + isok_file)
             if isok_iac_tool and isok_file:
                 cicd_terrafom()
             else:
