@@ -12,7 +12,7 @@ KTC_VAR = sys.argv[5]
 
 
 
-getCurrentFolder ():
+def getCurrentFolder ():
     print ('CICD_ROOT_PATH' + CICD_ROOT_PATH + '\n')
     print ('TF_ADDRESS' + TF_ADDRESS + '\n')
     print ('KTC_PLAN' + KTC_PLAN + '\n')
