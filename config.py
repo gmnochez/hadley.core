@@ -91,7 +91,7 @@ def parseHadleyFile ():
                 if os.path.isdir(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']): 
                     shutil.rmtree(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name'])
                
-                command = 'git clone ' + modules['repository'] +  CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
+                command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
                 os.system(command)
 
             cicdTerrafom()
