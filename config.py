@@ -109,7 +109,7 @@ def parseHadleyFile ():
 
             if iac_tool == 'terragrunt':
 
-                _path = os.path.abspath(FRAMEWORK_PATH + '/cicdtool/terragrunt')
+                _path = os.path.abspath(modPath + '/cicdtool/terragrunt')
                 if _path not in sys.path:
                     sys.path.append(_path)
 
