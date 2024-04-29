@@ -57,6 +57,10 @@ def parseHadleyFile ():
 
     file = open(CICD_ROOT_PATH + '/' + 'hadley.json')
     data = json.load(file)
+
+    for framework in data['framework']:
+        frameworkName = framework['name']
+
     for project in data['project']:
         for config_files in project['config_files']:
             isok_iac_tool = False
@@ -108,8 +112,9 @@ def parseHadleyFile ():
 
 
             if iac_tool == 'terragrunt':
-
-                _path = os.path.abspath(modPath + '/cicdtool/terragrunt')
+                frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
+                
+                _path = os.path.abspath(frameworkPath + '/cicdtool/terragrunt')
                 if _path not in sys.path:
                     sys.path.append(_path)
 
