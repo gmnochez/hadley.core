@@ -14,7 +14,10 @@ FRAMEWORK_PATH = '.hadley'
 
 
 
-
+def setSysPath(path):
+    _path = os.path.abspath(path)
+    if _path not in sys.path:
+        sys.path.append(_path)
 
 
 
@@ -113,13 +116,7 @@ def parseHadleyFile ():
 
             if iac_tool == 'terragrunt':
                 frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
-                
-                _path = os.path.abspath(frameworkPath + '/cicdtool/terragrunt')
-                if _path not in sys.path:
-                    sys.path.append(_path)
-
-                print(sys.path)
-
+                setSysPath(frameworkPath + '/cicdtool/terragrunt')
                 import terragrunt as ter 
                 ter.cicdTerragrunt(main_config, hadley_file) 
     
