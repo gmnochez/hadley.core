@@ -34,12 +34,11 @@ def loadFramework ():
     for framework in data['framework']:
         name = framework['name']
         repository = framework['repository']
+        command = 'git clone ' + repository + ' ' + CICD_ROOT_PATH + '/.framework'
         if name == 'hadley.core':
-            if not os.path.isdir(CICD_ROOT_PATH + '/' + 'hadley.core'): 
-                command = 'git clone ' + repository
+            if not os.path.isdir(CICD_ROOT_PATH + '/.framework' + 'hadley.core'): 
                 os.system(command)
         else:
-            command = 'git clone ' + repository
             os.system(command)
 
 
@@ -88,13 +87,10 @@ def parseHadleyFile ():
 
             for modules in project['modules']:
                 print('Downloading repository modules \n')
-                try:
-                    shutil.rmtree(CICD_ROOT_PATH + '/' + modules['name'])
-                except OSError as e:
-                    print("Error: %s - %s." % (e.filename, e.strerror))
-
-
-                command = 'git clone ' + modules['repository']
+                if os.path.isdir(CICD_ROOT_PATH + '/.framework/' + modules['name']): 
+                    shutil.rmtree(CICD_ROOT_PATH + '/.framework/' + modules['name'])
+               
+                command = 'git clone ' + modules['repository'] +  CICD_ROOT_PATH + '/.framework'
                 os.system(command)
 
             cicdTerrafom()
