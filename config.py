@@ -108,10 +108,13 @@ def parseHadleyFile ():
 
 
             if iac_tool == 'terragrunt':
-                modulePath = 'terragrunt'
-                module = __import__(modulePath) 
-                my_class = getattr(modulePath, 'Terragrunt') 
-                my_class.cicdTerragrunt(main_config, hadley_file) 
+
+                _path = os.path.dirname('./cicdtool/terragrunt')
+                if _path not in sys.path:
+                    sys.path.append(_path)
+
+                import terragrunt as ter 
+                ter.cicdTerragrunt(main_config, hadley_file) 
     
 
 
