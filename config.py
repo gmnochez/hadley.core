@@ -74,12 +74,12 @@ def parseHadleyFile ():
             if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
                 isok_main_config = True
             else:
-                print("Configuration File doesn't exist")    
+                print("Configuration File (" + main_config + ") doesn't exist")    
             
             if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
                 isok_hadley_file = True
             else:
-                print("Configuration File doesn't exist")
+                print("Configuration File (" + hadley_file + ") doesn't exist")
             
             if not isok_iac_tool or not isok_main_config or not isok_hadley_file:
                 print('Check the properties iac_tool, iac_main_config and file in the section config_file of the project with name ' + project['name'])
