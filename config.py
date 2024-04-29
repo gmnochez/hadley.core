@@ -13,8 +13,7 @@ HDY_VAR = sys.argv[5]
 FRAMEWORK_PATH = '.hadley'
 
 
-def cicdTerrafom ():
-    print('cicdTerrafom')
+
 
 
 
@@ -61,20 +60,33 @@ def parseHadleyFile ():
     for project in data['project']:
         for config_files in project['config_files']:
             isok_iac_tool = False
-            isok_file = False
-            
-            if config_files['iac_tool'] == 'terraform':
+            isok_main_config = False            
+            isok_hadley_file = False
+            iac_tool = config_files['iac_tool']
+            main_config = config_files['iac_main_config']            
+            hadley_file = config_files['hadley_file']
+
+
+
+            if iac_tool == 'terragrunt':
                 isok_iac_tool = True
-                
+
+            if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
+                isok_main_config = True
+            else:
+                print("Configuration File doesn't exist")    
             
-            if os.path.isfile(CICD_ROOT_PATH + '/' + config_files['file']):
-                isok_file = True
+            if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
+                isok_hadley_file = True
             else:
                 print("Configuration File doesn't exist")
             
-            if not isok_iac_tool or not isok_file:
-                print('Check the properties iac_tool and file in the section config_file of the project with name ' + project['name'])
+            if not isok_iac_tool or not isok_main_config or not isok_hadley_file:
+                print('Check the properties iac_tool, iac_main_config and file in the section config_file of the project with name ' + project['name'])
                 exit()
+
+            
+
 
             
             for modules_config in config_files['modules']:
@@ -94,7 +106,18 @@ def parseHadleyFile ():
                 command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
                 os.system(command)
 
-            cicdTerrafom()
+            
+            if iac_tool == 'terragrunt':
+                modulePath = 'cicdtool/terragrunt/terragrunt'
+                module = __import__(modulePath) 
+                my_class = getattr(modulePath, 'Terragrunt') 
+                my_class.cicdTerragrunt(main_config, hadley_file) 
+    
+
+
+                
+
+            
 
     file.close()
 
