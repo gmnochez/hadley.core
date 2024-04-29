@@ -93,9 +93,10 @@ def parseHadleyFile ():
 
             for modules in project['modules']:
                 print('Downloading repository modules \n')
-                if os.path.isdir(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']): 
-                    shutil.rmtree(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name'])
-               
+                modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
+                if os.path.isdir(modPath): 
+                    os.system('rm -rf ' + modPath)
+                    
                 command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
                 os.system(command)
 
