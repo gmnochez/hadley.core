@@ -12,8 +12,36 @@ HDY_PLAN_JSON = sys.argv[4]
 HDY_VAR = sys.argv[5]
 
 
-def cicd_terrafom ():
-    print('cicd_terrafom')
+def cicdTerrafom ():
+    print('cicdTerrafom')
+
+
+
+
+
+def loadFramework ():
+    print('loadFramework')
+    existFile = False
+    if os.path.isfile(CICD_ROOT_PATH + '/' + 'hadley.json'):
+        existFile = True
+    else:
+        print("File hadley.json doesn't exist.   Please configure the file in you CI/CD tool")
+        existFile = True
+        exit()
+
+    file = open(CICD_ROOT_PATH + '/' + 'hadley.json')
+    data = json.load(file)
+    for framework in data['framework']:
+        name = framework['name']
+        repository = framework['repository']
+        command = 'git clone ' + repository
+        try:
+            os.system(command)
+        except OSError as e:
+            print("Error: %s - %s." % (e.filename, e.strerror))
+
+    file.close()
+
 
 def parseHadleyFile ():
     
@@ -28,7 +56,6 @@ def parseHadleyFile ():
     file = open(CICD_ROOT_PATH + '/' + 'hadley.json')
     data = json.load(file)
     for project in data['project']:
-        print(project['name'])
         for config_files in project['config_files']:
             isok_iac_tool = False
             isok_file = False
@@ -42,10 +69,7 @@ def parseHadleyFile ():
             else:
                 print("Configuration File doesn't exist")
             
-            print(isok_iac_tool + ' ' + isok_file)
-            if isok_iac_tool and isok_file:
-                cicd_terrafom()
-            else:
+            if not isok_iac_tool or not isok_file:
                 print('Check the properties iac_tool and file in the section config_file of the project with name ' + project['name'])
                 exit()
 
@@ -61,9 +85,19 @@ def parseHadleyFile ():
 
             for modules in project['modules']:
                 print('Downloading repository modules \n')
-                command = 'git clone ' + modules['repository']
-                os.system(command)
+                try:
+                    shutil.rmtree(CICD_ROOT_PATH + '/' + modules['name'])
+                except OSError as e:
+                    print("Error: %s - %s." % (e.filename, e.strerror))
 
+
+                command = 'git clone ' + modules['repository']
+                try:
+                    os.system(command)
+                except OSError as e:
+                    print("Error: %s - %s." % (e.filename, e.strerror))
+
+            cicdTerrafom()
 
     file.close()
 
@@ -100,8 +134,8 @@ def getCurrentFolder ():
         
         
 
-
-parseHadleyFile()
+loadFramework()
+# parseHadleyFile()
 # getCurrentFolder()
 
 
