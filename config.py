@@ -10,6 +10,7 @@ TF_ADDRESS = sys.argv[2]
 HDY_PLAN = sys.argv[3]
 HDY_PLAN_JSON = sys.argv[4]
 HDY_VAR = sys.argv[5]
+FRAMEWORK_PATH = '.hadley'
 
 
 def cicdTerrafom ():
@@ -34,9 +35,9 @@ def loadFramework ():
     for framework in data['framework']:
         name = framework['name']
         repository = framework['repository']
-        command = 'git clone ' + repository + ' ' + CICD_ROOT_PATH + '/.framework'
+        command = 'git clone ' + repository + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH
         if name == 'hadley.core':
-            if not os.path.isdir(CICD_ROOT_PATH + '/.framework' + 'hadley.core'): 
+            if not os.path.isdir(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/hadley.core'): 
                 os.system(command)
         else:
             os.system(command)
@@ -87,10 +88,10 @@ def parseHadleyFile ():
 
             for modules in project['modules']:
                 print('Downloading repository modules \n')
-                if os.path.isdir(CICD_ROOT_PATH + '/.framework/' + modules['name']): 
-                    shutil.rmtree(CICD_ROOT_PATH + '/.framework/' + modules['name'])
+                if os.path.isdir(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']): 
+                    shutil.rmtree(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name'])
                
-                command = 'git clone ' + modules['repository'] +  CICD_ROOT_PATH + '/.framework'
+                command = 'git clone ' + modules['repository'] +  CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
                 os.system(command)
 
             cicdTerrafom()
