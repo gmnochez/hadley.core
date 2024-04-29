@@ -113,6 +113,8 @@ def parseHadleyFile ():
                 if _path not in sys.path:
                     sys.path.append(_path)
 
+                print(sys.path)
+
                 import terragrunt as ter 
                 ter.cicdTerragrunt(main_config, hadley_file) 
     
