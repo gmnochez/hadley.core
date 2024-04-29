@@ -135,7 +135,7 @@ def getCurrentFolder ():
         
 
 loadFramework()
-# parseHadleyFile()
+parseHadleyFile()
 # getCurrentFolder()
 
 
