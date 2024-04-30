@@ -102,7 +102,7 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_confi
             file_resource = resource_definition['file_resource']
             resource_action = resource_definition['resource_action']
             deploy_action = resource_definition['deploy_action']
-            checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource, resource_action, deploy_action)
+            checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
             if deploy_action == 'import':
                 terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
             
