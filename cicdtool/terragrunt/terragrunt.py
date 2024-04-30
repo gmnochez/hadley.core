@@ -61,6 +61,7 @@ def terragruntDestroy(CICD_ROOT_PATH, deploy_path, file_resource):
 
 def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
     fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_resource 
+    print(fullPathFileResource)
     if not os.path.isfile(fullPathFileResource):
         print("File (" + file_resource + ") doesn't exist.")
         exit()
