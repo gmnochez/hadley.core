@@ -6,9 +6,9 @@ import json
 import subprocess
 
 
-def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
+def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     
-    execScript = "sh " + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
     output = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE).stdout 
     existResource =  output.read()
     print("My version is", existResource.decode())
@@ -73,9 +73,10 @@ def checkDependencies (module_name, resource_type, dependency):
     print(dependency + '\n')
 
 
-def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_config, hadley_file):
+def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
     print('cicdTerragrunt \n')
     print(FRAMEWORK_PATH + '\n')
+    print(frameworkFullPath + '\n')    
     print(module_framework + '\n')
     print(main_config + '\n')
     print(hadley_file + '\n')
@@ -105,7 +106,7 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_confi
             deploy_action = resource_definition['deploy_action']
             checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
             if deploy_action == 'import':
-                terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
+                terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
             
             if deploy_action == 'create': 
                 terragruntValidate(CICD_ROOT_PATH, deploy_path, file_resource,enviroment_definition, global_definition)
