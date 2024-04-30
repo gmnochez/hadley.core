@@ -8,7 +8,7 @@ import subprocess
 
 def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     
-    execScript = "sh " + os.getcwd() + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    execScript = "sh " + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
     output = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE).stdout 
     existResource =  output.read()
     print("My version is", existResource.decode())
