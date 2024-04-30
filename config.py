@@ -29,7 +29,7 @@ def loadFramework ():
         existFile = True
     else:
         print("File hadley.json doesn't exist.   Please configure the file in you CI/CD tool")
-        existFile = True
+        existFile = False
         exit()
 
     file = open(CICD_ROOT_PATH + '/' + 'hadley.json')
@@ -85,18 +85,14 @@ def parseHadleyFile ():
                 exit()
                 
 
-            
-
-
-            
-            for modules_config in config_files['modules']:
-                existModule = False
-                for modules in project['modules']:
-                    if modules_config == modules['name']:
-                        existModule = True
-                if not existModule:
-                    print("Modulo not found in the configuration of the project " + project['name'])
-                    exit()
+            existModule = False
+            module = config_files['module']
+            for modules in project['modules']:
+                if module == modules['name']:
+                    existModule = True
+            if not existModule:
+                print("Modulo not found in the configuration of the project " + project['name'])
+                exit()
 
             for modules in project['modules']:
                 print('Downloading repository modules \n')
@@ -118,14 +114,8 @@ def parseHadleyFile ():
                 frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
                 setSysPath(frameworkPath + '/cicdtool/terragrunt')
                 import terragrunt as ter 
-                ter.cicdTerragrunt(main_config, hadley_file) 
+                ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,module,main_config, hadley_file) 
     
-
-
-                
-
-            
-
     file.close()
 
 
