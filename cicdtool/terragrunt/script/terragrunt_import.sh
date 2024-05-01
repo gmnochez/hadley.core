@@ -25,14 +25,14 @@ sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
-echo $workingDirectory
+# echo $workingDirectory
 
-existResource=false
+existResource=0
 terragrunt --terragrunt-working-dir $workingDirectory state list
 for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
 do
     if [[ $initialList == "azurerm_resource_group.default" ]]; then
-        existResource=true
+        existResource=1
         echo $initialList state already exist !!
     else
 
@@ -40,7 +40,7 @@ do
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
         --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default.default_resource_group_id
-        existResource=true
+        existResource=1
     fi
 done
 

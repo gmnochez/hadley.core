@@ -98,7 +98,7 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
         enviroment_definition = module['enviroment_definition']
         global_definition = module['global_definition']
         for dependencies_in_order in module['dependencies_in_order']:
-            print(dependencies_in_order)
+            # print(dependencies_in_order)
             checkDependencies(module_name, resource_type, dependencies_in_order)
         for resource_definition in module['resource_definition']:
             file_resource = resource_definition['file_resource']
