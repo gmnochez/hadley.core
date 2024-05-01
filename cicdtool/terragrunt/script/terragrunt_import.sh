@@ -10,8 +10,9 @@ file_resource=$7
 enviroment_definition=$8
 global_definition=$9
 
-workingDirectory=$CICD_ROOT_PATH + '/' + $deploy_path
-fullPathConfigFile=$workingDirectory + '/terragrunt.hcl'
+workingDirectory="$CICD_ROOT_PATH/$deploy_path"
+fullPathConfigFile="$workingDirectory/terragrunt.hcl"
+echo $fullPathConfigFile
 fullPathMainConfig=$CICD_ROOT_PATH + '/' + $main_config
 fullPathEnviroment=$CICD_ROOT_PATH + '/' + $enviroment_definition
 fullPathGlobal=$CICD_ROOT_PATH + '/' + $global_definition
