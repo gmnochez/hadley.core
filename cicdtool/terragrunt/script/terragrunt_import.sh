@@ -25,9 +25,9 @@ sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
-# echo $workingDirectory
+echo $workingDirectory
 
-existResource=100
+existResource=0
 terragrunt --terragrunt-working-dir $workingDirectory state list
 for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
 do
