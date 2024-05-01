@@ -27,7 +27,7 @@ sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 # echo $workingDirectory
 
-existResource=0
+existResource=100
 terragrunt --terragrunt-working-dir $workingDirectory state list
 for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
 do
