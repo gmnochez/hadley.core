@@ -24,7 +24,7 @@ sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_typ
 echo $sourceTerraform
 echo $fullPathConfigFile
 
-sed -i "s/hadley_source_terraform/hola/g" $fullPathConfigFile
+sed -i "s/"hadley_source_terraform"/"$sourceTerraform"/g" $fullPathConfigFile
 # sed -i "s/hadley_main_config_terragrunt/$fullPathMainConfig/g" $fullPathConfigFile
 # sed -i "s/enviroment.hcl/$fullPathEnviroment/g" $fullPathMainConfig
 # sed -i "s/global.hcl/$fullPathGlobal/g" $fullPathMainConfig
