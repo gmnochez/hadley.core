@@ -29,20 +29,20 @@ sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 
 existResource=false
 terragrunt --terragrunt-working-dir $workingDirectory state list
-for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
-do
-    if [[ $initialList == "azurerm_resource_group.default" ]]; then
-        existResource=true
-        echo $initialList state already exist !!
-    else
+# for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
+# do
+#     if [[ $initialList == "azurerm_resource_group.default" ]]; then
+#         existResource=true
+#         echo $initialList state already exist !!
+#     else
 
-        terragrunt import \
-        --terragrunt-working-dir $workingDirectory \
-        --terragrunt-include-external-dependencies \
-        --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default.default_resource_group_id
-        existResource=true
-    fi
-done
+#         terragrunt import \
+#         --terragrunt-working-dir $workingDirectory \
+#         --terragrunt-include-external-dependencies \
+#         --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default.default_resource_group_id
+#         existResource=true
+#     fi
+# done
 
 
 # sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
