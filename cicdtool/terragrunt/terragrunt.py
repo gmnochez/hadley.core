@@ -9,9 +9,9 @@ import subprocess
 def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     
     execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
-    output = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE).stdout 
-    existResource =  output.read()
-    print("My version is", existResource.decode())
+    process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
+    out, err = process.communicate()
+    print("Exist reesource" + format(err))
     # os.system(execScript)
 
 def terragruntValidate(CICD_ROOT_PATH, deploy_path, file_resource):
@@ -74,12 +74,12 @@ def checkDependencies (module_name, resource_type, dependency):
 
 
 def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
-    print('cicdTerragrunt \n')
-    print(FRAMEWORK_PATH + '\n')
-    print(frameworkFullPath + '\n')    
-    print(module_framework + '\n')
-    print(main_config + '\n')
-    print(hadley_file + '\n')
+    # print('cicdTerragrunt \n')
+    # print(FRAMEWORK_PATH + '\n')
+    # print(frameworkFullPath + '\n')    
+    # print(module_framework + '\n')
+    # print(main_config + '\n')
+    # print(hadley_file + '\n')
 
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
