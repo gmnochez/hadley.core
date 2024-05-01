@@ -9,10 +9,10 @@ import subprocess
 def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     
     execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
-    output = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE).stdout 
-    existResource =  output.read()
-    print("My version is", existResource.decode())
-
+    # output = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE).stdout 
+    # existResource =  output.read()
+    # print("My version is", existResource.decode())
+    os.system(execScript)
 
 def terragruntValidate(CICD_ROOT_PATH, deploy_path, file_resource):
     print('terragruntValidate')
