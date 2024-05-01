@@ -68,9 +68,10 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
         
 
 def checkDependencies (module_name, resource_type, dependency):
-    print(module_name + '\n')
-    print(resource_type + '\n')
-    print(dependency + '\n')
+    print('checkDependencies' + '\n')
+    # print(module_name + '\n')
+    # print(resource_type + '\n')
+    # print(dependency + '\n')
 
 
 def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
