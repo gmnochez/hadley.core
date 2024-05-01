@@ -25,7 +25,7 @@ sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFi
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 
-
+ls $workingDirectory
 
 existResource=false
 terragrunt --terragrunt-working-dir $workingDirectory state list
