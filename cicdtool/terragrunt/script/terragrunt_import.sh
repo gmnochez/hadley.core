@@ -51,4 +51,4 @@ sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
-exit 1
+exit $existResource
