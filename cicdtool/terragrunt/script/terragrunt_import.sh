@@ -12,12 +12,11 @@ global_definition=$9
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
-echo $fullPathConfigFile
-fullPathMainConfig=$CICD_ROOT_PATH + '/' + $main_config
-fullPathEnviroment=$CICD_ROOT_PATH + '/' + $enviroment_definition
-fullPathGlobal=$CICD_ROOT_PATH + '/' + $global_definition
+fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
+fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
+fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 
-sourceTerraform=$CICD_ROOT_PATH + '/' + $FRAMEWORK_PATH + '/' + $module_framework + '/' + $resource_type    
+sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 
 
 
