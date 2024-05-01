@@ -13,14 +13,15 @@ def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_f
     out, err = process.communicate()
     print(out.decode())
     print("Exist resource " + format(process.returncode))
-    # os.system(execScript)
 
-def terragruntValidate(CICD_ROOT_PATH, deploy_path, file_resource):
+def terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntValidate')
-    # terragrunt run-all validate \
-    # --terragrunt-working-dir $path/environments/$env/$site/$component \
-    # --terragrunt-include-external-dependencies \
-    # --terragrunt-non-interactive
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt_validate.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
+    out, err = process.communicate()
+    print(out.decode())
+    print("Return code " + format(process.returncode))
+   
 
 
 def terragruntPlan(CICD_ROOT_PATH, deploy_path, file_resource):
@@ -111,7 +112,7 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
                 terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
             
             if deploy_action == 'create': 
-                terragruntValidate(CICD_ROOT_PATH, deploy_path, file_resource,enviroment_definition, global_definition)
+                terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
       
                 if resource_action == 'plan':
                     terragruntPlan(CICD_ROOT_PATH, deploy_path, file_resource,enviroment_definition, global_definition)
