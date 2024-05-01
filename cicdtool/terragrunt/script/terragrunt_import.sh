@@ -45,10 +45,10 @@ do
 done
 
 
-# sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
-# sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-# sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
+sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
+sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
+sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
+sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 
 
 echo $existResource
