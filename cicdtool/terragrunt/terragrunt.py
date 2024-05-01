@@ -10,7 +10,8 @@ def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_f
     
     execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
-    print("Exist reesource " + format(process.returncode))
+    out, err = process.communicate()
+    print("Exist reesource" + format(process.returncode))
     # os.system(execScript)
 
 def terragruntValidate(CICD_ROOT_PATH, deploy_path, file_resource):
