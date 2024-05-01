@@ -24,7 +24,7 @@ def terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module
    
 
 
-def terragruntPlan(CICD_ROOT_PATH, deploy_path, file_resource):
+def terragruntPlan(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntPlan')
     # terragrunt run-all plan \
     #     --terragrunt-working-dir $path/environments/$env/$site/$component \
@@ -33,14 +33,14 @@ def terragruntPlan(CICD_ROOT_PATH, deploy_path, file_resource):
 
 
 
-def terragruntApply(CICD_ROOT_PATH, deploy_path, file_resource):
+def terragruntApply(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntApply')
     # terragrunt run-all plan \
     #     --terragrunt-working-dir $path/environments/$env/$site/$component \
     #     --terragrunt-include-external-dependencies \
     #     --terragrunt-non-interactive
 
-def terragruntDestroy(CICD_ROOT_PATH, deploy_path, file_resource):
+def terragruntDestroy(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntDestroy')
     # if $existResource ; then
     #     if [[ $action == "destroy" ]]; then
@@ -115,13 +115,13 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
                 terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
       
                 if resource_action == 'plan':
-                    terragruntPlan(CICD_ROOT_PATH, deploy_path, file_resource,enviroment_definition, global_definition)
+                    terragruntPlan(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
            
                 if resource_action == 'apply':
-                    terragruntApply(CICD_ROOT_PATH, deploy_path, file_resource,enviroment_definition, global_definition)
+                    terragruntApply(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
            
                 if resource_action == 'destroy':
-                    terragruntDestroy(CICD_ROOT_PATH, deploy_path, file_resource,enviroment_definition, global_definition)
+                    terragruntDestroy(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, deploy_path, file_resource, enviroment_definition, global_definition)
            
 
     file.close()    
