@@ -36,7 +36,7 @@ sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 echo $workingDirectory
 
-importSystemAzureVars $fullPathFileResource $$fullPathEnviroment $fullPathGlobal
+importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
 terragrunt run-all validate \
