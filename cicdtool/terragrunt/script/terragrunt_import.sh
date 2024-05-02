@@ -53,7 +53,7 @@ if [[ $existResource == 0 ]]; then
     terragrunt import \
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
-        --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default.default_resource_group_id
+        --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default_resource_group_id
         
     existResource=1
 
