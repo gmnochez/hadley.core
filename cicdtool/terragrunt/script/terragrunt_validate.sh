@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./functions.sh
+
 
 
 CICD_ROOT_PATH=$1
@@ -12,9 +12,10 @@ deploy_path=$7
 file_resource=$8
 enviroment_definition=$9
 global_definition=${10}
+frameworkFullPath=${11}
 
+source ./functions.sh
 
-pwd
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
