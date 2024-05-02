@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./functions.sh
+source functions.sh
 
 
 CICD_ROOT_PATH=$1
