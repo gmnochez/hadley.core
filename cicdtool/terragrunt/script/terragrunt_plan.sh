@@ -5,10 +5,11 @@ FRAMEWORK_PATH=$2
 module_framework=$3
 main_config=$4
 resource_type=$5
-deploy_path=$6
-file_resource=$7
-enviroment_definition=$8
-global_definition=$9
+resource_declaration=$6
+deploy_path=$7
+file_resource=$8
+enviroment_definition=$9
+global_definition=$10
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"

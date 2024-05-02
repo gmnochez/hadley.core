@@ -5,10 +5,11 @@ FRAMEWORK_PATH=$2
 module_framework=$3
 main_config=$4
 resource_type=$5
-deploy_path=$6
-file_resource=$7
-enviroment_definition=$8
-global_definition=$9
+resource_declaration=$6
+deploy_path=$7
+file_resource=$8
+enviroment_definition=$9
+global_definition=$10
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
@@ -33,7 +34,7 @@ existResource=0
 terragrunt --terragrunt-working-dir $workingDirectory state list
 for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
 do
-    if [[ $initialList == "azurerm_resource_group.default" ]]; then
+    if [[ $initialList == $resource_declaration ]]; then
         existResource=1
         echo $initialList state already exist !!
     else

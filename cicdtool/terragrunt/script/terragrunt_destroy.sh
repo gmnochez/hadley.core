@@ -5,10 +5,11 @@ FRAMEWORK_PATH=$2
 module_framework=$3
 main_config=$4
 resource_type=$5
-deploy_path=$6
-file_resource=$7
-enviroment_definition=$8
-global_definition=$9
+resource_declaration=$6
+deploy_path=$7
+file_resource=$8
+enviroment_definition=$9
+global_definition=$10
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
@@ -29,11 +30,31 @@ sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 echo $workingDirectory
 
-terragrunt run-all validate \
-    --terragrunt-working-dir $workingDirectory \
-    --terragrunt-include-external-dependencies \
-    --terragrunt-non-interactive
+existResource=0
+terragrunt --terragrunt-working-dir $workingDirectory state list
+for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
+do
+     if [[ $initialList == $resource_declaration ]]; then
+        existResource=1
+        echo Resource $initialList  exist !!
+    else
+done
 
+if $existResource == 0; then
+  
+    terragrunt run-all plan \
+        --terragrunt-working-dir $workingDirectory \
+        --terragrunt-include-external-dependencies \
+        --terragrunt-non-interactive
+    
+    terragrunt run-all destroy \
+        --terragrunt-working-dir $workingDirectory \
+        --terragrunt-ignore-external-dependencies \
+        # --terragrunt-non-interactive
+
+else
+    echo "Resource doesn't exist.   Nothing to destroy !!"
+fi
 
 
 
