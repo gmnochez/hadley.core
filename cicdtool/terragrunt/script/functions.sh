@@ -1,16 +1,6 @@
 #!/bin/bash
 
 
-check_Variable()
-{
-  variable=$1  
-  if [ -z $variable ] ;then   
-    echo 'subscription_id without value'                    
-  else
-    echo $variable    
-  fi
-
-}
 
 
 
@@ -33,7 +23,7 @@ importSystemAzureVars()
     read_properties $enviromentVar 
     read_properties $globalVar 
 
-
+    echo $ARM_SUBSCRIPTION_ID
 
 
 
