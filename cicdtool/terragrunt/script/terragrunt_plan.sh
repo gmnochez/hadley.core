@@ -38,10 +38,10 @@ terragrunt run-all plan \
 
 
 
-sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
-sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
-sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
-sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
-sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
+# sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
+# sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
+# sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
+# sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
+# sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
+# sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
