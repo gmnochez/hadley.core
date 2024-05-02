@@ -20,6 +20,9 @@ def setSysPath(path):
         sys.path.append(_path)
 
 
+def loadHclq ():
+    command = 'curl -sSLo install.sh https://install.hclq.sh && ./install.sh'
+    os.system(command)
 
 
 def loadFramework ():
@@ -151,7 +154,7 @@ def getCurrentFolder ():
         # print(tfVars + ' = ' + os.environ.get(tfVars, 'Not Set'))
         
         
-
+loadHclq()
 loadFramework()
 parseHadleyFile()
 # getCurrentFolder()
