@@ -10,7 +10,7 @@ read_properties()
   echo subscription_id $subscription_id
   
 
-
+ 
 }
 
 
