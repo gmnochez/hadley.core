@@ -43,7 +43,7 @@ do
 
     if [[ $initialList == $resource_declaration ]]; then
         existResource=1
-        echo $initialList state already exist !!
+        # echo $initialList state already exist !!
 
     fi
 done
