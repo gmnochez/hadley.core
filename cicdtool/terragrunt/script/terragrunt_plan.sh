@@ -15,6 +15,8 @@ fullPathConfigFile="$workingDirectory/terragrunt.hcl"
 fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
+fullPathFileResource="$workingDirectory/$file_resource"
+
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 
@@ -23,6 +25,7 @@ sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
+sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 echo $workingDirectory
@@ -39,5 +42,6 @@ sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
+sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
