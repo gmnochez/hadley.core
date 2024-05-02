@@ -40,20 +40,25 @@ existResource=0
 terragrunt --terragrunt-working-dir $workingDirectory state list
 for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
 do
-    echo $initialList
-    echo $resource_declaration
+
     if [[ $initialList == $resource_declaration ]]; then
         existResource=1
         echo $initialList state already exist !!
-    else
 
-        terragrunt import \
+    fi
+done
+
+if [[ $existResource == 0 ]]; then
+    
+    terragrunt import \
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
         --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default.default_resource_group_id
-        existResource=1
-    fi
-done
+        
+    existResource=1
+
+fi
+
 
 
 sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
