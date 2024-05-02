@@ -8,7 +8,7 @@ import subprocess
 
 def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_declaration, deploy_path, file_resource, enviroment_definition, global_definition):
     
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_declaration + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_declaration + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
@@ -26,7 +26,7 @@ def terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module
 
 def terragruntPlan(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_declaration, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntPlan')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_plan.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_declaration + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt_plan.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_declaration + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
@@ -36,7 +36,7 @@ def terragruntPlan(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fra
 
 def terragruntApply(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_declaration, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntApply')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_apply.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_declaration + ' ' +  deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt_apply.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_declaration + ' ' +  deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
@@ -45,7 +45,7 @@ def terragruntApply(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
 
 def terragruntDestroy(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_declaration, deploy_path, file_resource, enviroment_definition, global_definition):
     print('terragruntDestroy')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_destroy.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type  + ' ' + resource_declaration + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt_destroy.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type  + ' ' + resource_declaration + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())

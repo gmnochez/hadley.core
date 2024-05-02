@@ -10,6 +10,9 @@ deploy_path=$7
 file_resource=$8
 enviroment_definition=$9
 global_definition=${10}
+frameworkFullPath=${11}
+
+source $frameworkFullPath/script/functions.sh
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
@@ -28,6 +31,7 @@ sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 echo $workingDirectory
+importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
 terragrunt run-all apply \
