@@ -25,7 +25,7 @@ importSystemAzureVars()
     read_properties $globalVar 
 
     echo $ARM_SUBSCRIPTION_ID
-
+    echo $ARM_CLIENT_ID
 
 
 }    
