@@ -14,7 +14,7 @@ enviroment_definition=$9
 global_definition=${10}
 frameworkFullPath=${11}
 
-source ./functions.sh
+source $frameworkFullPath/script/functions.sh
 
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
