@@ -21,7 +21,7 @@ def setSysPath(path):
 
 
 def loadHclq ():
-    command = 'curl -sSLo install.sh https://install.hclq.sh && ./install.sh'
+    command = 'curl -sSLo install.sh https://install.hclq.sh && ./install.sh && rm -rf install.sh'
     os.system(command)
 
 
