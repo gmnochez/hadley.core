@@ -1,4 +1,6 @@
 #!/bin/bash
+source ./functions.sh
+
 
 CICD_ROOT_PATH=$1
 FRAMEWORK_PATH=$2
@@ -29,6 +31,9 @@ sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 echo $workingDirectory
+
+importSystemAzureVars $fullPathFileResource $$fullPathEnviroment $fullPathGlobal
+
 
 terragrunt run-all validate \
     --terragrunt-working-dir $workingDirectory \
