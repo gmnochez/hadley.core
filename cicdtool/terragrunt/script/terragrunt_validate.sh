@@ -9,7 +9,7 @@ resource_declaration=$6
 deploy_path=$7
 file_resource=$8
 enviroment_definition=$9
-global_definition=$10
+global_definition=${10}
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
