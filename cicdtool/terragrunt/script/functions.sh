@@ -32,8 +32,4 @@ importSystemAzureVars()
     read_properties $enviromentVar 
     read_properties $resourceVar 
    
-    echo $ARM_SUBSCRIPTION_ID
-    echo $ARM_CLIENT_ID
-    echo $ARM_CLIENT_SECRET
-    echo $ARM_TENANT_ID
 }    
