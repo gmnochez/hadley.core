@@ -50,10 +50,11 @@ done
 
 if [[ $existResource == 0 ]]; then
     
+    resource_id=$(cat $fullPathFileResource | hclq get 'locals.resource_id' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
     terragrunt import \
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
-        --terragrunt-non-interactive azurerm_resource_group.default azurerm_resource_group.default_resource_group_id
+        --terragrunt-non-interactive azurerm_resource_group.default $resource_id
         
     existResource=1
 
