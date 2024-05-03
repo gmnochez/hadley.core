@@ -30,7 +30,7 @@ sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 sed -i "s|hadley_resource|$deploy_path-$file_resource|g" $sourceTerraform/main.tf
-sed -i "s|hadley_resource|$deploy_path-$file_resource|g" $sourceTerraform/output.tf
+sed -i "s|hadley_resource|$deploy_path-$file_resource|g" $sourceTerraform/outputs.tf
 
 echo $workingDirectory
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
@@ -50,4 +50,4 @@ sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
 sed -i "s|$deploy_path-$file_resource|hadley_resource|g" $sourceTerraform/main.tf
-sed -i "s|$deploy_path-$file_resource|hadley_resource|g" $sourceTerraform/output.tf
+sed -i "s|$deploy_path-$file_resource|hadley_resource|g" $sourceTerraform/outputs.tf
