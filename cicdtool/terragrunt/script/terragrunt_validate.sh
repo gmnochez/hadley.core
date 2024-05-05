@@ -22,7 +22,7 @@ fullPathConfigFile="$workingDirectory/terragrunt.hcl"
 fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
-fullPathFileResource="$workingDirectory/$file_resource"
+fullPathFileResource="$workingDirectory.$file_resource"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
