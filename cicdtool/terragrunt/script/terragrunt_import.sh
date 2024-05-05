@@ -23,9 +23,9 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 fullPathFileResource="$workingDirectory/$file_resource"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
-file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+file_name=$(echo $file_resource |  sed 's/\.hcl/\/g')
 resource_declaration="$resource_api/$file_name"
-echo 
+echo resource_declaration $resource_declaration
 
 sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
