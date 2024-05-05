@@ -51,12 +51,12 @@ do
 done
 
 if [[ $existResource == 0 ]]; then
-    echo resource_name  $resource_name    
+    echo resource_declaration  $resource_declaration    
     resource_id=$(cat $fullPathFileResource | hclq get 'locals.resource_id' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
     terragrunt import \
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
-        --terragrunt-non-interactive $resource_name $resource_id
+        --terragrunt-non-interactive $resource_declaration $resource_id
         
     existResource=1
 
@@ -64,13 +64,13 @@ fi
 
 
 
-sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
-sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
-sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
-sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
-sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
-sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/main.tf
-sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/outputs.tf
+# sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
+# sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
+# sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
+# sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
+# sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
+# sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
+# sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/main.tf
+# sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/outputs.tf
 
 exit $existResource
