@@ -25,6 +25,7 @@ fullPathFileResource="$workingDirectory/$file_resource"
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 resource_declaration="$resource_api.$file_name"
+deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
 sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
@@ -34,6 +35,9 @@ sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 sed -i "s|hadley_resource|$file_name|g" $sourceTerraform/main.tf
 sed -i "s|hadley_resource|$file_name|g" $sourceTerraform/outputs.tf
+
+cp $sourceTerraform/main.tf "$sourceTerraform/main_$deploy_id.$file_name.tf"
+cp $sourceTerraform/output.tf "$sourceTerraform/output_$deploy_id.$file_name.tf"
 
 echo $workingDirectory
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
@@ -78,3 +82,5 @@ sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
 sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/main.tf
 sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/outputs.tf
 
+rm -rf "$sourceTerraform/main_$deploy_id.$file_name.tf"
+rm -rf "$sourceTerraform/output_$deploy_id.$file_name.tf"
