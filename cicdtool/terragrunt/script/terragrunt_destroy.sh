@@ -5,7 +5,7 @@ FRAMEWORK_PATH=$2
 module_framework=$3
 main_config=$4
 resource_type=$5
-resource_declaration=$6
+resource_api=$6
 deploy_path=$7
 file_resource=$8
 enviroment_definition=$9
@@ -24,6 +24,7 @@ fullPathFileResource="$workingDirectory/$file_resource"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+$resource_declaration=$resource_api/$file_name
 
 sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
