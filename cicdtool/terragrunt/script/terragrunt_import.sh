@@ -51,7 +51,7 @@ do
 done
 
 if [[ $existResource == 0 ]]; then
-    echo $resource_declaration    
+    echo resource_declaration  $resource_declaration    
     resource_id=$(cat $fullPathFileResource | hclq get 'locals.resource_id' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
     terragrunt import \
         --terragrunt-working-dir $workingDirectory \
