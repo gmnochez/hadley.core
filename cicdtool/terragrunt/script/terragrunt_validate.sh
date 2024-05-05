@@ -38,10 +38,10 @@ sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
 
 cp $sourceTerraform/main.tf "$sourceTerraform/main_$deploy_id-$file_name.tf"
-cp $sourceTerraform/output.tf "$sourceTerraform/output_$deploy_id-$file_name.tf"
+cp $sourceTerraform/outputs.tf "$sourceTerraform/outputs_$deploy_id-$file_name.tf"
 
 sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/main_$deploy_id-$file_name.tf"
-sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/output_$deploy_id-$file_name.tf"
+sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/outputs_$deploy_id-$file_name.tf"
 
 echo $workingDirectory
 
@@ -67,4 +67,4 @@ sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/main.tf
 sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/outputs.tf
 
 rm -rf "$sourceTerraform/main_$deploy_id-$file_name.tf"
-rm -rf "$sourceTerraform/output_$deploy_id-$file_name.tf"
+rm -rf "$sourceTerraform/outputs_$deploy_id-$file_name.tf"
