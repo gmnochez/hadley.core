@@ -64,13 +64,13 @@ fi
 
 
 
-# sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
-# sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-# sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
-# sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
-# sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/main.tf
-# sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/outputs.tf
+sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
+sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
+sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
+sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
+sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
+sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
+sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/main.tf
+sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/outputs.tf
 
 exit $existResource
