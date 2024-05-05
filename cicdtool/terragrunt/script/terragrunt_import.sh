@@ -24,7 +24,7 @@ fullPathFileResource="$workingDirectory/$file_resource"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
-
+echo file_name $file_name
 
 sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
@@ -51,8 +51,7 @@ do
     fi
 done
 
-if [[ $existResource == 0 ]]; then
-    echo resource_declaration  $resource_declaration    
+if [[ $existResource == 0 ]]; then   
     resource_id=$(cat $fullPathFileResource | hclq get 'locals.resource_id' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
     terragrunt import \
         --terragrunt-working-dir $workingDirectory \
