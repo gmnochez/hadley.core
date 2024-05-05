@@ -23,7 +23,7 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 fullPathFileResource="$workingDirectory/$file_resource"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
-resource_name=$(echo "${resource_declaration##*.}")
+file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 
 
 sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
@@ -32,8 +32,8 @@ sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
-sed -i "s|hadley_resource|$resource_name|g" $sourceTerraform/main.tf
-sed -i "s|hadley_resource|$resource_name|g" $sourceTerraform/outputs.tf
+sed -i "s|hadley_resource|$file_name|g" $sourceTerraform/main.tf
+sed -i "s|hadley_resource|$file_name|g" $sourceTerraform/outputs.tf
 
 echo $workingDirectory
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
@@ -71,7 +71,7 @@ sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
-sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/main.tf
-sed -i "s|$resource_name|hadley_resource|g" $sourceTerraform/outputs.tf
+sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/main.tf
+sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/outputs.tf
 
 exit $existResource
