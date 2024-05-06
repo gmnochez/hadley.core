@@ -6,50 +6,13 @@ import json
 import subprocess
 
 
-def terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_import.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
+def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt.sh " + resource_action + ' ' + deploy_action + ' ' + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
-    print("Exist resource " + format(process.returncode))
+    # print("Exist resource " + format(process.returncode))
 
-def terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    print('terragruntValidate')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_validate.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
-    process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
-    out, err = process.communicate()
-    print(out.decode())
-    print("Return code " + format(process.returncode))
-   
-
-
-def terragruntPlan(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    print('terragruntPlan')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_plan.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
-    process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
-    out, err = process.communicate()
-    print(out.decode())
-    print("Return code " + format(process.returncode))
-
-
-
-def terragruntApply(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    print('terragruntApply')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_apply.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' +  deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
-    process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
-    out, err = process.communicate()
-    print(out.decode())
-    print("Return code " + format(process.returncode))
-
-
-def terragruntDestroy(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    print('terragruntDestroy')
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt_destroy.sh "  + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type  + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
-    process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
-    out, err = process.communicate()
-    print(out.decode())
-    print("Return code " + format(process.returncode))
 
 
 def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
@@ -68,12 +31,6 @@ def checkDependencies (module_name, resource_type, dependency):
 
 
 def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
-    # print('cicdTerragrunt \n')
-    # print(FRAMEWORK_PATH + '\n')
-    # print(frameworkFullPath + '\n')    
-    # print(module_framework + '\n')
-    # print(main_config + '\n')
-    # print(hadley_file + '\n')
 
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
@@ -100,21 +57,9 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
             resource_action = resource_definition['resource_action']
             deploy_action = resource_definition['deploy_action']
             checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
-            if deploy_action == 'import':
-                terragruntImport(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
-            
-            if deploy_action == 'create': 
-                terragruntValidate(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
-      
-                if resource_action == 'plan':
-                    terragruntPlan(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
-           
-                if resource_action == 'apply':
-                    terragruntApply(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api,deploy_path, file_resource, enviroment_definition, global_definition)
-           
-                if resource_action == 'destroy':
-                    terragruntDestroy(CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
-           
+
+            terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
+                            
 
     file.close()    
 

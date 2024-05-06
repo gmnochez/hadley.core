@@ -1,18 +1,21 @@
 #!/bin/bash
 
-CICD_ROOT_PATH=$1
-FRAMEWORK_PATH=$2
-module_framework=$3
-main_config=$4
-resource_type=$5
-resource_api=$6
-deploy_path=$7
-file_resource=$8
-enviroment_definition=$9
-global_definition=${10}
-frameworkFullPath=${11}
+resource_action=$1
+deploy_action=$2
+CICD_ROOT_PATH=$3
+FRAMEWORK_PATH=$4
+module_framework=$5
+main_config=$6
+resource_type=$7
+resource_api=$8
+deploy_path=$9
+file_resource=${10}
+enviroment_definition=${11}
+global_definition=${12}
+frameworkFullPath=${13}
 
 source $frameworkFullPath/script/functions.sh
+source $frameworkFullPath/script/terragrunt_command.sh
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 fullPathConfigFile="$workingDirectory/terragrunt.hcl"
@@ -20,11 +23,11 @@ fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 fullPathFileResource="$workingDirectory/$file_resource"
+
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 resource_declaration="$resource_api.$file_name"
 deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
-
 
 sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
@@ -33,22 +36,36 @@ sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
+
 cp $sourceTerraform/main.tf "$sourceTerraform/main_$deploy_id-$file_name.tf"
 cp $sourceTerraform/outputs.tf "$sourceTerraform/outputs_$deploy_id-$file_name.tf"
 
-
-
 sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/main_$deploy_id-$file_name.tf"
 sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/outputs_$deploy_id-$file_name.tf"
+
 
 echo $workingDirectory
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
-terragrunt run-all apply \
-    --terragrunt-working-dir $workingDirectory \
-    --terragrunt-include-external-dependencies \
-    --terragrunt-non-interactive
+
+
+
+if $deploy_action == 'import':
+    terragrunt_import $workingDirectory $resource_declaration $fullPathFileResource
+
+if $deploy_action == 'create': 
+    terragrunt_validate $workingDirectory
+
+    if $resource_action == 'plan':
+        terragrunt_plan $workingDirectory
+
+    if $resource_action == 'apply':
+        terragrunt_apply $workingDirectory
+
+    if $resource_action == 'destroy':
+        terragrunt_destroy $workingDirectory $resource_declaration
+
 
 
 
