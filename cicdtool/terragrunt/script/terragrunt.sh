@@ -79,8 +79,8 @@ sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
-sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/main.tf
-sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/outputs.tf
+# sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/main.tf.template
+# sed -i "s|$file_name|hadley_resource|g" $sourceTerraform/outputs.tf.template
 
 # rm -rf "$sourceTerraform/main_$deploy_id-$file_name.tf"
 # rm -rf "$sourceTerraform/outputs_$deploy_id-$file_name.tf"
