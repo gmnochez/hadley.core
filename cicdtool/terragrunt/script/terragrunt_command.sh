@@ -40,7 +40,7 @@ terragrunt_destroy()
     do
         if [[ $initialList == $resource_declaration ]]; then
             existResource=1
-            echo Resource $initialList  exist !!
+            # echo Resource $initialList  exist !!
         fi
     done
 
