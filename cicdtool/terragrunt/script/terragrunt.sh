@@ -37,12 +37,15 @@ sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name
 resource_declaration="$resource_api.$file_name"
 # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
+key_remote_state="$deploy_path/$file_name.tfstate"
+
+
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
-sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
+sed -i "s|key_remote_state|$key_remote_state|g" $fullPathMainConfig
 
 mkdir -p "$sourceTerraformDeploy"
 
@@ -89,6 +92,6 @@ sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFi
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
-sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
+sed -i "s|$key_remote_state|key_remote_state|g" $fullPathMainConfig
 
 rm -rf "$sourceTerraformDeploy"
