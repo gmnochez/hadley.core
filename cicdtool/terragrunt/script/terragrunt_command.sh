@@ -47,7 +47,8 @@ terragrunt_destroy()
         terragrunt run-all plan \
             --terragrunt-working-dir $workingDirectory \
             --terragrunt-include-external-dependencies \
-            --terragrunt-non-interactive
+            --terragrunt-non-interactive \
+            -destroy
         
         terragrunt run-all destroy \
             --terragrunt-working-dir $workingDirectory \
