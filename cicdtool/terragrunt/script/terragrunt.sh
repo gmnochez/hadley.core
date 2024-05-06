@@ -22,10 +22,10 @@ fullPathConfigFile="$workingDirectory/terragrunt.hcl"
 fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
-fullPathFileResource="$workingDirectory/$file_resource"
-
  
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+fullPathFileResource="$workingDirectory/$file_name/$file_resource"
+
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name 
 resource_declaration="$resource_api.$file_name"
@@ -85,4 +85,4 @@ sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
 
-# rm -rf "$sourceTerraformDeploy"
+rm -rf "$sourceTerraformDeploy"
