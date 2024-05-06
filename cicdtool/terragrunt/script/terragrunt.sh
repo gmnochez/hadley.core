@@ -85,4 +85,4 @@ sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
 
-rm -rf "$sourceTerraformDeploy"
+# rm -rf "$sourceTerraformDeploy"
