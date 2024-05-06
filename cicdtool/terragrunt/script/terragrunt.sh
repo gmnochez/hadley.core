@@ -24,27 +24,29 @@ fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 fullPathFileResource="$workingDirectory/$file_resource"
 
-sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"    
+ 
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
+sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name 
 resource_declaration="$resource_api.$file_name"
 # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
-sed -i "s|hadley_source_terraform|$sourceTerraform|g" $fullPathConfigFile
+sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
 sed -i "s|key_remote_state|$deploy_path|g" $fullPathMainConfig
 
-mkdir "$sourceTerraform/$deploy_path/$file_name"
+mkdir -p "$sourceTerraformDeploy"
 
-cp $sourceTerraform/main.tf "$sourceTerraform/$deploy_path/$file_name/main_$file_name.tf"
-cp $sourceTerraform/outputs.tf "$sourceTerraform/$deploy_path/$file_name/outputs_$file_name.tf"
-cp $sourceTerraform/variables.tf "$sourceTerraform/$deploy_path/$file_name/variables.tf"
+cp $sourceTerraform/main.tf "$sourceTerraformDeploy/main_$file_name.tf"
+cp $sourceTerraform/outputs.tf "$sourceTerraformDeploy/outputs_$file_name.tf"
+cp $sourceTerraform/variables.tf "$sourceTerraformDeploy/variables.tf"
 
 
-sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/$deploy_path/$file_name/main_$file_name.tf"
-sed -i "s|hadley_resource|$file_name|g" "$sourceTerraform/$deploy_path/$file_name/outputs_$file_name.tf"
+sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/main_$file_name.tf"
+sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_name.tf"
 
 
 echo $workingDirectory
@@ -76,11 +78,11 @@ fi
 
 
 
-sed -i "s|$sourceTerraform|hadley_source_terraform|g" $fullPathConfigFile
+sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
 sed -i "s|$deploy_path|key_remote_state|g" $fullPathMainConfig
 
-rm -rf "$sourceTerraform/$deploy_path/$file_name"
+rm -rf "$sourceTerraformDeploy"
