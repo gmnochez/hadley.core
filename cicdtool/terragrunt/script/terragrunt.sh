@@ -18,13 +18,19 @@ source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
-fullPathConfigFile="$workingDirectory/terragrunt.hcl"
+
 fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
  
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 fullPathFileResource="$workingDirectory/$file_name/$file_resource"
+
+cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
+
+
+fullPathConfigFile="$workingDirectory/$file_name/terragrunt.hcl"
+
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name 
