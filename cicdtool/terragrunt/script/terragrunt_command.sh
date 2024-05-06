@@ -4,7 +4,7 @@
 terragrunt_validate()
 {
 
-    $workingDirectory=$1
+    workingDirectory=$1
 
     terragrunt run-all validate \
         --terragrunt-working-dir $workingDirectory \
@@ -17,7 +17,7 @@ terragrunt_validate()
 terragrunt_plan()
 {
 
-    $workingDirectory=$1
+    workingDirectory=$1
 
     terragrunt run-all plan \
         --terragrunt-working-dir $workingDirectory \
@@ -31,8 +31,8 @@ terragrunt_plan()
 terragrunt_destroy()
 {
 
-    $workingDirectory=$1
-    $resource_declaration=$2
+    workingDirectory=$1
+    resource_declaration=$2
 
     existResource=0
     terragrunt --terragrunt-working-dir $workingDirectory state list
@@ -68,9 +68,9 @@ terragrunt_destroy()
 terragrunt_import()
 {
 
-    $workingDirectory=$1
-    $resource_declaration=$2
-    $fullPathFileResource=$3
+    workingDirectory=$1
+    resource_declaration=$2
+    fullPathFileResource=$3
 
     existResource=0
     terragrunt --terragrunt-working-dir $workingDirectory state list
@@ -103,7 +103,7 @@ terragrunt_import()
 terragrunt_apply()
 {
 
-    $workingDirectory=$1
+    workingDirectory=$1
 
     terragrunt run-all apply \
         --terragrunt-working-dir $workingDirectory \
