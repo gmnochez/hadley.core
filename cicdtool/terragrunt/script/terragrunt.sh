@@ -55,18 +55,18 @@ if [[ $deploy_action == "import" ]];then
     terragrunt_import $workingDirectory $resource_declaration $fullPathFileResource
 fi
 
-if [[$deploy_action == "create" ]];then 
+if [[ $deploy_action == "create" ]];then 
     terragrunt_validate $workingDirectory
 
-    if [[$resource_action == "plan" ]];then
+    if [[ $resource_action == "plan" ]];then
         terragrunt_plan $workingDirectory
     fi
 
-    if [[$resource_action == "apply" ]];then
+    if [[ $resource_action == "apply" ]];then
         terragrunt_apply $workingDirectory
     fi
 
-    if [[$resource_action == "destroy" ]];then
+    if [[ $resource_action == "destroy" ]];then
         terragrunt_destroy $workingDirectory $resource_declaration
     fi    
 fi
