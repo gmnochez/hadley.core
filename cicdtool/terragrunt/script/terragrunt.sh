@@ -30,7 +30,7 @@ cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrun
 
 
 fullPathConfigFile="$workingDirectory/$file_name/terragrunt.hcl"
-
+echo $fullPathConfigFile
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name 
