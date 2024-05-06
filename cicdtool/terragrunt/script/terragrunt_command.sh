@@ -35,15 +35,14 @@ terragrunt_destroy()
     terragrunt --terragrunt-working-dir $workingDirectory state list
     for initialList in $(terragrunt --terragrunt-working-dir $workingDirectory state list) 
     do
-        echo $initialList
-        echo $resource_declaration
+
         if [[ $initialList == $resource_declaration ]]; then
             existResource=1
             # echo Resource $initialList  exist !!
         fi
     done
 
-    if $existResource == 1; then
+    if [[ $existResource == 1 ]]; then
     
         terragrunt run-all plan \
             --terragrunt-working-dir $workingDirectory \
