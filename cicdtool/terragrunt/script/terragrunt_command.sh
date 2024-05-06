@@ -18,7 +18,7 @@ terragrunt_plan()
 {
 
     workingDirectory=$1
-
+    echo $workingDirectory
     terragrunt run-all plan \
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
