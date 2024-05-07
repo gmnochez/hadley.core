@@ -15,7 +15,7 @@ global_definition=${12}
 frameworkFullPath=${13}
 dependencies=${14}
 
-echo $dependencies
+
 
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
@@ -33,7 +33,6 @@ fullPathFileResource="$workingDirectory/$file_name/$file_resource"
 
 
 fullPathConfigFile="$workingDirectory/$file_name/terragrunt.hcl"
-echo $fullPathConfigFile
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name 
@@ -42,9 +41,19 @@ resource_declaration="$resource_api.$file_name"
 
 key_remote_state="$deploy_path/$file_name.tfstate"
 
+IFS=';#' read -r -a array <<< "$dependencies"
+for element in "${array[@]}"
+do
+    echo "$element"
+done
+
+
 
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
+sed -i "s|hadley_source_dependencies|$str_dependencies|g" $fullPathConfigFile
+
+
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
@@ -97,6 +106,8 @@ fi
 
 sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
+sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
+
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
