@@ -6,8 +6,8 @@ import json
 import subprocess
 
 
-def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt.sh " + resource_action + ' ' + deploy_action + ' ' + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
+def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition, dependencies):
+    execScript = "sh " + frameworkFullPath + "/script/terragrunt.sh " + resource_action + ' ' + deploy_action + ' ' + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath + ' ' + dependencies
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
@@ -23,13 +23,6 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
         print("File (" + file_resource + ") doesn't exist.")
         exit()
         
-
-def checkDependencies (module_name, resource_type, dependency):
-    print('checkDependencies' + '\n')
-    # print(module_name + '\n')
-    # print(resource_type + '\n')
-    # print(dependency + '\n')
-
 
 def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
 
@@ -50,16 +43,15 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
         deploy_path = module['deploy_path']
         enviroment_definition = module['enviroment_definition']
         global_definition = module['global_definition']
-        for dependencies_in_order in module['dependencies_in_order']:
-            # print(dependencies_in_order)
-            checkDependencies(module_name, resource_type, dependencies_in_order)
+        
         for resource_definition in module['resource_definition']:
             file_resource = resource_definition['file_resource']
             resource_action = resource_definition['resource_action']
             deploy_action = resource_definition['deploy_action']
+            dependencies = resource_definition['dependencies']
             checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
 
-            terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
+            terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition,dependencies)
                             
 
     file.close()    
