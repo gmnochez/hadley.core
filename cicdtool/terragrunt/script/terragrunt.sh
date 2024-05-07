@@ -13,8 +13,9 @@ file_resource=${10}
 enviroment_definition=${11}
 global_definition=${12}
 frameworkFullPath=${13}
+dependencies=${14}
 
-echo ${dependencies[@]}
+echo $dependencies
 
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
