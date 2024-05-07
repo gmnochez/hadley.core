@@ -50,7 +50,7 @@ index=0
 for element in "${array[@]}"
 do
     index+=1
-    if [[ $index== $array_length ]];then
+    if [[ $index == $array_length ]];then
         str_dependencies+=""$element""
     else
         str_dependencies+=""$element", "
