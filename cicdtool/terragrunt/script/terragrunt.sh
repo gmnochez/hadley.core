@@ -47,6 +47,7 @@ key_remote_state="$deploy_path/$file_name.tfstate"
 #     echo "$element"
 # done
 
+str_dependencies="hadley_source_dependencies"
 
 
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
