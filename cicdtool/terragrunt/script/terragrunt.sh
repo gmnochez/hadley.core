@@ -70,7 +70,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/main_$file_name.
 sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_name.tf"
 
 
-echo $workingDirectory
+# echo $workingDirectory
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
