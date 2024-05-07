@@ -26,7 +26,7 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 fullPathFileResource="$workingDirectory/$file_name/$file_resource"
 
-cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
+# cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
 
 
 fullPathConfigFile="$workingDirectory/$file_name/terragrunt.hcl"
