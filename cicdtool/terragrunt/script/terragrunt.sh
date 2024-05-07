@@ -43,14 +43,22 @@ key_remote_state="$deploy_path/$file_name.tfstate"
 
 # echo "dependencies $dependencies"
 
-
+str_dependencies=""
 IFS='^' read -a array <<< "$dependencies"
+array_length=${#array[@]}
+index=0
 for element in "${array[@]}"
 do
-    echo "element $element"
+    index+=1
+    if [[ $index== $array_length ]];then
+        str_dependencies+=""$element""
+    else
+        str_dependencies+=""$element", "
+    fi
+    
 done
 
-str_dependencies="hadley_source_dependencies"
+echo $str_dependencies
 
 
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
