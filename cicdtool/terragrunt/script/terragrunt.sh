@@ -47,7 +47,7 @@ echo "dependencies $dependencies"
 read -a array <<< "$dependencies"
 for element in "${array[@]}"
 do
-    echo "$element"
+    echo "element $element"
 done
 
 str_dependencies="hadley_source_dependencies"
