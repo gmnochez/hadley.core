@@ -83,6 +83,11 @@ if [[ $deploy_action == "create" ]];then
     if [[ $resource_action == "destroy" ]];then
         terragrunt_destroy $deployDirectory $resource_declaration
     fi    
+
+    if [[ $resource_action == "destroy_plan" ]];then
+        terragrunt_destroy_plan $deployDirectory $resource_declaration
+    fi  
+
 fi
 
 

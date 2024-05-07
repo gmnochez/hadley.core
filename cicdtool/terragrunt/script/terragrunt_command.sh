@@ -43,17 +43,11 @@ terragrunt_destroy()
     done
 
     if [[ $existResource == 1 ]]; then
-    
-        terragrunt run-all plan \
-            --terragrunt-working-dir $workingDirectory \
-            --terragrunt-include-external-dependencies \
-            --terragrunt-non-interactive \
-            -destroy
         
         terragrunt run-all destroy \
             --terragrunt-working-dir $workingDirectory \
             --terragrunt-ignore-external-dependencies \
-            # --terragrunt-non-interactive
+            --terragrunt-non-interactive
 
     else
         echo "Resource doesn't exist.   Nothing to destroy !!"
@@ -62,6 +56,20 @@ terragrunt_destroy()
 
 
 }
+
+
+terragrunt_destroy_plan()
+{
+    workingDirectory=$1
+    terragrunt run-all plan \
+        --terragrunt-working-dir $workingDirectory \
+        --terragrunt-include-external-dependencies \
+        --terragrunt-non-interactive \
+        -destroy
+
+}
+
+
 
 
 terragrunt_import()
