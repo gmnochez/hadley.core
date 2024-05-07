@@ -41,7 +41,7 @@ resource_declaration="$resource_api.$file_name"
 
 key_remote_state="$deploy_path/$file_name.tfstate"
 
-IFS=';#' read -r -a array <<< "$dependencies"
+IFS='#' read -r -a array <<< "$dependencies"
 for element in "${array[@]}"
 do
     echo "$element"
