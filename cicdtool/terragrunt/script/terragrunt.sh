@@ -13,7 +13,6 @@ file_resource=${10}
 enviroment_definition=${11}
 global_definition=${12}
 frameworkFullPath=${13}
-dependencies=${14}
 
 echo ${dependencies[@]}
 
