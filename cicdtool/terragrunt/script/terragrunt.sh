@@ -71,7 +71,7 @@ echo "array_length $array_length"
 if [[ $array_length > 0 ]];then
     sed -i "s|hadley_source_dependencies|$str_dependencies|g" $fullPathConfigFile
 else
-    sed -i "s|paths \= \[hadley_source_dependencies\]|paths \= \[\]|g" $fullPathConfigFile
+    sed -i "s|paths\s=\s[hadley_source_dependencies]|paths\s=\s[]|g" $fullPathConfigFile
 
 fi
 
@@ -131,7 +131,7 @@ sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFi
 if [[ $array_length > 0 ]];then
     sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
 else
-    sed -i "s|paths = []|paths = [hadley_source_dependencies]|g" $fullPathConfigFile
+    sed -i "s|paths\s=\s[]|paths\s=\s[hadley_source_dependencies]|g" $fullPathConfigFile
 fi
 
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
