@@ -43,7 +43,7 @@ key_remote_state="$deploy_path/$file_name.tfstate"
 
 # echo "dependencies $dependencies"
 
-str_dependencies=""
+str_dependencies=" "
 IFS='^' read -a array <<< "$dependencies"
 array_length=${#array[@]}
 declare -i index=0
@@ -57,6 +57,7 @@ do
     fi
     
 done
+
 
 echo $str_dependencies
 
@@ -118,7 +119,11 @@ fi
 
 sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
+
+if [[ $str_dependencies != " " ]];then
+    sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
+fi 
+
 
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
