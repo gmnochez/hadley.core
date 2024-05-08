@@ -51,9 +51,9 @@ for element in "${array[@]}"
 do
     index+=1
     if [[ $index == $array_length ]];then
-        str_dependencies+="\"$element\""
+        str_dependencies+="\"$CICD_ROOT_PATH/$element\""
     else
-        str_dependencies+="\"$element\", "
+        str_dependencies+="\"$CICD_ROOT_PATH/$element\", "
     fi
     
 done
