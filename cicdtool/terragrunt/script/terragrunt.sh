@@ -69,9 +69,7 @@ sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFi
 
 
 if [[ $array_length > 0 ]];then
-    sed -i "s|hadley_source_dependencies|$str_dependencies|g" $fullPathConfigFile
-else
-    sed -i "s|paths\s=\s[hadley_source_dependencies]|paths\s=\s[]|g" $fullPathConfigFile
+    sed -i "s|paths\s=\s\[\]|paths\s=\s[$str_dependencies]|g" $fullPathConfigFile
 
 fi
 
@@ -129,9 +127,7 @@ sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
 
 if [[ $array_length > 0 ]];then
-    sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
-else
-    sed -i "s|paths\s=\s\[\]|paths\s=\s[hadley_source_dependencies]|g" $fullPathConfigFile
+    sed -i "s|paths\s=\s\[$str_dependencies\]|paths\s=\s[]|g" $fullPathConfigFile
 fi
 
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
