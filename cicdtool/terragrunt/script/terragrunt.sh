@@ -51,9 +51,9 @@ for element in "${array[@]}"
 do
     index+=1
     if [[ $index == $array_length ]];then
-        str_dependencies+=""$element""
+        str_dependencies+="\"$element\""
     else
-        str_dependencies+=""$element", "
+        str_dependencies+="\"$element\", "
     fi
     
 done
