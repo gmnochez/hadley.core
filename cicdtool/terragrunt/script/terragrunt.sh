@@ -71,7 +71,7 @@ echo "array_length $array_length"
 if [[ $array_length > 0 ]];then
     sed -i "s|hadley_source_dependencies|$str_dependencies|g" $fullPathConfigFile
 else
-    sed -i "s|paths = [hadley_source_dependencies]|paths = []|g" $fullPathConfigFile
+    sed -i "s|paths \= \[hadley_source_dependencies\]|paths \= \[\]|g" $fullPathConfigFile
 
 fi
 
