@@ -43,9 +43,10 @@ key_remote_state="$deploy_path/$file_name.tfstate"
 
 # echo "dependencies $dependencies"
 
-str_dependencies="[ "
+str_dependencies=""
 IFS='^' read -a array <<< "$dependencies"
 array_length=${#array[@]}
+
 declare -i index=0
 for element in "${array[@]}"
 do
@@ -58,15 +59,19 @@ do
     
 done
 
-str_dependencies+=" ]"
 
 echo $str_dependencies
 
 
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
-sed -i "s|hadley_source_dependencies|$str_dependencies|g" $fullPathConfigFile
 
+if [[ $array_length > 0 ]];then
+    sed -i "s|hadley_source_dependencies|$str_dependencies|g" $fullPathConfigFile
+else
+    sed -i "s|paths = [hadley_source_dependencies]|paths = []|g" $fullPathConfigFile
+
+fi
 
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
@@ -120,7 +125,13 @@ fi
 
 sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
+
+if [[ $array_length > 0 ]];then
+    sed -i "s|$str_dependencies|hadley_source_dependencies|g" $fullPathConfigFile
+else
+    sed -i "s|paths = []|paths = [hadley_source_dependencies]|g" $fullPathConfigFile
+fi
+
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig

@@ -33,3 +33,4 @@ importSystemAzureVars()
     read_properties $resourceVar 
    
 }    
+
