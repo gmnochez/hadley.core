@@ -44,7 +44,9 @@ key_remote_state="$deploy_path/$file_name.tfstate"
 # echo "dependencies $dependencies"
 
 
-
+if [[ $deploy_action == "create" ]];then 
+    dependencies=""
+fi
 
 
 str_dependencies=""
