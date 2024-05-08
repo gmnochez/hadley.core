@@ -43,6 +43,10 @@ key_remote_state="$deploy_path/$file_name.tfstate"
 
 # echo "dependencies $dependencies"
 
+
+
+
+
 str_dependencies=""
 IFS='^' read -a array <<< "$dependencies"
 array_length=${#array[@]}
