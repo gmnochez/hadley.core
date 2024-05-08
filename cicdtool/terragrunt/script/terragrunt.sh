@@ -13,7 +13,7 @@ file_resource=${10}
 enviroment_definition=${11}
 global_definition=${12}
 frameworkFullPath=${13}
-dependencies=${14}
+
 
 
 
@@ -41,40 +41,9 @@ resource_declaration="$resource_api.$file_name"
 
 key_remote_state="$deploy_path/$file_name.tfstate"
 
-# echo "dependencies $dependencies"
-
-
-if [[ $deploy_action == "create" ]];then 
-    dependencies=""
-fi
-
-
-str_dependencies=""
-IFS='^' read -a array <<< "$dependencies"
-array_length=${#array[@]}
-
-declare -i index=0
-for element in "${array[@]}"
-do
-    index+=1
-    if [[ $index == $array_length ]];then
-        str_dependencies+="\"$CICD_ROOT_PATH/$element\""
-    else
-        str_dependencies+="\"$CICD_ROOT_PATH/$element\", "
-    fi
-    
-done
-
 
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
-
-
-if [[ $array_length > 0 ]];then
-    sed -i "s|paths\s=\s\[\]|paths = [$str_dependencies]|g" $fullPathConfigFile
-
-fi
-
 sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
 sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
 sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
@@ -127,11 +96,6 @@ fi
 
 sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
 sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-
-if [[ $array_length > 0 ]];then
-    sed -i "s|paths\s=\s\[$str_dependencies\]|paths = []|g" $fullPathConfigFile
-fi
-
 sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
 sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
