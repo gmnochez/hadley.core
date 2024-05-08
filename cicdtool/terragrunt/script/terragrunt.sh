@@ -60,14 +60,8 @@ do
 done
 
 
-echo $str_dependencies
-
-
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
 sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
-
-echo "array_length $array_length"
-echo "fullPathConfigFile $fullPathConfigFile"
 
 
 if [[ $array_length > 0 ]];then
