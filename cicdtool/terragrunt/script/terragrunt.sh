@@ -49,7 +49,9 @@ array_length=${#array[@]}
 index=0
 for element in "${array[@]}"
 do
-    index+=1
+    index=$index+1
+    echo "index $index"
+    echo "array_length $array_length"
     if [[ $index == $array_length ]];then
         str_dependencies+=""$element""
     else
