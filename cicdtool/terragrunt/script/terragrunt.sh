@@ -61,7 +61,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_na
 
 
 # echo $workingDirectory
-# importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
+importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
 deployDirectory="$workingDirectory/$file_name"
