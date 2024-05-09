@@ -65,7 +65,7 @@ importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
 deployDirectory="$workingDirectory/$file_name"
-
+echo "terragrunt.sh"
 
 if [[ $deploy_action == "import" ]];then
     terragrunt_import $deployDirectory $resource_declaration $fullPathFileResource

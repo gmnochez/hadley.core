@@ -16,6 +16,7 @@ def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_
 
 
 def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
+    print("checkResourceDefinition")
     file_name = os.path.splitext(file_resource)[0]
     fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_name + '/' + file_resource 
     # print(fullPathFileResource)
@@ -25,7 +26,7 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
         
 
 def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
-    print("cicdTerragrunt")
+    
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
         existFile = True
