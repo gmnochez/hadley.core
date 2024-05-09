@@ -67,30 +67,30 @@ importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 deployDirectory="$workingDirectory/$file_name"
 
 
-if [[ $deploy_action == "import" ]];then
-    terragrunt_import $deployDirectory $resource_declaration $fullPathFileResource
-fi
+# if [[ $deploy_action == "import" ]];then
+#     terragrunt_import $deployDirectory $resource_declaration $fullPathFileResource
+# fi
 
-if [[ $deploy_action == "create" ]];then 
-    terragrunt_validate $deployDirectory
+# if [[ $deploy_action == "create" ]];then 
+#     terragrunt_validate $deployDirectory
 
-    if [[ $resource_action == "plan" ]];then
-        terragrunt_plan $deployDirectory
-    fi
+#     if [[ $resource_action == "plan" ]];then
+#         terragrunt_plan $deployDirectory
+#     fi
 
-    if [[ $resource_action == "apply" ]];then
-        terragrunt_apply $deployDirectory
-    fi
+#     if [[ $resource_action == "apply" ]];then
+#         terragrunt_apply $deployDirectory
+#     fi
 
-    if [[ $resource_action == "destroy" ]];then
-        terragrunt_destroy $deployDirectory $resource_declaration
-    fi    
+#     if [[ $resource_action == "destroy" ]];then
+#         terragrunt_destroy $deployDirectory $resource_declaration
+#     fi    
 
-    if [[ $resource_action == "destroy_plan" ]];then
-        terragrunt_destroy_plan $deployDirectory $resource_declaration
-    fi  
+#     if [[ $resource_action == "destroy_plan" ]];then
+#         terragrunt_destroy_plan $deployDirectory $resource_declaration
+#     fi  
 
-fi
+# fi
 
 
 
