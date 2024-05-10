@@ -21,7 +21,9 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
     # print(fullPathFileResource)
     if not os.path.isfile(fullPathFileResource):
         print("File (" + file_resource + ") doesn't exist.")
-        exit()
+        return False
+    else:
+        return True
         
 
 def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
@@ -48,10 +50,13 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
             file_resource = resource_definition['file_resource']
             resource_action = resource_definition['resource_action']
             deploy_action = resource_definition['deploy_action']
-            checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
+            
+            existCheckFile = checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
 
-            terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
-                            
+            if existCheckFile:
+                terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
+            else:
+                print("Please check the Configuration File ...")                
 
     file.close()    
 
