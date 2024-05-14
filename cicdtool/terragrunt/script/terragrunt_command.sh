@@ -115,7 +115,9 @@ terragrunt_apply()
     terragrunt run-all apply \
         --terragrunt-working-dir $workingDirectory \
         --terragrunt-include-external-dependencies \
-        --terragrunt-non-interactive
+        --terragrunt-non-interactive \
+        --terragrunt-log-level debug \
+        --terragrunt-debug   
 
 }
 
