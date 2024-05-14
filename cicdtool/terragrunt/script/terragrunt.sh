@@ -22,6 +22,7 @@ source $frameworkFullPath/script/terragrunt_command.sh
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
+
 fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
@@ -29,6 +30,7 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 fullPathFileResource="$workingDirectory/$file_name/$file_resource"
 
+export env.deployDirectory=$workingDirectory="$workingDirectory/$file_name"
 # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
 
 
