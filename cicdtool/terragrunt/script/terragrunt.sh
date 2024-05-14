@@ -30,7 +30,7 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 fullPathFileResource="$workingDirectory/$file_name/$file_resource"
 
-export env.deployDirectory=$workingDirectory="$workingDirectory/$file_name"
+export deployDirectory="$workingDirectory/$file_name"
 # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
 
 
