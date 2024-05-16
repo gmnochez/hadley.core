@@ -68,6 +68,7 @@ def parseHadleyFile ():
         frameworkName = framework['name']
 
     for project in data['project']:
+        arrayFrameworks = [] 
         for config_files in project['config_files']:
             isok_iac_tool = False
             isok_main_config = False            
@@ -97,14 +98,17 @@ def parseHadleyFile ():
                 print("Modulo not found in the configuration of the project " + project['name'])
                 exit()
 
+                       
             for modules in project['modules']:
                 print('Downloading repository modules \n')
                 modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
-                if os.path.isdir(modPath): 
-                    os.system('rm -rf ' + modPath)
-                    
-                command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
-                os.system(command)
+                                   
+                if arrayFrameworks.count(modPath) == 0: 
+                    if os.path.isdir(modPath): 
+                        os.system('rm -rf ' + modPath)
+                    command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
+                    os.system(command)
+                    arrayFrameworks.append(modPath)
 
             if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
                 isok_main_config = True
