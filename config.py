@@ -99,10 +99,8 @@ def parseHadleyFile ():
                 exit()
 
                        
-            for modules in project['modules']:
-                
-                modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
-                                   
+            for modules in project['modules']:                
+                modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']                                   
                 if arrayFrameworks.count(modPath) == 0: 
                     if os.path.isdir(modPath): 
                         os.system('rm -rf ' + modPath)
