@@ -148,10 +148,6 @@ def getCurrentFolder ():
                     myvars[name.strip()] = str(var.strip())
                     os.environ[name.strip()] = str(var.strip())
 
-
-    # for tfVars in myvars:
-        # print(tfVars + ' = ' + myvars[tfVars])
-        # print(tfVars + ' = ' + os.environ.get(tfVars, 'Not Set'))
         
         
 loadHclq()
