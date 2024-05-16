@@ -98,14 +98,14 @@ def parseHadleyFile ():
                 print("Modulo not found in the configuration of the project " + project['name'])
                 exit()
 
-                       
-            for modules in project['modules']:
-                print('Downloading repository modules \n')
-                modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
-                                   
-                if arrayFrameworks.count(modPath) == 0: 
+
+            if arrayFrameworks.count(modPath) == 0:            
+                for modules in project['modules']:
+                    modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
                     if os.path.isdir(modPath): 
                         os.system('rm -rf ' + modPath)
+                    
+                    print('Downloading repository modules ...')
                     command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
                     os.system(command)
                     arrayFrameworks.append(modPath)
