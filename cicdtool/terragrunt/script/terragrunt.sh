@@ -29,11 +29,11 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
  
 # file_name=$(echo $file_resource |  sed 's/\.hcl//g')
 file_name=$(echo $file_resource |  sed 's#.*/##')
-echo $file_name
+echo file_name $file_name
 
  <<< "/tmp/dir/target"
 fullPathFileResource="$workingDirectory/$file_name/$file_resource.hcl"
-echo $fullPathFileResource
+echo fullPathFileResource $fullPathFileResource
 
 export deployDirectory="$workingDirectory/$file_name"
 # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
