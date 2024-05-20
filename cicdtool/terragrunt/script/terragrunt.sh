@@ -27,8 +27,13 @@ fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
  
-file_name=$(echo $file_resource |  sed 's/\.hcl//g')
-fullPathFileResource="$workingDirectory/$file_name/$file_resource"
+# file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+file_name=$(echo $file_resource |  sed 's#.*/##')
+echo $file_name
+
+ <<< "/tmp/dir/target"
+fullPathFileResource="$workingDirectory/$file_name/$file_resource.hcl"
+echo $fullPathFileResource
 
 export deployDirectory="$workingDirectory/$file_name"
 # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
