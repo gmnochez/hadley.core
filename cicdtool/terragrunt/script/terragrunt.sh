@@ -31,7 +31,6 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 file_name=$(echo $file_resource |  sed 's#.*/##')
 echo file_name $file_name
 
- <<< "/tmp/dir/target"
 fullPathFileResource="$workingDirectory/$file_name/$file_resource.hcl"
 echo fullPathFileResource $fullPathFileResource
 
