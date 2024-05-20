@@ -20,7 +20,7 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
     fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_name + '/' + file_resource + '.hcl'
     # print(fullPathFileResource)
     if not os.path.isfile(fullPathFileResource):
-        print("File (" + file_resource + ") doesn't exist.")
+        print("File (" + fullPathFileResource + ") doesn't exist.")
         return False
     else:
         return True
