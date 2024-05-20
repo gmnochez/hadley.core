@@ -17,7 +17,7 @@ def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_
 
 def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
     file_name = os.path.splitext(file_resource)[0]
-    fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_name + '/' + file_resource + '.hcl'
+    fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_name + '/' + file_resource
     # print(fullPathFileResource)
     if not os.path.isfile(fullPathFileResource):
         print("File (" + fullPathFileResource + ") doesn't exist.")
