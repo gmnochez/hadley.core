@@ -18,7 +18,7 @@ def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_
 def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
     # file_name = os.path.splitext(file_resource)[0]
     file_index = os.path.split(file_resource)
-    file_name = os.path.split(file_resource)[file_index.count]
+    file_name = os.path.split(file_resource)[file_index.count()]
     
     print (file_resource)
     print (file_name)
