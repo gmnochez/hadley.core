@@ -31,17 +31,17 @@ fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
 file_name=$(echo $file_resource |  sed 's#.*/##')
 echo file_name $file_name
 
-fullPathFileResource="$workingDirectory/$file_name/$file_resource.hcl"
+fullPathFileResource="$workingDirectory/$file_resource/$file_name.hcl"
 echo fullPathFileResource $fullPathFileResource
 
 export deployDirectory="$workingDirectory/$file_name"
 # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
 
 
-fullPathConfigFile="$workingDirectory/$file_name/terragrunt.hcl"
+fullPathConfigFile="$workingDirectory/$file_resource/$file_name/terragrunt.hcl"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_name 
+sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource/$file_name
 resource_declaration="$resource_api.$file_name"
 # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
