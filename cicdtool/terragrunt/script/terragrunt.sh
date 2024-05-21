@@ -38,14 +38,14 @@ export deployDirectory="$workingDirectory/$file_name"
 # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
 
 
-fullPathConfigFile="$workingDirectory/$file_resource/$file_name/terragrunt.hcl"
+fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource/$file_name
+sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource
 resource_declaration="$resource_api.$file_name"
 # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
-key_remote_state="$deploy_path/$file_name.tfstate"
+key_remote_state="$deploy_path/$file_resource/$file_name.tfstate"
 
 
 sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
@@ -70,7 +70,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_na
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
-deployDirectory="$workingDirectory/$file_name"
+deployDirectory="$workingDirectory/$file_resource"
 
 
 if [[ $deploy_action == "import" ]];then
