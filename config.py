@@ -35,17 +35,24 @@ def loadFramework ():
         existFile = False
         exit()
 
-    file = open(CICD_ROOT_PATH + '/' + 'hadley.json')
-    data = json.load(file)
-    for framework in data['framework']:
-        name = framework['name']
-        repository = framework['repository']
-        command = 'git clone ' + repository + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH
-        if name == 'hadley.core':
-            if not os.path.isdir(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/hadley.core'): 
+    file_config = open(CICD_ROOT_PATH + '/' + 'hadley.json')
+    hadley_config = json.load(file_config)
+
+    for hd_config in hadley_config['hadley_config']:
+        hadley_config_name = hd_config['name']
+        hadley_config_file_path = hd_config['config_file_path']
+        
+        file = open(CICD_ROOT_PATH + '/' + hadley_config_file_path)
+        data = json.load(file)
+        for framework in data['framework']:
+            name = framework['name']
+            repository = framework['repository']
+            command = 'git clone ' + repository + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH
+            if name == 'hadley.core':
+                if not os.path.isdir(CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/hadley.core'): 
+                    os.system(command)
+            else:
                 os.system(command)
-        else:
-            os.system(command)
 
 
     file.close()
@@ -67,7 +74,6 @@ def parseHadleyFile ():
     for hd_config in hadley_config['hadley_config']:
         hadley_config_name = hd_config['name']
         hadley_config_file_path = hd_config['config_file_path']
-        print (hadley_config_file_path)
         
         file = open(CICD_ROOT_PATH + '/' + hadley_config_file_path)
         data = json.load(file)
