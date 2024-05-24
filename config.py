@@ -61,69 +61,76 @@ def parseHadleyFile ():
         existFile = True
         exit()
 
-    file = open(CICD_ROOT_PATH + '/' + 'hadley.json')
-    data = json.load(file)
+    file_config = open(CICD_ROOT_PATH + '/' + 'hadley.json')
+    hadley_config = json.load(file_config)
 
-    for framework in data['framework']:
-        frameworkName = framework['name']
+    for hd_config in hadley_config['hadley_config']:
+        hadley_config_name = hd_config['name']
+        hadley_config_file_path = hd_config['config_file_path']
+        
+        file = open(CICD_ROOT_PATH + '/' + hadley_config_file_path)
+        data = json.load(file)
 
-    for project in data['project']:
-        arrayFrameworks = [] 
-        for config_files in project['config_files']:
-            isok_iac_tool = False
-            isok_main_config = False            
-            isok_hadley_file = False
-            iac_tool = config_files['iac_tool']
-            main_config = config_files['iac_main_config']            
-            hadley_file = config_files['hadley_file']
+        for framework in data['framework']:
+            frameworkName = framework['name']
+
+        for project in data['project']:
+            arrayFrameworks = [] 
+            for config_files in project['config_files']:
+                isok_iac_tool = False
+                isok_main_config = False            
+                isok_hadley_file = False
+                iac_tool = config_files['iac_tool']
+                main_config = config_files['iac_main_config']            
+                hadley_file = config_files['hadley_file']
 
 
 
-            if iac_tool == 'terragrunt':
-                isok_iac_tool = True
+                if iac_tool == 'terragrunt':
+                    isok_iac_tool = True
 
-            if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
-                isok_hadley_file = True
-            else:
-                print("Configuration File (" + hadley_file + ") doesn't exist")
-                exit()
-                
-
-            existModule = False
-            module = config_files['module']
-            for modules in project['modules']:
-                if module == modules['name']:
-                    existModule = True
-            if not existModule:
-                print("Modulo not found in the configuration of the project " + project['name'])
-                exit()
-
-                       
-            for modules in project['modules']:                
-                modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']                                   
-                if arrayFrameworks.count(modPath) == 0: 
-                    if os.path.isdir(modPath): 
-                        os.system('rm -rf ' + modPath)
+                if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
+                    isok_hadley_file = True
+                else:
+                    print("Configuration File (" + hadley_file + ") doesn't exist")
+                    exit()
                     
-                    print('Downloading repository modules ...')
-                    command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
-                    os.system(command)
-                    arrayFrameworks.append(modPath)
-                    break
 
-            if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
-                isok_main_config = True
-            else:
-                print("Configuration File (" + main_config + ") doesn't exist")    
-                exit()
+                existModule = False
+                module = config_files['module']
+                for modules in project['modules']:
+                    if module == modules['name']:
+                        existModule = True
+                if not existModule:
+                    print("Modulo not found in the configuration of the project " + project['name'])
+                    exit()
+
+                        
+                for modules in project['modules']:                
+                    modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']                                   
+                    if arrayFrameworks.count(modPath) == 0: 
+                        if os.path.isdir(modPath): 
+                            os.system('rm -rf ' + modPath)
+                        
+                        print('Downloading repository modules ...')
+                        command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
+                        os.system(command)
+                        arrayFrameworks.append(modPath)
+                        break
+
+                if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
+                    isok_main_config = True
+                else:
+                    print("Configuration File (" + main_config + ") doesn't exist")    
+                    exit()
 
 
-            if iac_tool == 'terragrunt':
-                frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
-                frameworkFullPath = frameworkPath + '/cicdtool/terragrunt'
-                setSysPath(frameworkFullPath)
-                import terragrunt as ter 
-                ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
+                if iac_tool == 'terragrunt':
+                    frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
+                    frameworkFullPath = frameworkPath + '/cicdtool/terragrunt'
+                    setSysPath(frameworkFullPath)
+                    import terragrunt as ter 
+                    ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
     
     file.close()
 
