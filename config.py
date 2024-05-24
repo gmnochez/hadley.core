@@ -67,6 +67,7 @@ def parseHadleyFile ():
     for hd_config in hadley_config['hadley_config']:
         hadley_config_name = hd_config['name']
         hadley_config_file_path = hd_config['config_file_path']
+        print (hadley_config_file_path)
         
         file = open(CICD_ROOT_PATH + '/' + hadley_config_file_path)
         data = json.load(file)
