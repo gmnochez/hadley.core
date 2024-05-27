@@ -143,36 +143,11 @@ def parseHadleyFile ():
 
 
 
-
-
-
-
-
-def getCurrentFolder ():
-    print ('CICD_ROOT_PATH : ' + CICD_ROOT_PATH + '\n')
-    print ('TF_ADDRESS : ' + TF_ADDRESS + '\n')
-    print ('KTC_PLAN : ' + HDY_PLAN + '\n')
-    print ('KTC_PLAN_JSON : ' + HDY_PLAN_JSON + '\n')
-    print ('KTC_VAR : ' + HDY_VAR + '\n')
-    print('Current Path : ', os.getcwd())
-    
-    HDY_VAR_FULLPATH = CICD_ROOT_PATH + '/' + HDY_VAR
-
-    myvars = {}
-    with open(HDY_VAR_FULLPATH) as myfile:
-        for line in myfile:
-            if line.strip() != '':
-                name, var = line.partition("=")[::2]
-                if var.strip() != '""':
-                    myvars[name.strip()] = str(var.strip())
-                    os.environ[name.strip()] = str(var.strip())
-
         
         
 loadHclq()
 loadFramework()
 parseHadleyFile()
-# getCurrentFolder()
 
 
 
