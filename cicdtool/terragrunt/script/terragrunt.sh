@@ -75,11 +75,12 @@ if [[ $deploy_action == "import" ]];then
 fi
 
 if [[ $deploy_action == "create" ]];then 
-    terragrunt_validate $deployDirectory
-
-     if [[ $resource_action == "reconfigure" ]];then
+    
+    if [[ $resource_action == "reconfigure" ]];then
         terragrunt_reconfigure $deployDirectory
     fi
+
+    terragrunt_validate $deployDirectory
 
     if [[ $resource_action == "plan" ]];then
         terragrunt_plan $deployDirectory
