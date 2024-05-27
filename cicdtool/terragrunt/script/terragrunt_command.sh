@@ -14,6 +14,23 @@ terragrunt_validate()
 
 }
 
+
+terragrunt_reconfigure()
+{
+
+    workingDirectory=$1
+
+    terragrunt init -reconfigure  \
+        --terragrunt-working-dir $workingDirectory \
+        --terragrunt-include-external-dependencies \
+        --terragrunt-non-interactive
+
+
+}
+
+
+
+
 terragrunt_plan()
 {
 

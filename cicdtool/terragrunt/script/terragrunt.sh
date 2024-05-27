@@ -77,6 +77,10 @@ fi
 if [[ $deploy_action == "create" ]];then 
     terragrunt_validate $deployDirectory
 
+     if [[ $resource_action == "reconfigure" ]];then
+        terragrunt_reconfigure $deployDirectory
+    fi
+
     if [[ $resource_action == "plan" ]];then
         terragrunt_plan $deployDirectory
     fi
