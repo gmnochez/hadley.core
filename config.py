@@ -6,10 +6,6 @@ import shutil
 import json
 
 CICD_ROOT_PATH = sys.argv[1]
-TF_ADDRESS = sys.argv[2]
-HDY_PLAN = sys.argv[3]
-HDY_PLAN_JSON = sys.argv[4]
-HDY_VAR = sys.argv[5]
 FRAMEWORK_PATH = '.hadley'
 
 
