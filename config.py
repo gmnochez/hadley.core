@@ -69,6 +69,10 @@ def parseHadleyFile ():
 
     for hd_config in hadley_config['hadley_config']:
         hadley_config_name = hd_config['name']
+        hadley_config_deploy = hd_config['deploy']
+        if hadley_config_deploy != "true":
+            break
+
         hadley_config_file_path = hd_config['config_file_path']
         
         file = open(CICD_ROOT_PATH + '/' + hadley_config_file_path)
