@@ -141,10 +141,10 @@ def parseHadleyFile ():
                     import terragrunt as ter 
                     ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
     
-        if existDeploy:
-            file.close()
-        else:
-            print('Nothing set for deploy, check the file hadley.json')
+    if existDeploy:
+        file.close()
+    else:
+        print('Nothing set for deploy, check the file hadley.json')    
 
     file_config.close()
 
