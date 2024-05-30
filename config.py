@@ -143,6 +143,8 @@ def parseHadleyFile ():
     
         if existDeploy:
             file.close()
+        else:
+            print('Nothing set for deploy, check the file hadley.json')
 
     file_config.close()
 
