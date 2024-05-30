@@ -66,7 +66,7 @@ def parseHadleyFile ():
 
     file_config = open(CICD_ROOT_PATH + '/' + 'hadley.json')
     hadley_config = json.load(file_config)
-
+    existDeploy = False
     for hd_config in hadley_config['hadley_config']:
         hadley_config_name = hd_config['name']
         hadley_config_deploy = hd_config['deploy']
@@ -77,6 +77,8 @@ def parseHadleyFile ():
         
         file = open(CICD_ROOT_PATH + '/' + hadley_config_file_path)
         data = json.load(file)
+
+        existDeploy = True
 
         for framework in data['framework']:
             frameworkName = framework['name']
@@ -139,7 +141,10 @@ def parseHadleyFile ():
                     import terragrunt as ter 
                     ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
     
-    file.close()
+        if existDeploy:
+            file.close()
+
+    file_config.close()
 
 
 
