@@ -22,7 +22,6 @@ def loadHclq ():
 
 
 def loadFramework ():
-    print('loadFramework')
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + 'hadley.json'):
         existFile = True
