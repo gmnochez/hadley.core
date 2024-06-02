@@ -91,7 +91,9 @@ def parseHadleyFile ():
                 iac_tool = config_files['iac_tool']
                 main_config = config_files['iac_main_config']            
                 hadley_file = config_files['hadley_file']
-
+                config_files_deploy = config_files['deploy']
+                if config_files_deploy != 'true':
+                    continue
 
 
                 if iac_tool == 'terragrunt':
