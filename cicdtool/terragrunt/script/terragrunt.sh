@@ -15,11 +15,10 @@ global_definition=${12}
 frameworkFullPath=${13}
 
 
-cat $frameworkFullPath/script/functions.sh
 # sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
 # sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
-# source $frameworkFullPath/script/functions.sh
-# source $frameworkFullPath/script/terragrunt_command.sh
+source $frameworkFullPath/script/functions.sh
+source $frameworkFullPath/script/terragrunt_command.sh
 
 # workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
