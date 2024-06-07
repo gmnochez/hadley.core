@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 resource_action=$1
 deploy_action=$2
