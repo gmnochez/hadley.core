@@ -14,7 +14,8 @@ enviroment_definition=${11}
 global_definition=${12}
 frameworkFullPath=${13}
 
-eval "source /etc/bash.bashrc"
+set -e
+source /etc/bash.bashrc
 # sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
 # sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
 source $frameworkFullPath/script/functions.sh
