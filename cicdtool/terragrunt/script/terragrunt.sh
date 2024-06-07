@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 resource_action=$1
 deploy_action=$2
@@ -15,9 +15,9 @@ global_definition=${12}
 frameworkFullPath=${13}
 
 
-
-source $frameworkFullPath/script/functions.sh
-source $frameworkFullPath/script/terragrunt_command.sh
+ls $frameworkFullPath/script/functions.sh
+# source $frameworkFullPath/script/functions.sh
+# source $frameworkFullPath/script/terragrunt_command.sh
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
