@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:4.0
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  terragrunt_container:
+    # image: devopsinfra/docker-terragrunt:latest
+    container_name: devopsinfra
+    build: 
+      context: ./docker-terragrunt
+      dockerfile: Dockerfile
+    # entrypoint: ["help"] 
+    ports:
+      - 3000:3000
+    volumes:
+      - devopsinfra_data_container:/data  
+
+volumes:
+  mongodb_data_container:
+  devopsinfra_data_container:
+  
+
+# docker volume create --name=mongodb_data_container
+# docker volume create --name=devopsinfra_data_container
+
+
