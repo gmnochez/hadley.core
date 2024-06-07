@@ -15,7 +15,7 @@ global_definition=${12}
 frameworkFullPath=${13}
 
 
-ls $frameworkFullPath/script/functions.sh
+ls -lat $frameworkFullPath/script/functions.sh
 sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
 sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
 source $frameworkFullPath/script/functions.sh
