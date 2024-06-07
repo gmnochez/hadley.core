@@ -138,6 +138,7 @@ def parseHadleyFile ():
                 if iac_tool == 'terragrunt':
                     frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
                     frameworkFullPath = frameworkPath + '/cicdtool/terragrunt'
+                    print("frameworkFullPath " + frameworkFullPath)
                     setSysPath(frameworkFullPath)
                     import terragrunt as ter 
                     ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 

@@ -15,7 +15,6 @@ global_definition=${12}
 frameworkFullPath=${13}
 
 
-echo $frameworkFullPath
 
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
