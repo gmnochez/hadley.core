@@ -21,93 +21,93 @@ frameworkFullPath=${13}
 . $frameworkFullPath/script/functions.sh
 . $frameworkFullPath/script/terragrunt_command.sh
 
-# workingDirectory="$CICD_ROOT_PATH/$deploy_path"
+workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
 
-# fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
-# fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
-# fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
+fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
+fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
+fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
  
-# # file_name=$(echo $file_resource |  sed 's/\.hcl//g')
-# file_name=$(echo $file_resource |  sed 's#.*/##')
-# fullPathFileResource="$workingDirectory/$file_resource/$file_name.hcl"
+# file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+file_name=$(echo $file_resource |  sed 's#.*/##')
+fullPathFileResource="$workingDirectory/$file_resource/$file_name.hcl"
 
-# export deployDirectory="$workingDirectory/$file_name"
-# # cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
-
-
-# fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
-
-# sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-# sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource
-# resource_declaration="$resource_api.$file_name"
-# # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
-
-# key_remote_state="$deploy_path/$file_resource/$file_name.tfstate"
+export deployDirectory="$workingDirectory/$file_name"
+# cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
 
 
-# sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
-# sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
-# sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
-# sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
-# sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
-# sed -i "s|key_remote_state|$key_remote_state|g" $fullPathMainConfig
+fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
-# mkdir -p "$sourceTerraformDeploy"
+sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
+sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource
+resource_declaration="$resource_api.$file_name"
+# deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
-# cp $sourceTerraform/main.tf "$sourceTerraformDeploy/main_$file_name.tf"
-# cp $sourceTerraform/outputs.tf "$sourceTerraformDeploy/outputs_$file_name.tf"
-# cp $sourceTerraform/variables.tf "$sourceTerraformDeploy/variables.tf"
+key_remote_state="$deploy_path/$file_resource/$file_name.tfstate"
 
 
-# sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/main_$file_name.tf"
-# sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_name.tf"
+sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
+sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
+sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
+sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
+sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
+sed -i "s|key_remote_state|$key_remote_state|g" $fullPathMainConfig
+
+mkdir -p "$sourceTerraformDeploy"
+
+cp $sourceTerraform/main.tf "$sourceTerraformDeploy/main_$file_name.tf"
+cp $sourceTerraform/outputs.tf "$sourceTerraformDeploy/outputs_$file_name.tf"
+cp $sourceTerraform/variables.tf "$sourceTerraformDeploy/variables.tf"
 
 
-# # echo $workingDirectory
-# importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
+sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/main_$file_name.tf"
+sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_name.tf"
 
 
-# deployDirectory="$workingDirectory/$file_resource"
+# echo $workingDirectory
+importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
-# if [[ $deploy_action == "import" ]];then
-#     terragrunt_import $deployDirectory $resource_declaration $fullPathFileResource
-# fi
+deployDirectory="$workingDirectory/$file_resource"
 
-# if [[ $deploy_action == "create" ]];then 
+
+if [[ $deploy_action == "import" ]];then
+    terragrunt_import $deployDirectory $resource_declaration $fullPathFileResource
+fi
+
+if [[ $deploy_action == "create" ]];then 
     
-#     if [[ $resource_action == "reconfigure" ]];then
-#         terragrunt_reconfigure $deployDirectory
-#     fi
+    if [[ $resource_action == "reconfigure" ]];then
+        terragrunt_reconfigure $deployDirectory
+    fi
 
-#     terragrunt_validate $deployDirectory
+    terragrunt_validate $deployDirectory
 
-#     if [[ $resource_action == "plan" ]];then
-#         terragrunt_plan $deployDirectory
-#     fi
+    if [[ $resource_action == "plan" ]];then
+        terragrunt_plan $deployDirectory
+    fi
 
-#     if [[ $resource_action == "apply" ]];then
-#         terragrunt_apply $deployDirectory
-#     fi
+    if [[ $resource_action == "apply" ]];then
+        terragrunt_apply $deployDirectory
+    fi
 
-#     if [[ $resource_action == "destroy" ]];then
-#         terragrunt_destroy $deployDirectory $resource_declaration
-#     fi    
+    if [[ $resource_action == "destroy" ]];then
+        terragrunt_destroy $deployDirectory $resource_declaration
+    fi    
 
-#     if [[ $resource_action == "destroy_plan" ]];then
-#         terragrunt_destroy_plan $deployDirectory $resource_declaration
-#     fi  
+    if [[ $resource_action == "destroy_plan" ]];then
+        terragrunt_destroy_plan $deployDirectory $resource_declaration
+    fi  
 
-# fi
+fi
 
 
 
-# sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
-# sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-# sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
-# sed -i "s|$key_remote_state|key_remote_state|g" $fullPathMainConfig
+sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
+sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
+sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
+sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
+sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
+sed -i "s|$key_remote_state|key_remote_state|g" $fullPathMainConfig
 
-# rm -rf "$sourceTerraformDeploy"
+rm -rf "$sourceTerraformDeploy"
