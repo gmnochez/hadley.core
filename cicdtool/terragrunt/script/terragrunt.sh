@@ -16,6 +16,8 @@ frameworkFullPath=${13}
 
 
 ls $frameworkFullPath/script/functions.sh
+sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
+sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
 
