@@ -17,11 +17,11 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - devopsinfra_data_container:/data  
+      - /mnt/d/dockers/devopsinfra:/data  
 
 volumes:
   mongodb_data_container:
-  devopsinfra_data_container:
+  # devopsinfra_data_container:
   
 
 # docker volume create --name=mongodb_data_container
