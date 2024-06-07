@@ -16,8 +16,8 @@ frameworkFullPath=${13}
 
 
 ls $frameworkFullPath/script/functions.sh
-# source $frameworkFullPath/script/functions.sh
-# source $frameworkFullPath/script/terragrunt_command.sh
+source $frameworkFullPath/script/functions.sh
+source $frameworkFullPath/script/terragrunt_command.sh
 
 # workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
