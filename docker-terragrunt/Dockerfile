@@ -242,6 +242,13 @@ RUN chmod +x \
   rm -rf /root/.cache/* ;\
   rm -rf /tmp/*
 
+RUN debconf-show dash
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
+
+
+
 # Labels for http://label-schema.org/rc1/#build-time-labels
 # And for https://github.com/opencontainers/image-spec/blob/master/annotations.md
 # And for https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions
