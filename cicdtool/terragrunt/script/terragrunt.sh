@@ -18,8 +18,8 @@ frameworkFullPath=${13}
 
 # sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
 # sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
-bash -c source $frameworkFullPath/script/functions.sh
-bash -c source $frameworkFullPath/script/terragrunt_command.sh
+bash -c source "$frameworkFullPath/script/functions.sh"
+bash -c source "$frameworkFullPath/script/terragrunt_command.sh"
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
