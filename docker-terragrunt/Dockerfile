@@ -13,7 +13,7 @@ ARG YC=no
 # Versions of dependecies, GCP has no default handler
 ARG AWS_VERSION=latest
 ARG GCP_VERSION
-ARG TF_VERSION=none
+ARG TF_VERSION=latest
 ARG OT_VERSION=none
 ARG TG_VERSION=latest
 
