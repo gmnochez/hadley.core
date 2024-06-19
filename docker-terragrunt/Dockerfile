@@ -35,6 +35,12 @@ RUN echo Debug information: ;\
   echo TG_VERSION="${TG_VERSION}" ;\
   echo
 
+RUN apt update
+RUN apt-get install python3.10-dev
+RUN apt-get install gcc
+  
+
+
 # Install apt prerequisits, retry since ubuntu archive is failing a lot
 SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 # hadolint ignore=DL3008,SC2015
@@ -245,7 +251,6 @@ RUN chmod +x \
 RUN debconf-show dash
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
-
 
 
 

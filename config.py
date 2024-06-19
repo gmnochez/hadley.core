@@ -54,7 +54,8 @@ def loadFramework ():
 
 
 def parseHadleyFile ():
-    
+    print("parseHadleyFile")
+
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + 'hadley.json'):
         existFile = True

@@ -16,6 +16,7 @@ services:
     # entrypoint: ["help"] 
     ports:
       - 3000:3000
+      - 8000:8000
     volumes:
       - /mnt/d/dockers/devopsinfra:/data  
 
