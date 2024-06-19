@@ -18,6 +18,7 @@ frameworkFullPath=${13}
 
 # sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
 # sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
+echo "terragrunt.sh"
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
 
@@ -64,7 +65,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/main_$file_name.
 sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_name.tf"
 
 
-echo $workingDirectory
+# echo $workingDirectory
 importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
 
 
