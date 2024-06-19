@@ -135,7 +135,6 @@ def parseHadleyFile ():
                     print("Configuration File (" + main_config + ") doesn't exist")    
                     exit()
 
-                print("parseHadleyFile")
 
                 if iac_tool == 'terragrunt':
                     frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName

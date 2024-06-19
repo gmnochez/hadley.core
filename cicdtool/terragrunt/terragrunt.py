@@ -57,6 +57,7 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
             if resource_definition_deploy != 'true':
                 continue
 
+            print("cicdTerragrunt")
 
             existCheckFile = checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
 
