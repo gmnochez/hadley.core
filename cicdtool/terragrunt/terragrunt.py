@@ -19,7 +19,7 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
     # file_name = os.path.splitext(file_resource)[0]
     str_index = str(file_resource).split('/')
     file_name = str(file_resource).split('/')[len(str_index) - 1]
-
+    print("checkResourceDefinition")
     fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_resource + '/' + file_name + '.hcl'
     # print(fullPathFileResource)
     if not os.path.isfile(fullPathFileResource):

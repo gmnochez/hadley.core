@@ -18,7 +18,7 @@ frameworkFullPath=${13}
 
 # sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
 # sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
-echo "terragrunt.sh"
+
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
 
