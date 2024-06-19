@@ -54,7 +54,7 @@ def loadFramework ():
 
 
 def parseHadleyFile ():
-    print("parseHadleyFile")
+    
 
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + 'hadley.json'):
@@ -135,6 +135,7 @@ def parseHadleyFile ():
                     print("Configuration File (" + main_config + ") doesn't exist")    
                     exit()
 
+                print("parseHadleyFile")
 
                 if iac_tool == 'terragrunt':
                     frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
