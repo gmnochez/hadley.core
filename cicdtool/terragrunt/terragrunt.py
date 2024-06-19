@@ -11,7 +11,6 @@ def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
-    print("terragruntCommand")
     # print("Exist resource " + format(process.returncode))
 
 
