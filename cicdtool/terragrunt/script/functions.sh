@@ -23,7 +23,6 @@ read_properties()
   if [[ $tenant_id != "" ]] ; then export ARM_TENANT_ID=$tenant_id; fi
 
 # AWS
-  echo "read_properties"
   
   aws_account_id=$(cat $file | hclq get 'locals.aws_account_id' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
   if [[ $aws_account_id != "" ]] ; then export AWS_ACCOUNT_ID=$aws_account_id; fi

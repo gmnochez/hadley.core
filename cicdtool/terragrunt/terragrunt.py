@@ -60,10 +60,10 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
 
             existCheckFile = checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
             
-            if existCheckFile:
-                terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
-            else:
-                print("Please check the Configuration File ...")                
+            # if existCheckFile:
+            #     terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
+            # else:
+            #     print("Please check the Configuration File ...")                
 
     file.close()    
 
