@@ -7,13 +7,22 @@ services:
     volumes:
       - mongodb_data_container:/data/db
 
+  couchdb_container:
+    container_name: couchdb
+    build: 
+      context: ./docker/couchdb
+      dockerfile: Dockerfile
+    ports:
+      - 0.0.0.0:5984:5984
+    volumes:
+      - /mnt/d/dockers/couchdb:/opt/couchdb/data
+
+
   terragrunt_container:
-    # image: devopsinfra/docker-terragrunt:latest
     container_name: devopsinfra
     build: 
       context: ./docker-terragrunt
       dockerfile: Dockerfile
-    # entrypoint: ["help"] 
     ports:
       - 3000:3000
       - 8000:8000
@@ -29,3 +38,11 @@ volumes:
 # docker volume create --name=devopsinfra_data_container
 
 
+# docker exec -it couchdb_container /bin/bash
+# docker-compose up -d couchdb_container
+# docker-compose up --build couchdb_container
+
+# docker network create hadleynet
+# docker network connect hadleynet devopsinfra
+# docker network connect hadleynet hadley_mongodb_container_1
+# docker network inspect hadleynet
