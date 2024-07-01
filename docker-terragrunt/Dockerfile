@@ -35,9 +35,11 @@ RUN echo Debug information: ;\
   echo TG_VERSION="${TG_VERSION}" ;\
   echo
 
-RUN apt update
-RUN apt-get install python3.10-dev
-RUN apt-get install gcc
+RUN apt-get update
+RUN apt-get install -y python3.10-dev
+RUN apt-get install -y gcc
+RUN apt-get install -y curl
+RUN curl -sSLo install.sh https://install.hclq.sh && chmod 777 install.sh && ./install.sh && rm -rf install.sh
   
 
 

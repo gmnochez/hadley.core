@@ -7,16 +7,6 @@ services:
     volumes:
       - mongodb_data_container:/data/db
 
-  couchdb_container:
-    container_name: couchdb
-    build: 
-      context: ./docker/couchdb
-      dockerfile: Dockerfile
-    ports:
-      - 0.0.0.0:5984:5984
-    volumes:
-      - /mnt/d/dockers/couchdb:/opt/couchdb/data
-
 
   terragrunt_container:
     container_name: devopsinfra
