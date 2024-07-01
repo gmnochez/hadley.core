@@ -96,14 +96,14 @@ def parseHadleyFile ():
                 if config_files_deploy != 'true':
                     continue
 
-                print("iac_tool" + iac_tool)
+
                 if iac_tool == 'terragrunt':
                     isok_iac_tool = True
 
                 if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
                     isok_hadley_file = True
                 else:
-                    print("Configuration File (" + hadley_file + ") doesn't exist")
+                    print("Configuration hadley_file (" + hadley_file + ") doesn't exist")
                     exit()
                     
 
@@ -129,11 +129,13 @@ def parseHadleyFile ():
                         arrayFrameworks.append(modPath)
                         break
 
-                if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
-                    isok_main_config = True
-                else:
-                    print("Configuration File (" + main_config + ") doesn't exist")    
-                    exit()
+                
+                if main_config != "false":
+                    if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
+                        isok_main_config = True
+                    else:
+                        print("Configuration iac_main_config (" + main_config + ") doesn't exist")    
+                        exit()
 
                 frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName                    
                 if iac_tool == 'terragrunt':
