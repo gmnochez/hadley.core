@@ -31,6 +31,7 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
 
 def cicdBicep (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
     
+    print ('hadley_file' + hadley_file)
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
         existFile = True
