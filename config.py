@@ -96,7 +96,7 @@ def parseHadleyFile ():
                 if config_files_deploy != 'true':
                     continue
 
-
+                print("iac_tool" + iac_tool)
                 if iac_tool == 'terragrunt':
                     isok_iac_tool = True
 
