@@ -130,7 +130,7 @@ def parseHadleyFile ():
                         break
 
                 
-                if main_config != "false":
+                if main_config != 'false':
                     if os.path.isfile(CICD_ROOT_PATH + '/' + main_config):
                         isok_main_config = True
                     else:
