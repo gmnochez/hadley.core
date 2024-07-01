@@ -135,14 +135,22 @@ def parseHadleyFile ():
                     print("Configuration File (" + main_config + ") doesn't exist")    
                     exit()
 
-
+                frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName                    
                 if iac_tool == 'terragrunt':
-                    frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName
                     frameworkFullPath = frameworkPath + '/cicdtool/terragrunt'
                     setSysPath(frameworkFullPath)
                     import terragrunt as ter 
                     ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
     
+                if iac_tool == 'bicep':
+                    frameworkFullPath = frameworkPath + '/cicdtool/bicep'
+                    setSysPath(frameworkFullPath)
+                    import bicep as bcp 
+                    bcp.cicdBicep(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
+    
+                
+
+
     if existDeploy:
         file.close()
     else:
