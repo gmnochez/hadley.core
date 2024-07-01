@@ -162,7 +162,7 @@ def parseHadleyFile ():
 
         
         
-loadHclq()
+# loadHclq()
 loadFramework()
 parseHadleyFile()
 
