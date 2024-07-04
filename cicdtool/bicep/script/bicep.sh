@@ -32,27 +32,27 @@ echo "frameworkFullPath=$frameworkFullPath"
 
 
 
-# source $frameworkFullPath/script/functions.sh
-# source $frameworkFullPath/script/bicep_command.sh
+source $frameworkFullPath/script/functions.sh
+source $frameworkFullPath/script/bicep_command.sh
 
-# workingDirectory="$CICD_ROOT_PATH/$deploy_path"
+workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
 
 # fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
-# fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
-# fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
+fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
+fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
  
-# file_name=$(echo $file_resource |  sed 's#.*/##')
-# fullPathFileResource="$workingDirectory/$file_resource/$file_name.hcl"
+file_name=$(echo $file_resource |  sed 's#.*/##')
+fullPathFileResource="$workingDirectory/$file_resource/$file_name.bicep"
 
-# export deployDirectory="$workingDirectory/$file_name"
+export deployDirectory="$workingDirectory/$file_name"
 
 
 
 # fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
-# sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-# sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource
+sourceBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
+sourceBicepDeploy=$sourceTerraform/$deploy_path/$file_resource
 # resource_declaration="$resource_api.$file_name"
 # # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
