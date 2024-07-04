@@ -6,8 +6,15 @@ import json
 import subprocess
 
 
-def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition):
-    execScript = "sh " + frameworkFullPath + "/script/terragrunt.sh " + resource_action + ' ' + deploy_action + ' ' + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
+def toolCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition, iac_tool):
+    scriptTool = ''
+    if iac_tool == 'terragrunt':
+        scriptTool = '/script/terragrunt.sh'
+    if iac_tool == 'bicep':
+        scriptTool = '/script/bicep.sh'
+        
+    
+    execScript = "sh " + frameworkFullPath + scriptTool + ' ' + resource_action + ' ' + deploy_action + ' ' + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
     process = subprocess.Popen(execScript, shell=True, stdout=subprocess.PIPE)
     out, err = process.communicate()
     print(out.decode())
@@ -15,12 +22,18 @@ def terragruntCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_
 
 
 
-def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
-    # file_name = os.path.splitext(file_resource)[0]
+def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource, iac_tool):
+    
+    extFileTool = ''
+    if iac_tool == 'terragrunt':
+        extFileTool = '.hcl'
+    if iac_tool == 'bicep':
+        extFileTool = '.bicep'
+    
     str_index = str(file_resource).split('/')
     file_name = str(file_resource).split('/')[len(str_index) - 1]
 
-    fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_resource + '/' + file_name + '.hcl'
+    fullPathFileResource = CICD_ROOT_PATH  + '/' + deploy_path + '/' + file_resource + '/' + file_name + extFileTool
     # print(fullPathFileResource)
     if not os.path.isfile(fullPathFileResource):
         print("File (" + fullPathFileResource + ") doesn't exist.")
@@ -29,7 +42,7 @@ def checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource):
         return True
         
 
-def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file):
+def cicdTool (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, hadley_file, iac_tool):
     
     existFile = False
     if os.path.isfile(CICD_ROOT_PATH + '/' + hadley_file):
@@ -58,10 +71,10 @@ def cicdTerragrunt (CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_fr
                 continue
 
 
-            existCheckFile = checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource)
+            existCheckFile = checkResourceDefinition(CICD_ROOT_PATH, deploy_path, file_resource, iac_tool)
             
             if existCheckFile:
-                terragruntCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition)
+                toolCommand(resource_action, deploy_action,CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition, iac_tool)
             else:
                 print("Please check the Configuration File ...")                
 

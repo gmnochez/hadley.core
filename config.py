@@ -138,17 +138,11 @@ def parseHadleyFile ():
                         exit()
 
                 frameworkPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + frameworkName                    
-                if iac_tool == 'terragrunt':
-                    frameworkFullPath = frameworkPath + '/cicdtool/terragrunt'
-                    setSysPath(frameworkFullPath)
-                    import terragrunt as ter 
-                    ter.cicdTerragrunt(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
-    
-                if iac_tool == 'bicep':
-                    frameworkFullPath = frameworkPath + '/cicdtool/bicep'
-                    setSysPath(frameworkFullPath)
-                    import bicep as bcp 
-                    bcp.cicdBicep(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file) 
+
+                frameworkFullPath = frameworkPath + '/cicdtool'
+                setSysPath(frameworkFullPath)
+                import cicdtool as tool 
+                tool.cicdTool(CICD_ROOT_PATH,FRAMEWORK_PATH,frameworkFullPath,module,main_config, hadley_file, iac_tool) 
     
                 
 
