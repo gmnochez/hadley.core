@@ -52,29 +52,31 @@ export deployDirectory="$workingDirectory/$file_name"
 # fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
 sourceBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-sourceBicepDeploy=$sourceTerraform/$deploy_path/$file_resource
-# resource_declaration="$resource_api.$file_name"
-# # deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
+sourceMainBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/azurerm"  
+sourceBicepDeploy=$sourceBicep/$deploy_path/$file_resource
+resource_declaration="$resource_api.$file_name"
+
 
 # key_remote_state="$deploy_path/$file_resource/$file_name.tfstate"
 
+deployDirectory="$workingDirectory/$file_resource"
 
-# sed -i "s|hadley_source_terraform|$sourceTerraformDeploy|g" $fullPathConfigFile
-# sed -i "s|hadley_main_config_terragrunt|$fullPathMainConfig|g" $fullPathConfigFile
-# sed -i "s|enviroment.hcl|$fullPathEnviroment|g" $fullPathMainConfig
-# sed -i "s|global.hcl|$fullPathGlobal|g" $fullPathMainConfig
-# sed -i "s|resource.hcl|$fullPathFileResource|g" $fullPathMainConfig
-# sed -i "s|key_remote_state|$key_remote_state|g" $fullPathMainConfig
+mkdir -p "$sourceBicepDeploy"
 
-# mkdir -p "$sourceTerraformDeploy"
+fileNameImplementation="$sourceBicepDeploy/implamentation_$file_name.bicep"
+cp $sourceBicep/$file_name.bicep $fileNameImplementation 
+cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/main_$file_name.bicep"
+cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
 
-# cp $sourceTerraform/main.tf "$sourceTerraformDeploy/main_$file_name.tf"
-# cp $sourceTerraform/outputs.tf "$sourceTerraformDeploy/outputs_$file_name.tf"
-# cp $sourceTerraform/variables.tf "$sourceTerraformDeploy/variables.tf"
+sed -i "s|param hadley_definition_param|params|g" "$sourceBicepDeploy/param_$file_name.bicep"
+extractedParameters=$(echo $sourceBicepDeploy/param_$file_name.bicep)
 
+sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
+sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
+sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
-# sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/main_$file_name.tf"
-# sed -i "s|hadley_resource|$file_name|g" "$sourceTerraformDeploy/outputs_$file_name.tf"
+cat "$sourceBicepDeploy/main_$file_name.bicep"
+
 
 
 # # echo $workingDirectory
@@ -88,7 +90,25 @@ sourceBicepDeploy=$sourceTerraform/$deploy_path/$file_resource
 
 
 
-# deployDirectory="$workingDirectory/$file_resource"
+# az deployment group create \
+#   --resource-group testgroup \
+#   --subscription sub \
+#   --template-file <path-to-bicep> \
+
+# terraform plan	
+# az deployment group what-if
+# New-AzResourceGroupDeployment -Whatif
+
+ 
+# terraform apply
+# az deployment group create
+# New-AzResourceGroupDeployment -Confirm
+
+
+
+
+
+
 
 
 # if [[ $deploy_action == "import" ]];then
