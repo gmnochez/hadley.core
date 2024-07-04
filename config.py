@@ -120,14 +120,15 @@ def parseHadleyFile ():
                 for modules in project['modules']:                
                     modPath = CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']                                   
                     if arrayFrameworks.count(modPath) == 0: 
-                        if os.path.isdir(modPath): 
-                            os.system('rm -rf ' + modPath)
-                        
-                        print('Downloading repository modules ...')
-                        command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
-                        os.system(command)
-                        arrayFrameworks.append(modPath)
-                        break
+                        if modules['name'] == module:                            
+                            if os.path.isdir(modPath): 
+                                os.system('rm -rf ' + modPath)
+                            
+                            print('Downloading repository modules ...')
+                            command = 'git clone ' + modules['repository'] + ' ' + CICD_ROOT_PATH + '/' + FRAMEWORK_PATH + '/' + modules['name']
+                            os.system(command)
+                            arrayFrameworks.append(modPath)
+                            break
 
                 
                 if main_config != 'false':
