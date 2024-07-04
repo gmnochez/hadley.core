@@ -5,14 +5,16 @@ ARG TARGETPLATFORM=linux/amd64
 
 # Which flavour of image to build
 ARG SLIM=no
-ARG AZURE=no
-ARG AWS=no
-ARG GCP=no
+ARG AZURE=yes
+ARG AWS=yes
+ARG GCP=yes
 ARG YC=no
 
 # Versions of dependecies, GCP has no default handler
 ARG AWS_VERSION=latest
-ARG GCP_VERSION
+ARG GCP_VERSION=latest
+# ARG GCP_VERSION
+
 ARG TF_VERSION=latest
 ARG OT_VERSION=none
 ARG TG_VERSION=latest
@@ -198,7 +200,8 @@ SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 # hadolint ignore=SC1091,SC2015,SC2129
 RUN if [ "${GCP}" = "yes" ]; then \
     if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "${TARGETPLATFORM}" = "linux/arm64" ]; then ARCHITECTURE=arm; else ARCHITECTURE=x86_64; fi ;\
-    for i in {1..5}; do curl -LsS "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${GCP_VERSION}-linux-${ARCHITECTURE}.tar.gz" -o google-cloud-sdk.tar.gz && break || sleep 15; done ;\
+    # for i in {1..5}; do curl -LsS "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${GCP_VERSION}-linux-${ARCHITECTURE}.tar.gz" -o google-cloud-sdk.tar.gz && break || sleep 15; done ;\
+    for i in {1..5}; do curl -LsS "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-${ARCHITECTURE}.tar.gz" -o google-cloud-sdk.tar.gz && break || sleep 15; done ;\    
     tar -xf google-cloud-sdk.tar.gz ;\
     rm -f google-cloud-sdk.tar.gz ;\
     ./google-cloud-sdk/install.sh \

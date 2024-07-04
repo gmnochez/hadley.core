@@ -16,9 +16,6 @@ frameworkFullPath=${13}
  
 
 
-# sed -i 's/\r//g' $frameworkFullPath/script/functions.sh
-# sed -i 's/\r//g' $frameworkFullPath/script/terragrunt_command.sh  
-
 source $frameworkFullPath/script/functions.sh
 source $frameworkFullPath/script/terragrunt_command.sh
 
@@ -29,20 +26,17 @@ fullPathMainConfig="$CICD_ROOT_PATH/$main_config"
 fullPathEnviroment="$CICD_ROOT_PATH/$enviroment_definition"
 fullPathGlobal="$CICD_ROOT_PATH/$global_definition"
  
-# file_name=$(echo $file_resource |  sed 's/\.hcl//g')
+
 file_name=$(echo $file_resource |  sed 's#.*/##')
 fullPathFileResource="$workingDirectory/$file_resource/$file_name.hcl"
 
 export deployDirectory="$workingDirectory/$file_name"
-# cp -f "$workingDirectory/terragrunt.hcl" "$workingDirectory/$file_name/terragrunt.hcl"
-
 
 fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
 sourceTerraform="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceTerraformDeploy=$sourceTerraform/$deploy_path/$file_resource
 resource_declaration="$resource_api.$file_name"
-# deploy_id=$(echo $deploy_path |  sed 's/\//_/g')
 
 key_remote_state="$deploy_path/$file_resource/$file_name.tfstate"
 
