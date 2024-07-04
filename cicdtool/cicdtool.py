@@ -9,9 +9,9 @@ import subprocess
 def toolCommand(resource_action, deploy_action, CICD_ROOT_PATH, FRAMEWORK_PATH, frameworkFullPath, module_framework, main_config, resource_type, resource_api, deploy_path, file_resource, enviroment_definition, global_definition, iac_tool):
     scriptTool = ''
     if iac_tool == 'terragrunt':
-        scriptTool = '/cicdtool/script/terragrunt.sh'
+        scriptTool = '/terragrunt/script/terragrunt.sh'
     if iac_tool == 'bicep':
-        scriptTool = '/cicdtool/script/bicep.sh'
+        scriptTool = '/bicep/script/bicep.sh'
         
     
     execScript = "sh " + frameworkFullPath + scriptTool + ' ' + resource_action + ' ' + deploy_action + ' ' + CICD_ROOT_PATH + ' ' + FRAMEWORK_PATH + ' ' + module_framework + ' ' + main_config + ' ' + resource_type + ' ' + resource_api + ' ' + deploy_path + ' ' + file_resource + ' ' + enviroment_definition + ' ' + global_definition + ' ' + frameworkFullPath
