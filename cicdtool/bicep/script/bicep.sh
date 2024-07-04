@@ -32,8 +32,8 @@ echo "frameworkFullPath=$frameworkFullPath"
 
 
 
-source $frameworkFullPath/script/functions.sh
-source $frameworkFullPath/script/bicep_command.sh
+source $frameworkFullPath/bicep/script/functions.sh
+source $frameworkFullPath/bicep/script/bicep_command.sh
 
 workingDirectory="$CICD_ROOT_PATH/$deploy_path"
 
