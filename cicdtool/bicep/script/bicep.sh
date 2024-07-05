@@ -64,11 +64,12 @@ deployDirectory="$workingDirectory/$file_resource"
 mkdir -p "$sourceBicepDeploy"
 
 fileNameImplementation="$sourceBicepDeploy/implamentation_$file_name.bicep"
+fileBicepToHcl="$sourceBicepDeploy/param_$file_name.hcl"
 cp $sourceBicep/$file_name.bicep $fileNameImplementation 
 cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/main_$file_name.bicep"
 cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
+cp $deployDirectory/$file_name.bicep "$fileBicepToHcl"
 
-fileBicepToHcl="$sourceBicepDeploy/param_$file_name.hcl"
 
 sed -i "s|param hadley_definition_param|params|g" "$sourceBicepDeploy/param_$file_name.bicep"
 sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
