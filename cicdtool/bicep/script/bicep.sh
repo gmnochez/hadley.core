@@ -71,8 +71,8 @@ cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
 sed -i "s|param hadley_definition_param|params|g" "$sourceBicepDeploy/param_$file_name.bicep"
 extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 
-bar_escaped=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-bar_escaped=${bar_escaped%?}
+extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+extractedParameters=${extractedParameters%?}
 
 
 echo "$extractedParameters"
@@ -81,7 +81,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bice
 sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
 # sed -i "s|hadley_params|\"$extractedParameters\"|g" "$sourceBicepDeploy/main_$file_name.bicep"
-sed -i "s|hadley_params|$bar_escaped|g" "$sourceBicepDeploy/main_$file_name.bicep"
+sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
 
 cat "$sourceBicepDeploy/main_$file_name.bicep"
