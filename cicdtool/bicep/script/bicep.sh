@@ -70,6 +70,7 @@ cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
 
 sed -i "s|param hadley_definition_param|params|g" "$sourceBicepDeploy/param_$file_name.bicep"
 extractedParameters=$(more "$sourceBicepDeploy/param_$file_name.bicep")
+echo $sourceBicepDeploy/param_$file_name.bicep
 echo $extractedParameters
 
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
