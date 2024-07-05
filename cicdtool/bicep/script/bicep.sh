@@ -86,7 +86,7 @@ sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/mai
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
 
-cat "$sourceBicepDeploy/main_$file_name.bicep"
+cat "$fileBicepToHcl"
 
  
 # importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
