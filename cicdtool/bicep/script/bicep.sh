@@ -75,7 +75,6 @@ sed -i "s|param hadley_definition_param|params|g" "$sourceBicepDeploy/param_$fil
 sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
 sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
-cat $fileBicepToHcl
 
 extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 
@@ -90,7 +89,7 @@ sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_n
 cat "$fileBicepToHcl"
 
  
-# importSystemAzureVars $fullPathFileResource $fullPathEnviroment $fullPathGlobal
+importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 # az login \
 # --service-principal \

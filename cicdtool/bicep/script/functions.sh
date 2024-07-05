@@ -10,6 +10,9 @@ read_properties()
 
 # AZURE 
 
+  resource_group_name=$(cat $file | hclq get 'locals.resource_group_name' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
+  if [[ $resource_group_name != "" ]] ; then export RESOURCE_GROUP_NAME=$resource_group_name; fi
+
   subscription_id=$(cat $file | hclq get 'locals.subscription_id' | sed 's/ //g' | sed 's/\"\"//g' | sed 's/\[\]//g' | sed 's/^"\(.*\)"$/\1/' ) 
   if [[ $subscription_id != "" ]] ; then export ARM_SUBSCRIPTION_ID=$subscription_id; fi
 
