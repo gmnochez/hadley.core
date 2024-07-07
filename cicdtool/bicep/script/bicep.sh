@@ -1,4 +1,4 @@
-#!/bin/bash
+cccccccccc#!/bin/bash
 
 resource_action=$1
 deploy_action=$2
@@ -14,7 +14,6 @@ enviroment_definition=${11}
 global_definition=${12}
 frameworkFullPath=${13}
 
-echo "bicep.sh"
 
 echo "resource_action=$resource_action"
 echo "deploy_action=$deploy_action"
@@ -91,11 +90,11 @@ cat "$fileBicepToHcl"
  
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
-# az login \
-# --service-principal \
-# -t <Tenant-ID> \
-# -u <Client-ID> \
-# -p <Client-secret>
+az login \
+--service-principal \
+-t $ARM_TENANT_ID \
+-u $ARM_CLIENT_ID \
+-p $ARM_CLIENT_SECRET
 
 
 
