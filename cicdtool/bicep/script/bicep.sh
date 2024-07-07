@@ -83,17 +83,13 @@ extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
 extractedParameters=${extractedParameters%?}
 
-echo "$extractedParameters"
-tags=$(echo "$extractedParameters" | grep -oP 'tags(?:\s[^>]*)?>\K.*?(?=})')
-echo $tags
-
-
 
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
-cat "$sourceBicepDeploy/main_$file_name.bicep"
+tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | grep -oP 'tags(?:\s[^>]*)?>\K.*?(?=})')
+echo $tags
 
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
