@@ -66,6 +66,8 @@ deployDirectory="$workingDirectory/$file_resource"
 mkdir -p "$sourceBicepDeploy"
 
 fileNameImplementation="$sourceBicepDeploy/implementation_$file_name.bicep"
+relpathFileNameImplementation="$relpathSourceBicepDeploy/implementation_$file_name.bicep"
+
 fileBicepToHcl="$sourceBicepDeploy/param_$file_name.hcl"
 cp $sourceBicep/$file_name.bicep $fileNameImplementation 
 cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/main_$file_name.bicep"
@@ -88,7 +90,7 @@ echo $relpathSourceBicepDeploy
 
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
 # sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
-sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "./main_$file_name.bicep"
+sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
 
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
