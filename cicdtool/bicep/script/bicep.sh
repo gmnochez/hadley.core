@@ -83,7 +83,7 @@ extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
 extractedParameters=${extractedParameters%?}
 
-
+echo "$extractedParameters"
 tags=$(echo "$extractedParameters" | grep -oP 'tags(?:\s[^>]*)?>\K.*?(?=})')
 echo $tags
 
