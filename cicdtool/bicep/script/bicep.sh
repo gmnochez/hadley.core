@@ -70,7 +70,7 @@ cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
 cp $deployDirectory/$file_name.bicep "$fileBicepToHcl"
 
 
-sed -i "s|param hadley_definition_param|params|g" "$sourceBicepDeploy/param_$file_name.bicep"
+sed -i "s|param hadley_definition_param|params :|g" "$sourceBicepDeploy/param_$file_name.bicep"
 sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
 sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
