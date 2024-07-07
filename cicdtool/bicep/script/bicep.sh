@@ -51,7 +51,7 @@ export deployDirectory="$workingDirectory/$file_name"
 # fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
 sourceBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-relpathSourceBicep="./$FRAMEWORK_PATH/$module_framework/$resource_type"  
+relpathSourceBicep="/$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceMainBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/azurerm"  
 sourceBicepDeploy=$sourceBicep/$deploy_path/$file_resource
 relpathSourceBicepDeploy=$relpathSourceBicep/$deploy_path/$file_resource
