@@ -87,7 +87,12 @@ sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_n
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 
-echo $resource_type
+az login \
+    --only-show-errors \
+    --service-principal \
+    -t $ARM_TENANT_ID \
+    -u $ARM_CLIENT_ID \
+    -p $ARM_CLIENT_SECRET
 
 
 # az deployment group create \
@@ -110,12 +115,10 @@ echo $resource_type
 if [[ $deploy_action == "create" ]];then 
 
     if [[ $resource_action == "plan" ]];then
-        azure_cli_login
         bicep_plan $deployDirectory
     fi
 
     if [[ $resource_action == "apply" ]];then
-        azure_cli_login
         bicep_apply $deployDirectory
     fi
 fi
