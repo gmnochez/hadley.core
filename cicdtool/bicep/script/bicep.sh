@@ -51,10 +51,8 @@ export deployDirectory="$workingDirectory/$file_name"
 # fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
 sourceBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
-relpathSourceBicep="./$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceMainBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/azurerm"  
 sourceBicepDeploy=$sourceBicep/$deploy_path/$file_resource
-relpathSourceBicepDeploy=$relpathSourceBicep/$deploy_path/$file_resource
 
 resource_declaration="$resource_api.$file_name"
 
@@ -85,36 +83,26 @@ extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
 extractedParameters=${extractedParameters%?}
 
-echo $sourceBicepDeploy
-echo $relpathSourceBicepDeploy
+
+tags=$(echo $extractedParameters | sed -n '/tags/, /\}/p')
+echo $tags
+
+
 
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
-# sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
-
-
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
- 
+
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 
-az login \
-    --only-show-errors \
-    --output none \
-    --service-principal \
-    -t $ARM_TENANT_ID \
-    -u $ARM_CLIENT_ID \
-    -p $ARM_CLIENT_SECRET
-
-
-# az deployment group create \
-#   --resource-group testgroup \
-#   --subscription sub \
-#   --template-file <path-to-bicep> \
-
-# terraform plan	
-# az deployment group what-if
-# New-AzResourceGroupDeployment -Whatif
+# az login \
+#     --only-show-errors \
+#     --output none \
+#     --service-principal \
+#     -t $ARM_TENANT_ID \
+#     -u $ARM_CLIENT_ID \
+#     -p $ARM_CLIENT_SECRET
 
  
 # terraform apply
@@ -124,18 +112,17 @@ az login \
 
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
-pwd
 
-if [[ $deploy_action == "create" ]];then 
+# if [[ $deploy_action == "create" ]];then 
 
-    if [[ $resource_action == "plan" ]];then
-        bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
-    fi
+#     if [[ $resource_action == "plan" ]];then
+#         bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
+#     fi
 
-    if [[ $resource_action == "apply" ]];then
-        bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
-    fi
-fi
+#     if [[ $resource_action == "apply" ]];then
+#         bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
+#     fi
+# fi
 
 
 
