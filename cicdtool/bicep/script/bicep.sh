@@ -86,7 +86,7 @@ extractedParameters=${extractedParameters%?}
 
 # tags=$(grep -oP '(?<=tags*:*{).*?(?=})' <<< "$extractedParameters")
 
-grep -oP 'tags\K.*?(?=})' <<< "$extractedParameters"
+grep -oP 'tags(?:\s[^>]*)?>\K.*?(?=})' <<< "$extractedParameters"
 
 
 
