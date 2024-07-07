@@ -51,8 +51,11 @@ export deployDirectory="$workingDirectory/$file_name"
 # fullPathConfigFile="$workingDirectory/$file_resource/terragrunt.hcl"
 
 sourceBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/$resource_type"  
+relpathSourceBicep="./$FRAMEWORK_PATH/$module_framework/$resource_type"  
 sourceMainBicep="$CICD_ROOT_PATH/$FRAMEWORK_PATH/$module_framework/azurerm"  
 sourceBicepDeploy=$sourceBicep/$deploy_path/$file_resource
+relpathSourceBicepDeploy=$relpathSourceBicep/$deploy_path/$file_resource
+
 resource_declaration="$resource_api.$file_name"
 
 
@@ -80,8 +83,14 @@ extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
 extractedParameters=${extractedParameters%?}
 
+echo $sourceBicepDeploy
+echo $relpathSourceBicepDeploy
+
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
+# sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
+
+
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
  
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
