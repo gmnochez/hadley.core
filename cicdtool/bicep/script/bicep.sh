@@ -62,7 +62,7 @@ deployDirectory="$workingDirectory/$file_resource"
 
 mkdir -p "$sourceBicepDeploy"
 
-fileNameImplementation="$sourceBicepDeploy/implamentation_$file_name.bicep"
+fileNameImplementation="$sourceBicepDeploy/implementation_$file_name.bicep"
 fileBicepToHcl="$sourceBicepDeploy/param_$file_name.hcl"
 cp $sourceBicep/$file_name.bicep $fileNameImplementation 
 cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/main_$file_name.bicep"
