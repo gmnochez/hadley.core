@@ -1,4 +1,4 @@
-cccccccccc#!/bin/bash
+#!/bin/bash
 
 resource_action=$1
 deploy_action=$2
@@ -83,19 +83,11 @@ extractedParameters=${extractedParameters%?}
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
-
-
-cat "$fileBicepToHcl"
-
  
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
-az login \
---service-principal \
--t $ARM_TENANT_ID \
--u $ARM_CLIENT_ID \
--p $ARM_CLIENT_SECRET
 
+echo $resource_type
 
 
 # az deployment group create \
@@ -115,39 +107,18 @@ az login \
 
 
 
+if [[ $deploy_action == "create" ]];then 
 
+    if [[ $resource_action == "plan" ]];then
+        # azure_cli_login
+        bicep_plan $deployDirectory
+    fi
 
-
-
-# if [[ $deploy_action == "import" ]];then
-#     terragrunt_import $deployDirectory $resource_declaration $fullPathFileResource
-# fi
-
-# if [[ $deploy_action == "create" ]];then 
-    
-#     if [[ $resource_action == "reconfigure" ]];then
-#         terragrunt_reconfigure $deployDirectory
-#     fi
-
-#     terragrunt_validate $deployDirectory
-
-#     if [[ $resource_action == "plan" ]];then
-#         terragrunt_plan $deployDirectory
-#     fi
-
-#     if [[ $resource_action == "apply" ]];then
-#         terragrunt_apply $deployDirectory
-#     fi
-
-#     if [[ $resource_action == "destroy" ]];then
-#         terragrunt_destroy $deployDirectory $resource_declaration
-#     fi    
-
-#     if [[ $resource_action == "destroy_plan" ]];then
-#         terragrunt_destroy_plan $deployDirectory $resource_declaration
-#     fi  
-
-# fi
+    if [[ $resource_action == "apply" ]];then
+        # azure_cli_login
+        bicep_apply $deployDirectory
+    fi
+fi
 
 
 
