@@ -111,7 +111,7 @@ az login \
 # New-AzResourceGroupDeployment -Confirm
 
 
-
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 if [[ $deploy_action == "create" ]];then 
 
