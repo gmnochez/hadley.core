@@ -89,7 +89,7 @@ importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 az login \
     --only-show-errors \
-    --output none 
+    --output none \
     --service-principal \
     -t $ARM_TENANT_ID \
     -u $ARM_CLIENT_ID \
