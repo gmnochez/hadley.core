@@ -110,12 +110,12 @@ echo $resource_type
 if [[ $deploy_action == "create" ]];then 
 
     if [[ $resource_action == "plan" ]];then
-        # azure_cli_login
+        azure_cli_login
         bicep_plan $deployDirectory
     fi
 
     if [[ $resource_action == "apply" ]];then
-        # azure_cli_login
+        azure_cli_login
         bicep_apply $deployDirectory
     fi
 fi
