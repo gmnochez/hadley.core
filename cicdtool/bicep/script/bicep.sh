@@ -88,7 +88,7 @@ echo $relpathSourceBicepDeploy
 
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
 # sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
-sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "$relpathSourceBicepDeploy/main_$file_name.bicep"
+sed -i "s|hadley_source_bicep|$fileNameImplementation|g" "./main_$file_name.bicep"
 
 
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
