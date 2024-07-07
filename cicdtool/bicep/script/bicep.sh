@@ -151,11 +151,6 @@ az login \
 
 
 
-# sed -i "s|$sourceTerraformDeploy|hadley_source_terraform|g" $fullPathConfigFile
-# sed -i "s|$fullPathMainConfig|hadley_main_config_terragrunt|g" $fullPathConfigFile
-# sed -i "s|$fullPathEnviroment|enviroment.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathGlobal|global.hcl|g" $fullPathMainConfig
-# sed -i "s|$fullPathFileResource|resource.hcl|g" $fullPathMainConfig
-# sed -i "s|$key_remote_state|key_remote_state|g" $fullPathMainConfig
 
-# rm -rf "$sourceTerraformDeploy"
+
+rm -rf "$sourceTerraformDeploy"
