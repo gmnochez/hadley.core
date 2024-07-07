@@ -84,7 +84,7 @@ extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;
 extractedParameters=${extractedParameters%?}
 
 
-tags=$(echo $extractedParameters | sed -n '/tags/, /\}/p')
+tags=$(echo $extractedParameters | grep -oP '(?<=tags*:*{).*?(?=})')
 echo $tags
 
 
