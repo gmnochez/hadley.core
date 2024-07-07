@@ -116,11 +116,11 @@ az login \
 if [[ $deploy_action == "create" ]];then 
 
     if [[ $resource_action == "plan" ]];then
-        bicep_plan $deployDirectory
+        bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
     fi
 
     if [[ $resource_action == "apply" ]];then
-        bicep_apply $deployDirectory
+        bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
     fi
 fi
 

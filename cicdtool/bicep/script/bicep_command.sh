@@ -3,14 +3,24 @@
 bicep_plan()
 {
 
-    workingDirectory=$1
+    templateFile=$1
+
+    az deployment group what-if \
+        --resource-group $RESOURCE_GROUP_NAME \
+        --subscription $ARM_SUBSCRIPTION_ID \
+        --template-file $templateFile 
 
 }
 
 bicep_apply()
 {
 
-    workingDirectory=$1
+    templateFile=$1
+
+    az deployment group create \
+        --resource-group $RESOURCE_GROUP_NAME \
+        --subscription $ARM_SUBSCRIPTION_ID \
+        --template-file $templateFile 
 
 }
 
