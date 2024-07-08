@@ -94,13 +94,15 @@ tags=$(echo "$tags" | sed "s|:|=|g")
 tags=$(echo "$tags" | sed "s|'|\"|g")
 tags=$(echo "$tags" | sed "s|{|[|g")
 tags=$(echo "$tags" | sed "s|}|]|g")
+tags=$(echo "$tags" | sed -r '/^\s*$/d')
+
 
 echo "$tags" > temp.txt
 
 cat temp.txt | while read line || [[ -n $line ]];
 do
    
-    if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
+    if [[ -n "$line" ]] && [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
         newLine="{\n key = "\"$key\""\n value = "$value" \n },\n"
