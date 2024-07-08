@@ -105,12 +105,12 @@ do
     if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
-        newLine="{\n key = "\"$key\""\n value = "$value" \n },"
+        newLine="{\n key = "\"$key\""\n value = "$value" \n }"
         sed -i "s|$line|$newLine|g"  "./temp.txt"     
     fi
     if [[ $line == *"]"* ]] ; then 
-        line1="},\n^]"
-        line2="}\n]"
+        line1="}\n{"
+        line2="},\n{"
         echo "$line"
         sed -i "s|$line1|$line2|g"  "./temp.txt"
     fi
