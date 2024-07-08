@@ -101,9 +101,10 @@ cat temp.txt | while read line || [[ -n $line ]];
 do
    
     if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
-        echo "not found"; 
-    else 
-        echo "found"; 
+        echo "not found";
+        key=$(echo $line |awk -F '=' '{print $1}')
+        value=$(echo $line |awk -F '=' '{print $2}')
+        echo "$key   $value" 
     fi
    echo "$line"
 done
