@@ -102,7 +102,7 @@ echo "$tags" > temp.txt
 cat temp.txt | while read line || [[ -n $line ]];
 do
    
-    if [[ -n "$line" ]] && [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
+    if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
         newLine="{\n key = "\"$key\""\n value = "$value" \n },\n"
