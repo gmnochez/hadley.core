@@ -90,7 +90,7 @@ sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_n
 
 tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p')
 
-tags=$(echo "$tags" | sed "s|:|= |g")
+tags=$(echo "$tags" | sed "s|:|=|g")
 tags=$(echo "$tags" | sed "s|'|\"|g")
 tags=$(echo "$tags" | sed "s|{|[|g")
 tags=$(echo "$tags" | sed "s|}|]|g")
@@ -100,7 +100,7 @@ echo "$tags" > temp.txt
 cat temp.txt | while read line || [[ -n $line ]];
 do
    
-    if [[ $line != *"["* ]]  ||  [[ $line != *"]"* ]] ; then 
+    if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         echo "not found"; 
     else 
         echo "found"; 
