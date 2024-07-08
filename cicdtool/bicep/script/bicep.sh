@@ -95,11 +95,11 @@ tags=$(echo "$tags" | sed "s|'|\"|g")
 tags=$(echo "$tags" | sed "s|{|[|g")
 tags=$(echo "$tags" | sed "s|}|]|g")
 
-echo $tags > temp.txt
+echo "$tags" > temp.txt
 
 cat temp.txt | while read line || [[ -n $line ]];
 do
-   echo $line
+   echo "$line"
 done
 
 rm temp.txt
