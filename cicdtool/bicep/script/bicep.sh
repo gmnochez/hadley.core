@@ -89,15 +89,20 @@ sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDep
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
 tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p')
-echo "$tags"
 
-tags=$(echo "$tags" | sed "s|:|=|g")
+tags=$(echo "$tags" | sed "s|:|= |g")
 tags=$(echo "$tags" | sed "s|'|\"|g")
 tags=$(echo "$tags" | sed "s|{|[|g")
 tags=$(echo "$tags" | sed "s|}|]|g")
 
-echo "$tags"
+echo $tags > temp.txt
 
+cat temp.txt | while read line || [[ -n $line ]];
+do
+   echo $line
+done
+
+rm temp.txt
 
 
 # tags : {
