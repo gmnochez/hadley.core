@@ -109,7 +109,7 @@ do
         sed -i "s|$line|$newLine|g"  "./temp.txt"     
     fi
     if [[ $line == *"]"* ]] ; then 
-        line1="},\n]"
+        line1="*},\n*]*"
         line2="}\n]"
         echo "$line"
         sed -i "s|$line1|$line2|g"  "./temp.txt"
