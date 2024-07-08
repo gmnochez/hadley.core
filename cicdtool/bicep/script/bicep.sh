@@ -101,13 +101,14 @@ cat temp.txt | while read line || [[ -n $line ]];
 do
    
     if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
-        echo "not found";
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
-        echo "$key   $value" 
+        sed -i "s|"$line"|{\n key = '"$key"'\n value = "$value" \n },|g"  temp.txt      
     fi
-   echo "$line"
+  
 done
+
+cat temp.txt
 
 rm temp.txt
 
