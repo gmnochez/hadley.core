@@ -88,7 +88,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bice
 sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
-tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p'
+tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p')
 echo $tags
 
 
