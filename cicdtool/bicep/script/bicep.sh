@@ -99,6 +99,11 @@ echo "$tags" > temp.txt
 
 cat temp.txt | while read line || [[ -n $line ]];
 do
+    if [[ echo "$line" | grep -q "["  || echo "$line" | grep -q "]" ]]; then 
+        echo "found"; 
+    else 
+        echo "not found"; 
+    fi
    echo "$line"
 done
 
