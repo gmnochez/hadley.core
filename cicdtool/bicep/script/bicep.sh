@@ -91,10 +91,10 @@ sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_n
 tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p')
 echo "$tags"
 
-tags=$(echo "$tags" | sed -n "/\:/\=/p")
-tags=$(echo "$tags" | sed -n "/\'/\"/p")
-tags=$(echo "$tags" | sed -n "/\{/\[/p")
-tags=$(echo "$tags" | sed -n "/\}/\]/p")
+tags=$(echo "$tags" | sed -n '/:/=/p')
+tags=$(echo "$tags" | sed -n '/'/"/p')
+tags=$(echo "$tags" | sed -n '/{/[/p')
+tags=$(echo "$tags" | sed -n '/}/]/p')
 
 echo "$tags"
 
