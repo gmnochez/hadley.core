@@ -90,7 +90,7 @@ sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_n
 
 tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | grep -oP 'tags(?:\s[^>]*)?>\K.*?(?=})')
 echo $tags
-
+echo "$sourceBicepDeploy/main_$file_name.bicep"
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
