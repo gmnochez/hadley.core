@@ -108,7 +108,7 @@ do
         newLine="{\n key = "\"$key\""\n value = "$value" \n },"
         sed -i "s|$line|$newLine|g"  "./temp.txt"     
     fi
-    if [[ $line != *"]"* ]] ; then 
+    if [[ $line == *"]"* ]] ; then 
         sed -i "s|"},\n]"|"}\n"]|g"  "./temp.txt"
     fi
     
