@@ -104,7 +104,7 @@ do
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
         newLine="{\n key = "$key"\n value = "$value" \n },\n"
-        sed -i "s|$line|"$newLine"|g"  "./temp.txt"     
+        sed -i "s|$line|$newLine|g"  "./temp.txt"     
     fi
   
 done
