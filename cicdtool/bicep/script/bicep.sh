@@ -100,7 +100,7 @@ echo "$tags" > temp.txt
 cat temp.txt | while read line || [[ -n $line ]];
 do
    
-    if [ $line == *"\["* ]  ||  [ $line == *"\]"* ] ; then 
+    if [[ $line == *"["* ]]  ||  [[ $line == *"]"* ]] ; then 
         echo "found"; 
     else 
         echo "not found"; 
