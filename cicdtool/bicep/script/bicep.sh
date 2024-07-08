@@ -99,8 +99,8 @@ echo "$tags" > temp.txt
 
 cat temp.txt | while read line || [[ -n $line ]];
 do
-    line1=$(echo "$line" | grep -q "[")
-    line2=$(echo "$line" | grep -q "]")
+    line1=$(echo "$line" | grep -q '[')
+    line2=$(echo "$line" | grep -q ']')
     if [[ $line1 || $line2 ]]; then 
         echo "found"; 
     else 
