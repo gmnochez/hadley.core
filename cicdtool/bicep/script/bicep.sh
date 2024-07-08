@@ -89,7 +89,7 @@ sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDep
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
 tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p')
-echo $tags
+echo "$tags"
 
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
