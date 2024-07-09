@@ -120,7 +120,7 @@ do
 done
 
 cat temp.txt
-# rm temp.txt
+rm temp.txt
 
 
 # tags : {
