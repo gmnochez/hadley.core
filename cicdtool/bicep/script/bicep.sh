@@ -109,17 +109,11 @@ do
         sed -i "s|$line|$newLine|g"  "./temp.txt"     
     fi
     if [[ $line == *"]"* ]] ; then 
-        
-        line1=$(cat "./temp.txt" | sed -n '/},\n]/,/}\n]/p')
-        echo "$line1"
-        line2="}\n]"
-        
-        sed -i "s|$line1|$line2|g"  "./temp.txt"
-        
-
-
+        sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
-    
+    oldLine1=$(echo "$newLine" | sed "s|,| |g")
+    oldLine2=$newLine
+     
 done
 
 cat temp.txt
