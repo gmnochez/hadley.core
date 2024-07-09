@@ -60,8 +60,9 @@ importSystemAzureVars()
 transformFileBicepToHcl()
 {
     file=$1
-
-    tags=$(cat "$file" | sed -n '/tags/,/}/p')
+    arrayProperty=$2
+    
+    tags=$(cat "$file" | sed -n '/$arrayProperty/,/}/p')
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
