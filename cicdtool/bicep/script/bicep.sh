@@ -114,7 +114,7 @@ do
         echo "$oldLine2"
         sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
-    oldLine1=$(echo "$newLine" | sed -e 's/,/ /g')
+    oldLine1=$(echo "$newLine" | sed -e 'y/,/ /')
     oldLine2=$newLine
     
      
