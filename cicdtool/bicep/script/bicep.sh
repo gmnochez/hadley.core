@@ -108,11 +108,11 @@ do
     newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
     newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
         
-    # if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-    #     sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-    # else if [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-    #     sed -i "s|$line|$newLine2|g"  "./temp.txt"
-    # fi
+    if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
+        sed -i "s|$line|$newLine1|g"  "./temp.txt"     
+    elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
+        sed -i "s|$line|$newLine2|g"  "./temp.txt"
+    fi
 
      
 done
