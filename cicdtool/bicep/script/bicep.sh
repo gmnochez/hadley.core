@@ -104,8 +104,8 @@ do
    
     key=$(echo $line |awk -F '=' '{print $1}')
     value=$(echo $line |awk -F '=' '{print $2}')
-    newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-    newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
+    newLine1=$(echo "{\n key = "\"$key\""\n value = "$value" \n },")
+    newLine2=$(echo "{\n key = "\"$key\""\n value = "$value" \n }")
         
     if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         sed -i "s|$line|$newLine1|g"  "./temp.txt"     
