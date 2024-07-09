@@ -117,8 +117,8 @@ do
         echo "$oldLine2"
         sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
-    oldLine1=$newLine1
-    oldLine2=$newLine2
+    oldLine1=$(echo "$newLine1")
+    oldLine2=$(echo "$newLine2")
     
      
 done
