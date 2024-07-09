@@ -110,10 +110,13 @@ do
     fi
     if [[ $line == *"]"* ]] ; then 
         
-        line1=",\n]"
-        line2="\n]"
+        line1=$(cat "./temp.txt" | sed -n '/},/,/]/p')
+        line2="}\n]"
         
         sed -i "s|$line1|$line2|g"  "./temp.txt"
+        
+
+
     fi
     
 done
