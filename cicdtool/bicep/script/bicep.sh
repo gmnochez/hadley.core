@@ -99,7 +99,6 @@ tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
 echo "$tags" > temp.txt
 numLineas=$(cat temp.txt | wc -l)
-numkeys=$(($numLineas-2)) 
 count=0
 cat temp.txt | while read line || [[ -n $line ]];
 do
@@ -109,9 +108,9 @@ do
     newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
     newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
         
-    if [[ $count > 1 ]]  &&  [[ $count < $(($numkeys-1)) ]] ; then 
+    if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
         sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-    else if [[ $count > 1 ]]  &&  [[ $count < $numkeys ]]  ; then 
+    else if [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
         sed -i "s|$line|$newLine2|g"  "./temp.txt"
     fi
 
