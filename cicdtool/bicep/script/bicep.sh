@@ -100,11 +100,11 @@ tags=$(echo "$tags" | sed -r '/^\s*$/d')
 echo "$tags" > temp.txt
 numLineas=$(cat temp.txt | wc -l)
 numkeys=$(($numLineas-2)) 
-echo $numkeys
 count=0
 cat temp.txt | while read line || [[ -n $line ]];
 do
     count=$(($count+1))
+    echo $count
     key=$(echo $line |awk -F '=' '{print $1}')
     value=$(echo $line |awk -F '=' '{print $2}')
     newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
