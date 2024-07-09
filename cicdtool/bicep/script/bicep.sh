@@ -107,17 +107,14 @@ do
     newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
     newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
         
-
-    if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
+    if [[ $line == *"]"* ]] ; then 
+        sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
+    else if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         sed -i "s|$line|$newLine1|g"  "./temp.txt"     
     fi
 
-    if [[ $line == *"]"* ]] ; then 
-
-        sed -i "s|$line|$newLine1|g"  "./temp.txt"
-    fi
-    oldLine2=$line
-    
+    oldLine1=$newLine1
+    oldLine2=$newLine2
      
 done
 
