@@ -99,7 +99,7 @@ tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
 echo "$tags" > temp.txt
 
-cat temp.txt | while read line;
+cat temp.txt | while read line || [[ -n $line ]];
 do
    
     key=$(echo $line |awk -F '=' '{print $1}')
@@ -113,12 +113,10 @@ do
     fi
 
     if [[ $line == *"]"* ]] ; then 
-        echo $oldLine1
-        echo $oldLine2
-        sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
+
+        sed -i "s|$line|$newLine1|g"  "./temp.txt"
     fi
-    oldLine1=$(echo "$newLine1")
-    oldLine2=$(echo "$newLine2")
+    oldLine2=$line
     
      
 done
