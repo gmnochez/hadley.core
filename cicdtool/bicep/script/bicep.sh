@@ -110,8 +110,8 @@ do
     fi
     if [[ $line == *"]"* ]] ; then 
         
-        line1="}\,\n]"
-        line2="}\n]"
+        line1=",\n]"
+        line2="\n]"
         
         sed -i "s|$line1|$line2|g"  "./temp.txt"
     fi
