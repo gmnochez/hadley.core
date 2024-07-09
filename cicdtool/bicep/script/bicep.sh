@@ -120,8 +120,7 @@ do
 done
 
 cat temp.txt
-cp temp.txt /data/infrastructure_deploy
-rm temp.txt
+# rm temp.txt
 
 
 # tags : {
