@@ -99,7 +99,7 @@ tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
 echo "$tags" > temp.txt
 
-cat temp.txt | while read line || [[ -n $line ]];
+cat temp.txt | while read line;
 do
    
     key=$(echo $line |awk -F '=' '{print $1}')
