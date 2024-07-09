@@ -110,7 +110,7 @@ do
     fi
     if [[ $line == *"]"* ]] ; then 
         
-        line1=$(cat "./temp.txt" | sed -n '/}/\n/{/p')
+        line1=$(cat "./temp.txt" | sed -n '/}/,/{/g')
         echo "$line1"
         line2="},\n{"
         echo "$line"
