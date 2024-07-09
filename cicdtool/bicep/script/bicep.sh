@@ -98,14 +98,16 @@ tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
 
 echo "$tags" > temp.txt
-
+numLineas=$(wc -l temp.txt)
+numkeys=$numLineas-2 
+echo $numkeys
 cat temp.txt | while read line || [[ -n $line ]];
 do
    
     key=$(echo $line |awk -F '=' '{print $1}')
     value=$(echo $line |awk -F '=' '{print $2}')
-    newLine1=$(echo "{\n key = "\"$key\""\n value = "$value" \n },")
-    newLine2=$(echo "{\n key = "\"$key\""\n value = "$value" \n }")
+    newLine1=echo "{\n key = "\"$key\""\n value = "$value" \n },"
+    newLine2=echo "{\n key = "\"$key\""\n value = "$value" \n }"
         
     if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
         sed -i "s|$line|$newLine1|g"  "./temp.txt"     
@@ -115,9 +117,6 @@ do
         sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
 
-
-    oldLine1=$newLine1
-    oldLine2=$newLine2
      
 done
 
