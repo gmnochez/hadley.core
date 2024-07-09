@@ -88,54 +88,7 @@ sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bice
 sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
 
-tags=$(cat "$sourceBicepDeploy/main_$file_name.bicep" | sed -n '/tags/,/}/p')
-
-tags=$(echo "$tags" | sed "s|:|=|g")
-tags=$(echo "$tags" | sed "s|'|\"|g")
-tags=$(echo "$tags" | sed "s|{|[|g")
-tags=$(echo "$tags" | sed "s|}|]|g")
-tags=$(echo "$tags" | sed -r '/^\s*$/d')
-
-
-echo "$tags" > temp.txt
-numLineas=$(cat temp.txt | wc -l)
-count=0
-cat temp.txt | while read line || [[ -n $line ]];
-do
-    count=$(($count+1))
-    key=$(echo $line |awk -F '=' '{print $1}')
-    value=$(echo $line |awk -F '=' '{print $2}')
-    newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-    newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
-        
-    if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-        sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-    elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-        sed -i "s|$line|$newLine2|g"  "./temp.txt"
-    fi
-
-     
-done
-
-cat temp.txt
-# rm temp.txt
-
-
-# tags : {
-#     enviroment: 'daily'
-#     company: 'ktc'
-# }
-
-#  tags = [ 
-#            {
-#              key = "enviroment" 
-#              value = "daily"
-#            },
-#            { 
-#              key = "company" 
-#              value = "ktc"
-#            }
-#          ]
+transformFileBicepToHcl "$sourceBicepDeploy/main_$file_name.bicep"
 
 
 
