@@ -101,20 +101,19 @@ echo "$tags" > temp.txt
 numLineas=$(cat temp.txt | wc -l)
 numkeys=$(($numLineas-2)) 
 echo $numkeys
+count=0
 cat temp.txt | while read line || [[ -n $line ]];
 do
-   
+    count=$(($count+1))
     key=$(echo $line |awk -F '=' '{print $1}')
     value=$(echo $line |awk -F '=' '{print $2}')
-    newLine1=echo "{\n key = "\"$key\""\n value = "$value" \n },"
-    newLine2=echo "{\n key = "\"$key\""\n value = "$value" \n }"
+    newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
+    newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
         
-    if [[ $line != *"["* ]]  &&  [[ $line != *"]"* ]] ; then 
+    if [[ $count > 1 ]]  &&  [[ $count < $(($numkeys-1)) ]] ; then 
         sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-    fi
-
-    if [[ $line == *"]"* ]] ; then 
-        sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
+    else if [[ $count > 1 ]]  &&  [[ $count < $numkeys ]]  ; then 
+        sed -i "s|$line|$newLine2|g"  "./temp.txt"
     fi
 
      
