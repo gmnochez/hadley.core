@@ -99,7 +99,7 @@ tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
 echo "$tags" > temp.txt
 numLineas=$(cat temp.txt | wc -l)
-numkeys=$numLineas-2 
+numkeys=$(($numLineas-2)) 
 echo $numkeys
 cat temp.txt | while read line || [[ -n $line ]];
 do
