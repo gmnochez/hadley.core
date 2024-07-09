@@ -110,8 +110,8 @@ do
     fi
 
     if [[ $line == *"]"* ]] ; then 
-        echo $oldLine1
-        echo $oldLine2
+        echo "$oldLine1"
+        echo "$oldLine2"
         sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
     oldLine1="$(echo "$newLine" | sed "s|},|}|g")"
