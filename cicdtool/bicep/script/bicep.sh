@@ -108,13 +108,15 @@ do
         newLine="{\n key = "\"$key\""\n value = "$value" \n },"
         sed -i "s|$line|$newLine|g"  "./temp.txt"     
     fi
+
     if [[ $line == *"]"* ]] ; then 
+        echo $oldLine1
+        echo $oldLine2
         sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
-    oldLine1=$(echo "$newLine" | sed "s|,| |g")
-    echo $oldLine1
-    oldLine2=$newLine
-    echo $oldLine2
+    oldLine1="$(echo "$newLine" | sed "s|,| |g")"
+    oldLine2="$newLine"
+    
      
 done
 
