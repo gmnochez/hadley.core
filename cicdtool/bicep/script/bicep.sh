@@ -112,7 +112,9 @@ do
         sed -i "s|$oldLine1|$oldLine2|g"  "./temp.txt"
     fi
     oldLine1=$(echo "$newLine" | sed "s|,| |g")
+    echo $oldLine1
     oldLine2=$newLine
+    echo $oldLine2
      
 done
 
