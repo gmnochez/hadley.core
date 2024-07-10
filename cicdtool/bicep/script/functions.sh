@@ -73,7 +73,7 @@ transformFileBicepToHcl()
     tags=$(echo "$tags" | sed "s|{|[|g")
     tags=$(echo "$tags" | sed "s|}|]|g")
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
-
+    echo "$tags"
 
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
