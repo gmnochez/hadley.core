@@ -68,14 +68,13 @@ transformFileBicepToHcl()
     tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p")
     
     sed -i "s|$tags2|tags_param|g"  "$fileHcl"
-    echo "$fileHcl"
+    cat "$fileHcl"
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
     tags=$(echo "$tags" | sed "s|{|[|g")
     tags=$(echo "$tags" | sed "s|}|]|g")
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
-    echo "$tags"
 
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
