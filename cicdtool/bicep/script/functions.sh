@@ -127,7 +127,7 @@ transformFileHclToBicep()
     tags=$(echo "$tags" | sed "s|{|[|g")
     tags=$(echo "$tags" | sed "s|}|]|g")
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
-    tags=$(echo "$tags" | sed -r '/\/\/\s*$/d')
+    tags=$(echo "$tags" | sed 's|\s*//[^/]*$||')
     tags=$(echo "$tags" | sed -r '/#\s*$/d')
 
     echo "$tags" > temp.txt
