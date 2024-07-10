@@ -61,7 +61,7 @@ transformFileBicepToHcl()
 {
     file=$1
     arrayProperty=$2
-    sed '/\/\//d' $file
+    sed -i '/\/\//d' $file
     tags=$(cat "$file" | sed -n "/$arrayProperty/,/}/p")
 
     tags=$(echo "$tags" | sed "s|:|=|g")
