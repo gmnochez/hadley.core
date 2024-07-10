@@ -75,14 +75,7 @@ cp $deployDirectory/$file_name.bicep "$fileBicepToHcl"
 
 sed -i "s|param hadley_definition_param|params :|g" "$sourceBicepDeploy/param_$file_name.bicep"
 
-transformFileBicepToHcl "$sourceBicepDeploy/main_$file_name.bicep" "$fileBicepToHcl"  "tags"
-
-sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
-sed -i "s|:|=|g" "$fileBicepToHcl"
-sed -i "s|'|\"|g" "$fileBicepToHcl"
-
 extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
-
 extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
 extractedParameters=${extractedParameters%?}
 
@@ -90,6 +83,12 @@ extractedParameters=${extractedParameters%?}
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
+
+transformFileBicepToHcl "$sourceBicepDeploy/main_$file_name.bicep" "$fileBicepToHcl"  "tags"
+sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
+sed -i "s|:|=|g" "$fileBicepToHcl"
+sed -i "s|'|\"|g" "$fileBicepToHcl"
+
 
 
 
