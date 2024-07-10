@@ -65,9 +65,11 @@ transformFileBicepToHcl()
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
-    tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p" | sed "s|\n||g")
+    tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p")
    
-    echo "$tags2"
+    sed -i ':a;N;$!ba;s/$tags2/tags_param/' "$fileHcl"
+
+    cat "$fileHcl"
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
