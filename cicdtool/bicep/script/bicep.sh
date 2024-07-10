@@ -90,7 +90,7 @@ sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_n
 
 transformFileBicepToHcl "$sourceBicepDeploy/main_$file_name.bicep" "tags"
 
-
+# transformFileHclToBicep "$sourceBicepDeploy/main_$file_name.bicep" "tags"
 
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
