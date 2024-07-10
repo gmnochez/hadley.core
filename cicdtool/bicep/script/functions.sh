@@ -93,6 +93,7 @@ transformFileBicepToHcl()
         
     done
 
+    cat "./temp.txt"
     tags1=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/}/p")
     tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p")
 
