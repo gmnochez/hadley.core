@@ -121,13 +121,14 @@ transformFileHclToBicep()
     arrayProperty=$2
 
     tags=$(cat "$file" | sed -n "/$arrayProperty/,/}/p")
+    echo "$tags"
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
     tags=$(echo "$tags" | sed "s|{|[|g")
     tags=$(echo "$tags" | sed "s|}|]|g")
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
-    # tags=$(echo "$tags" | sed -r '/\/\//d')
+    tags=$(echo "$tags" | sed -r '/\/\//d')
 
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
