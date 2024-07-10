@@ -59,8 +59,8 @@ importSystemAzureVars()
 
 transformFileBicepToHcl()
 {
-    fileHcl=$1
-    fileBicep=$2
+    fileBicep=$1
+    fileHcl=$2
     arrayProperty=$3
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
