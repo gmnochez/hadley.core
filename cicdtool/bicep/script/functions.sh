@@ -67,7 +67,13 @@ transformFileBicepToHcl()
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
     tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p")
     
-    sed -i "s|$tags2|tags_param|g"  "$fileHcl"
+    python - << EOF
+      myPyString = "Do something on python"
+      print myPyString
+
+    EOF
+
+
     cat "$fileHcl"
 
     tags=$(echo "$tags" | sed "s|:|=|g")
