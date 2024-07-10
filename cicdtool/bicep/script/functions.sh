@@ -59,11 +59,12 @@ importSystemAzureVars()
 
 transformFileBicepToHcl()
 {
-    file=$1
-    arrayProperty=$2
-    sed -i 's|//[^/]*$||' $file
-    sed -i 's|#[^/]*$||' $file
-    tags=$(cat "$file" | sed -n "/$arrayProperty/,/}/p")
+    fileHcl=$1
+    fileBicep=$2
+    arrayProperty=$3
+    sed -i 's|//[^/]*$||' $fileBicep
+    sed -i 's|#[^/]*$||' $fileBicep
+    tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
@@ -92,7 +93,12 @@ transformFileBicepToHcl()
         
     done
 
-    cat temp.txt
+    tags1=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/}/p")
+    tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p")
+
+    sed -i "s|$tags1|$tags2|g"  "$fileHcl"
+
+    cat "$fileHcl"
     rm temp.txt
 
 
