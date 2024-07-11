@@ -101,9 +101,11 @@ transformFileBicepToHcl()
         
     done
 
-    tags3=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
-    echo "$tags3"
-    sed -i "s|hadley_property|echo $tags3|g"  "$fileHcl"
+    extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
+    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    extractedParameters=${extractedParameters%?}
+
+    sed -i "s|hadley_property|echo $extractedParameters|g"  "$fileHcl"
 
     cat "$fileHcl"
     rm temp.txt
