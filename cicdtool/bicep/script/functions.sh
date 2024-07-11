@@ -69,10 +69,8 @@ transformFileBicepToHcl()
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
 
     if [[ -z  $tags ]] ; then
-      echo "hola"
+      return
     fi 
-
-
 
     sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileHcl"
 
