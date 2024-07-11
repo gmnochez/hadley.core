@@ -57,7 +57,7 @@ importSystemAzureVars()
 
 
 
-transformFileBicepToHcl()
+transformPropertyBicepToHcl()
 {
     fileBicep=$1
     fileHcl=$2
@@ -76,8 +76,6 @@ transformFileBicepToHcl()
 
     sed -i "/$arrayProperty/,/}/d" "$fileHcl"
     
-
-    cat "$fileHcl"
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
@@ -110,8 +108,6 @@ transformFileBicepToHcl()
     extractedParameters=${extractedParameters%?}
 
     sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
-
-    cat "$fileHcl"
     rm temp.txt
 
 
