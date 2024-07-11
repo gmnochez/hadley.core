@@ -89,7 +89,7 @@ sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
 sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
 
-echo $existProperty
+echo "$existProperty"
 
 
 
