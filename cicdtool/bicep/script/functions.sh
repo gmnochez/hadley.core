@@ -103,7 +103,7 @@ transformFileBicepToHcl()
 
     tags3=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
     echo "$tags3"
-    sed -i "s|hadley_property|$tags3|g"  "$fileHcl"
+    sed -i "s|hadley_property|casa|g"  "$fileHcl"
 
     cat "$fileHcl"
     rm temp.txt
