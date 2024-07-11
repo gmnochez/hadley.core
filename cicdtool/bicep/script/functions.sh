@@ -143,7 +143,7 @@ copyPropertyFileToFile()
     sed -i 's|//[^/]*$||' $destFile
     sed -i 's|#[^/]*$||' $destFile
     tags=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
-
+    echo "$tags"
     if [[ -z  $tags ]] ; then
       echo "false"
       return
