@@ -105,7 +105,7 @@ transformFileBicepToHcl()
     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
     extractedParameters=${extractedParameters%?}
 
-    sed -i "s|hadley_property|echo $extractedParameters|g"  "$fileHcl"
+    sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
 
     cat "$fileHcl"
     rm temp.txt
