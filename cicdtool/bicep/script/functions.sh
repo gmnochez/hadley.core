@@ -149,9 +149,10 @@ copyPropertyFileToFile()
       return
     fi 
 
+    echo "$destFile"
     sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
    
-    echo "$destFile"
+    
 
     # sed -i "/$arrayProperty/,/}/d" "$fileHcl"
     
