@@ -143,8 +143,7 @@ copyPropertyFileToFile()
     sed -i 's|//[^/]*$||' $destFile
     sed -i 's|#[^/]*$||' $destFile
     tags=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
-    cat "$sourceFile"
-    echo "tags $tags"
+
     if [[ -z  $tags ]] ; then
       echo "false"
       return
@@ -152,7 +151,7 @@ copyPropertyFileToFile()
 
    
     sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
-    echo "$destFile"
+    cat "$destFile"
     
 
     # sed -i "/$arrayProperty/,/}/d" "$fileHcl"
