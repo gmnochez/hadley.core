@@ -69,7 +69,7 @@ transformPropertyBicepToHcl()
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
 
     if [[ -z  $tags ]] ; then
-      return
+      return "false"
     fi 
 
     sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileHcl"
@@ -126,24 +126,38 @@ transformPropertyBicepToHcl()
     #              value = "ktc"
     #            }
     #          ]
+    return "true"
 
 }    
 
 
 
-transformFileHclToBicep()
+copyPropertyHclToHcl()
 {
-    file=$1
-    arrayProperty=$2
+    fileBicep=$1
+    fileHcl=$2
+    arrayProperty=$3
+    sed -i 's|//[^/]*$||' $fileBicep
+    sed -i 's|#[^/]*$||' $fileBicep
+    sed -i 's|//[^/]*$||' $fileHcl
+    sed -i 's|#[^/]*$||' $fileHcl
+    tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
+
+    if [[ -z  $tags ]] ; then
+      return ""
+    fi 
+
+    sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileHcl"
+
+    sed -i "/$arrayProperty/,/}/d" "$fileHcl"
     
-    tags=$(cat "$file" | sed -n "/$arrayProperty/,/}/p")
 
     tags=$(echo "$tags" | sed "s|:|=|g")
     tags=$(echo "$tags" | sed "s|'|\"|g")
     tags=$(echo "$tags" | sed "s|{|[|g")
     tags=$(echo "$tags" | sed "s|}|]|g")
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
-    
+
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
     count=0
@@ -164,25 +178,12 @@ transformFileHclToBicep()
         
     done
 
-    cat temp.txt
+    extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
+    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    extractedParameters=${extractedParameters%?}
+
+    sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
     rm temp.txt
-
-
-    # tags : {
-    #     enviroment: 'daily'
-    #     company: 'ktc'
-    # }
-
-    #  tags = [ 
-    #            {
-    #              key = "enviroment" 
-    #              value = "daily"
-    #            },
-    #            { 
-    #              key = "company" 
-    #              value = "ktc"
-    #            }
-    #          ]
 
 }    
 
