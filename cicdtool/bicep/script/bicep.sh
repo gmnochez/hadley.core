@@ -92,7 +92,6 @@ sed -i "s|'|\"|g" "$fileBicepToHcl"
 
 
 if [[ $existProperty == "false" ]];then 
-    echo $existProperty
     copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags"
     # existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags")
 fi
