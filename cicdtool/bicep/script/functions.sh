@@ -69,7 +69,8 @@ transformPropertyBicepToHcl()
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
 
     if [[ -z  $tags ]] ; then
-      return 0
+      echo "false"
+      return 
     fi 
 
     sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileHcl"
@@ -126,7 +127,7 @@ transformPropertyBicepToHcl()
     #              value = "ktc"
     #            }
     #          ]
-    return 1
+    echo "true"
 
 }    
 
