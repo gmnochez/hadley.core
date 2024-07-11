@@ -69,7 +69,7 @@ transformFileBicepToHcl()
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
     tags2=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/}/p")
 
-    sed -i "s|$arrayProperty|tags_param\n$arrayProperty|g" $fileHcl
+    sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" $fileHcl
 
     sed -i "/$arrayProperty/,/}/d" "$fileHcl"
     
@@ -104,7 +104,7 @@ transformFileBicepToHcl()
 
     tags3=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
 
-    sed -i "s|tags_param|$tags3|g"  "$fileHcl"
+    sed -i "s|hadley_property|$tags3|g"  "$fileHcl"
 
     cat "$fileHcl"
     rm temp.txt
