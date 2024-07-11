@@ -71,7 +71,8 @@ cp $sourceBicep/$file_name.bicep $fileNameImplementation
 cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/main_$file_name.bicep"
 cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
 cp $deployDirectory/$file_name.bicep "$fileBicepToHcl"
-
+cp $fullPathEnviroment "$sourceBicepDeploy/enviroment_$file_name.hcl"
+cp $fullPathGlobal "$sourceBicepDeploy/global_$file_name.hcl"
 
 sed -i "s|param hadley_definition_param|params :|g" "$sourceBicepDeploy/param_$file_name.bicep"
 
@@ -89,7 +90,20 @@ sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
 sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
 
-echo "$existProperty"
+
+if [[ $existProperty == "false" ]];then 
+    existProperty=$(transformPropertyBicepToHcl "$sourceBicepDeploy/main_$file_name.bicep" "$fileBicepToHcl"  "tags")
+fi
+
+if [[ $existProperty == "false" ]];then 
+    existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags")
+fi
+
+# if [[ $existProperty == "false" ]];then 
+#     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/global_$file_name.hcl" "$fileBicepToHcl"  "tags")
+# fi
+
+# echo "$existProperty"
 
 
 

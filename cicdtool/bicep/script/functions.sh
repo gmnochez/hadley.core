@@ -133,58 +133,60 @@ transformPropertyBicepToHcl()
 
 
 
-copyPropertyHclToHcl()
+copyPropertyFileToFile()
 {
-    fileBicep=$1
-    fileHcl=$2
+    sourceFile=$1
+    destFile=$2
     arrayProperty=$3
-    sed -i 's|//[^/]*$||' $fileBicep
-    sed -i 's|#[^/]*$||' $fileBicep
-    sed -i 's|//[^/]*$||' $fileHcl
-    sed -i 's|#[^/]*$||' $fileHcl
-    tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
+    sed -i 's|//[^/]*$||' $sourceFile
+    sed -i 's|#[^/]*$||' $sourceFile
+    sed -i 's|//[^/]*$||' $destFile
+    sed -i 's|#[^/]*$||' $destFile
+    tags=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/}/p")
 
     if [[ -z  $tags ]] ; then
       return ""
     fi 
 
-    sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileHcl"
+    sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
+   
+    echo "$destFile"
 
-    sed -i "/$arrayProperty/,/}/d" "$fileHcl"
+    # sed -i "/$arrayProperty/,/}/d" "$fileHcl"
     
 
-    tags=$(echo "$tags" | sed "s|:|=|g")
-    tags=$(echo "$tags" | sed "s|'|\"|g")
-    tags=$(echo "$tags" | sed "s|{|[|g")
-    tags=$(echo "$tags" | sed "s|}|]|g")
-    tags=$(echo "$tags" | sed -r '/^\s*$/d')
+    # tags=$(echo "$tags" | sed "s|:|=|g")
+    # tags=$(echo "$tags" | sed "s|'|\"|g")
+    # tags=$(echo "$tags" | sed "s|{|[|g")
+    # tags=$(echo "$tags" | sed "s|}|]|g")
+    # tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
-    echo "$tags" > temp.txt
-    numLineas=$(cat temp.txt | wc -l)
-    count=0
-    cat temp.txt | while read line || [[ -n $line ]];
-    do
-        count=$(($count+1))
-        key=$(echo $line |awk -F '=' '{print $1}')
-        value=$(echo $line |awk -F '=' '{print $2}')
-        newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-        newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
+    # echo "$tags" > temp.txt
+    # numLineas=$(cat temp.txt | wc -l)
+    # count=0
+    # cat temp.txt | while read line || [[ -n $line ]];
+    # do
+    #     count=$(($count+1))
+    #     key=$(echo $line |awk -F '=' '{print $1}')
+    #     value=$(echo $line |awk -F '=' '{print $2}')
+    #     newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
+    #     newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
             
-        if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-            sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-        elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-            sed -i "s|$line|$newLine2|g"  "./temp.txt"
-        fi
+    #     if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
+    #         sed -i "s|$line|$newLine1|g"  "./temp.txt"     
+    #     elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
+    #         sed -i "s|$line|$newLine2|g"  "./temp.txt"
+    #     fi
 
         
-    done
+    # done
 
-    extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
-    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-    extractedParameters=${extractedParameters%?}
+    # extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
+    # extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    # extractedParameters=${extractedParameters%?}
 
-    sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
-    rm temp.txt
+    # sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
+    # rm temp.txt
 
 }    
 
