@@ -90,8 +90,9 @@ sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
 sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
 
-echo $existProperty
+
 if [[ $existProperty == "false" ]];then 
+    echo $existProperty
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags")
 fi
 
