@@ -145,7 +145,8 @@ copyPropertyFileToFile()
     tags=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/}/p")
 
     if [[ -z  $tags ]] ; then
-      return ""
+      echo "false"
+      return
     fi 
 
     sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
@@ -187,6 +188,8 @@ copyPropertyFileToFile()
 
     # sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
     # rm temp.txt
+
+    echo "true"
 
 }    
 
