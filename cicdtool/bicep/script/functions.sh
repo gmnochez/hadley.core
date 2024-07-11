@@ -142,15 +142,22 @@ copyPropertyFileToFile()
     sed -i 's|#[^/]*$||' $sourceFile
     sed -i 's|//[^/]*$||' $destFile
     sed -i 's|#[^/]*$||' $destFile
-    tags=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
+    extractedParameters=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
 
-    if [[ -z  $tags ]] ; then
+    if [[ -z  $extractedParameters ]] ; then
       echo "false"
       return
     fi 
 
    
     sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
+
+    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    extractedParameters=${extractedParameters%?}
+
+    sed -i "s|hadley_property|$extractedParameters|g"  "$destFile"
+
+
     cat "$destFile"
     
 
