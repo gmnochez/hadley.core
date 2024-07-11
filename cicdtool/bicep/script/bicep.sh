@@ -98,7 +98,7 @@ elif [[ $existProperty == "false" ]];then
 fi
 
 echo "$existProperty"
-echo "$fileBicepToHcl"
+cat "$fileBicepToHcl"
 
 
 
