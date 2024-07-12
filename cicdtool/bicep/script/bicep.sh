@@ -102,7 +102,7 @@ cat "$fileBicepToHcl"
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 
-transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/main_$file_name.bicep" "tags"
+# transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/main_$file_name.bicep" "tags"
 
 
 
