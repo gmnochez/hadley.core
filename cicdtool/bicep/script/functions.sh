@@ -149,96 +149,96 @@ transformPropertyHclToBicep()
       return 
     fi 
 
-    sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
+#     sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
 
-    sed -i "/$arrayProperty/,/}/d" "$fileBicep"
+#     sed -i "/$arrayProperty/,/}/d" "$fileBicep"
     
 
-    tags=$(echo "$tags" | sed "s|:|=|g")
-    tags=$(echo "$tags" | sed "s|'|\"|g")
-    tags=$(echo "$tags" | sed "s|{|[|g")
-    tags=$(echo "$tags" | sed "s|}|]|g")
-    tags=$(echo "$tags" | sed -r '/^\s*$/d')
+#     tags=$(echo "$tags" | sed "s|:|=|g")
+#     tags=$(echo "$tags" | sed "s|'|\"|g")
+#     tags=$(echo "$tags" | sed "s|{|[|g")
+#     tags=$(echo "$tags" | sed "s|}|]|g")
+#     tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
-    echo "$tags" > temp.txt
-    numLineas=$(cat temp.txt | wc -l)
-    count=0
-    cat temp.txt | while read line || [[ -n $line ]];
-    do
-        count=$(($count+1))
-        key=$(echo $line |awk -F '=' '{print $1}')
-        value=$(echo $line |awk -F '=' '{print $2}')
-        newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-        newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
+#     echo "$tags" > temp.txt
+#     numLineas=$(cat temp.txt | wc -l)
+#     count=0
+#     cat temp.txt | while read line || [[ -n $line ]];
+#     do
+#         count=$(($count+1))
+#         key=$(echo $line |awk -F '=' '{print $1}')
+#         value=$(echo $line |awk -F '=' '{print $2}')
+#         newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
+#         newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
             
-        if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-            sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-        elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-            sed -i "s|$line|$newLine2|g"  "./temp.txt"
-        fi
+#         if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
+#             sed -i "s|$line|$newLine1|g"  "./temp.txt"     
+#         elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
+#             sed -i "s|$line|$newLine2|g"  "./temp.txt"
+#         fi
 
         
-    done
+#     done
 
-    extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
-    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-    extractedParameters=${extractedParameters%?}
+#     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
+#     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+#     extractedParameters=${extractedParameters%?}
 
-    sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
-    rm temp.txt
-
-
-    # tags : {
-    #     enviroment: 'daily'
-    #     company: 'ktc'
-    # }
-
-    #  tags = [ 
-    #            {
-    #              key = "enviroment" 
-    #              value = "daily"
-    #            },
-    #            { 
-    #              key = "company" 
-    #              value = "ktc"
-    #            }
-    #          ]
-    echo "true"
-
-}    
+#     sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
+#     rm temp.txt
 
 
+#     # tags : {
+#     #     enviroment: 'daily'
+#     #     company: 'ktc'
+#     # }
+
+#     #  tags = [ 
+#     #            {
+#     #              key = "enviroment" 
+#     #              value = "daily"
+#     #            },
+#     #            { 
+#     #              key = "company" 
+#     #              value = "ktc"
+#     #            }
+#     #          ]
+#     echo "true"
+
+# }    
 
 
 
 
 
 
-copyPropertyFileToFile()
-{
-    sourceFile=$1
-    destFile=$2
-    arrayProperty=$3
-    sed -i 's|//[^/]*$||' $sourceFile
-    sed -i 's|#[^/]*$||' $sourceFile
-    sed -i 's|//[^/]*$||' $destFile
-    sed -i 's|#[^/]*$||' $destFile
-    extractedParameters=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
 
-    if [[ -z  $extractedParameters ]] ; then
-      echo "false"
-      return
-    fi 
+
+# copyPropertyFileToFile()
+# {
+#     sourceFile=$1
+#     destFile=$2
+#     arrayProperty=$3
+#     sed -i 's|//[^/]*$||' $sourceFile
+#     sed -i 's|#[^/]*$||' $sourceFile
+#     sed -i 's|//[^/]*$||' $destFile
+#     sed -i 's|#[^/]*$||' $destFile
+#     extractedParameters=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
+
+#     if [[ -z  $extractedParameters ]] ; then
+#       echo "false"
+#       return
+#     fi 
 
    
-    sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
+#     sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
 
-    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-    extractedParameters=${extractedParameters%?}
+#     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+#     extractedParameters=${extractedParameters%?}
 
-    sed -i "s|hadley_property|$extractedParameters|g"  "$destFile"
+#     sed -i "s|hadley_property|$extractedParameters|g"  "$destFile"
 
-    echo "true"
+#     echo "true"
 
 }    
 
