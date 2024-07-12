@@ -149,8 +149,8 @@ transformPropertyHclToBicep()
     fi 
 
     sed -i "s/\(.*\)}/hadley_property\n}/g" "$fileBicep"
-    echo "$fileBicep"
-    
+    cat "$fileBicep"
+
 #     sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
 
 #     sed -i "/$arrayProperty/,/}/d" "$fileBicep"
