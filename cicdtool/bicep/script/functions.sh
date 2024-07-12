@@ -203,42 +203,42 @@ transformPropertyHclToBicep()
 #     #              value = "ktc"
 #     #            }
 #     #          ]
-#     echo "true"
+    echo "true"
 
-# }    
-
-
+}    
 
 
 
 
 
 
-# copyPropertyFileToFile()
-# {
-#     sourceFile=$1
-#     destFile=$2
-#     arrayProperty=$3
-#     sed -i 's|//[^/]*$||' $sourceFile
-#     sed -i 's|#[^/]*$||' $sourceFile
-#     sed -i 's|//[^/]*$||' $destFile
-#     sed -i 's|#[^/]*$||' $destFile
-#     extractedParameters=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
 
-#     if [[ -z  $extractedParameters ]] ; then
-#       echo "false"
-#       return
-#     fi 
+
+copyPropertyFileToFile()
+{
+    sourceFile=$1
+    destFile=$2
+    arrayProperty=$3
+    sed -i 's|//[^/]*$||' $sourceFile
+    sed -i 's|#[^/]*$||' $sourceFile
+    sed -i 's|//[^/]*$||' $destFile
+    sed -i 's|#[^/]*$||' $destFile
+    extractedParameters=$(cat "$sourceFile" | sed -n "/$arrayProperty/,/]/p")
+
+    if [[ -z  $extractedParameters ]] ; then
+      echo "false"
+      return
+    fi 
 
    
-#     sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
+    sed -i "s/\(.*\)}/hadley_property\n}/g" "$destFile"
 
-#     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-#     extractedParameters=${extractedParameters%?}
+    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    extractedParameters=${extractedParameters%?}
 
-#     sed -i "s|hadley_property|$extractedParameters|g"  "$destFile"
+    sed -i "s|hadley_property|$extractedParameters|g"  "$destFile"
 
-#     echo "true"
+    echo "true"
 
 }    
 
