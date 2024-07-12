@@ -97,12 +97,12 @@ elif [[ $existProperty == "false" ]];then
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/global_$file_name.hcl" "$fileBicepToHcl"  "tags")
 fi
 
-cat "$fileBicepToHcl"
+# cat "$fileBicepToHcl"
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 
-# transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/main_$file_name.bicep" "tags"
+transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/main_$file_name.bicep" "tags"
 
 
 

@@ -142,7 +142,8 @@ transformPropertyHclToBicep()
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
     tags=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/]/p")
-
+    echo $tags 
+    cat ""$fileBicep""
     if [[ -z  $tags ]] ; then
       echo "false"
       return 
