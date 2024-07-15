@@ -117,8 +117,6 @@ if [[ $existProperty == "true" ]];then
     echo "Parameters imported from: $sourceParameters"
 fi
 
-cat "$sourceBicepDeploy/param_$file_name.bicep"
-
 
 az login \
     --only-show-errors \
