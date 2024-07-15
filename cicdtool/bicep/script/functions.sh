@@ -143,7 +143,6 @@ transformPropertyHclToBicep()
     sed -i 's|#[^/]*$||' $fileBicep
     
     tags=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/]/p")
-    echo "tags $tags"
     if [[ -z  $tags ]] ; then
       echo "false"
       return 
@@ -199,7 +198,7 @@ transformPropertyHclToBicep()
     done
 
     sed -i '/^\s*$/d' "temp.txt"
-
+    cat "temp.txt"
     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
     extractedParameters=${extractedParameters%?}
