@@ -64,8 +64,10 @@ transformPropertyBicepToHcl()
     arrayProperty=$3
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
+    sed -i 's/\r//g' $fileBicep
     sed -i 's|//[^/]*$||' $fileHcl
     sed -i 's|#[^/]*$||' $fileHcl
+    sed -i 's/\r//g' $fileHcl
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
 
     if [[ -z  $tags ]] ; then
@@ -188,11 +190,7 @@ transformPropertyHclToBicep()
         fi
 
         if [[ $count == 2 ]]; then 
-          echo "$key_property"
-          echo "$value_property"
           newLine="$key_property:$value_property\n"
-          newLine=$(printf '%s\n' "$newLine" | sed 's,[\/&],\\&,g;s/$/\\/')
-          echo "$newLine"
           sed -i "s|$line|$newLine|g"  "./temp.txt"     
           count=0  
         fi
