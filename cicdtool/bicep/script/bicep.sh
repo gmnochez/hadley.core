@@ -91,10 +91,11 @@ sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
 
 sourceParameters="$sourceBicepDeploy/main_$file_name.bicep"
-echo "$existProperty"
+
 if [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags")
     sourceParameters="$sourceBicepDeploy/enviroment_$file_name.hcl"
+    echo "$existProperty"
 elif [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/global_$file_name.hcl" "$fileBicepToHcl"  "tags")
     sourceParameters="$sourceBicepDeploy/global_$file_name.hcl"
