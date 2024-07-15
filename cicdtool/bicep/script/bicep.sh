@@ -106,13 +106,12 @@ fi
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
+transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags"
 
-existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
+# existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
 if [[ $existProperty == "true" ]];then 
     echo "Parameters imported from: $sourceParameters"
 fi
-cat "$fileBicepToHcl" 
-cat "$sourceBicepDeploy/param_$file_name.bicep"
 
 
 
