@@ -172,27 +172,40 @@ transformPropertyHclToBicep()
 
     cat "temp.txt"
     cat "$fileBicep"
-    declare -A matrix
     cat temp.txt | while read line || [[ -n $line ]];
     do
-        
+        count=$(($count+1))
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
 
         key=$(echo "$key" | awk '{$1=$1;print}')
-        value=$(echo "$value" | sed "s|\"|'|g")
         value=$(echo "$value" | awk '{$1=$1;print}')
         echo $value
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
-          matrix[$count,0]=$value        
+          key=$value        
         fi
         
         if [[ -n "$key" ]] && [[ $key == "value" ]] ; then 
-          matrix[$count,1]=$value  
+          value=$value  
         fi
 
-        count=$(($count+1))
+        property=$(echo "temp.txt" | sed -n "/key/,/$value/p")
+        property=$(cat "./temp.txt" | sed -n "/key/,/$value/p")
+        property=$(printf '%s\n' "$property" | sed 's,[\/&],\\&,g;s/$/\\/')
+        property=${property%?}
+
+        value=$(echo "$value" | sed "s|\"|'|g")
+        
+
+        if [[ $count == 2 ]]; then 
+          newLine1="$key:$value\n"
+          sed -i "s|$property|$newLine1|g"  "./temp.txt"     
+          $count=0  
+        fi
+
+
+       
 
         # newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
         # newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
@@ -205,13 +218,7 @@ transformPropertyHclToBicep()
     
     done
 
-    # Iterate over the matrix
-    for i in 0 1; do
-        for j in 0 1; do
-            echo "Element at [$i,$j]: ${matrix[$i,$j]}"
-        done
-    done
-
+    cat "temp.txt"
 
 
 #     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
