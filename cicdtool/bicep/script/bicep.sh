@@ -95,6 +95,7 @@ sourceParameters="$sourceBicepDeploy/main_$file_name.bicep"
 if [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags")
     sourceParameters="$sourceBicepDeploy/enviroment_$file_name.hcl"
+fi
 
 if [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/global_$file_name.hcl" "$fileBicepToHcl"  "tags")
