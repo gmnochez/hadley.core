@@ -180,7 +180,7 @@ transformPropertyHclToBicep()
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
           key_property=$(echo "$value" | sed "s|\"||g") 
-          sed -i "s|$line||g"  "./temp.txt"   
+           
         fi
         
         if [[ -n "$key" ]] && [[ $key == "value" ]] ; then 
@@ -194,6 +194,7 @@ transformPropertyHclToBicep()
           echo $newLine
           sed -i "s|$line|$newLine|g"  "./temp.txt"     
           count=0  
+          sed -i "s|$line||g"  "./temp.txt"  
         fi
 
         count=$(($count+1))
