@@ -57,6 +57,27 @@ importSystemAzureVars()
 
 
 
+checkPropertyInBicep()
+{
+    fileBicep=$1
+    arrayProperty=$2
+    sed -i 's|//[^/]*$||' $fileBicep
+    sed -i 's|#[^/]*$||' $fileBicep
+    sed -i 's/\r//g' $fileBicep 
+
+    tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
+
+    if [[ -z  $tags ]] ; then
+      echo "false"
+      return 
+    fi 
+
+    echo "true"
+}
+
+
+
+
 transformPropertyBicepToHcl()
 {
     fileBicep=$1
@@ -64,8 +85,10 @@ transformPropertyBicepToHcl()
     arrayProperty=$3
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
+    sed -i 's/\r//g' $fileBicep 
     sed -i 's|//[^/]*$||' $fileHcl
     sed -i 's|#[^/]*$||' $fileHcl
+    sed -i 's/\r//g' $fileHcl
    
     tags=$(cat "$fileBicep" | sed -n "/$arrayProperty/,/}/p")
 
