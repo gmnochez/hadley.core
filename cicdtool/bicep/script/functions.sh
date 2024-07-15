@@ -167,7 +167,6 @@ transformPropertyHclToBicep()
 
 
     echo "$tags" > temp.txt
-    cat "temp.txt"
     numLineas=$(cat temp.txt | wc -l)
     count=0
     cat temp.txt | while read line || [[ -n $line ]];
@@ -190,6 +189,7 @@ transformPropertyHclToBicep()
 
         if [[ $count == 2 ]]; then 
           newLine1="$key_property:$value_property\n"
+          echo "$newLine1"
           sed -i "s|$line|$newLine1|g"  "./temp.txt"     
           count=0  
         fi
