@@ -180,18 +180,18 @@ transformPropertyHclToBicep()
         value=$(echo "$value" | awk '{$1=$1;print}')
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
-          key_property=$value 
+          key_property=$(echo "$value" | sed "s|\"||g") 
           sed -i "s|$line||g"  "./temp.txt"   
         fi
         
         if [[ -n "$key" ]] && [[ $key == "value" ]] ; then 
           value_property=$(echo "$value" | sed "s|\"|'|g")
+          echo "$value_property"
         fi
 
         if [[ $count == 2 ]]; then 
           newLine1="$key_property:$value_property\n"
           echo "$newLine1"
-          echo $count
           
           sed -i "s|$line|$newLine1|g"  "./temp.txt"     
           count=0  
