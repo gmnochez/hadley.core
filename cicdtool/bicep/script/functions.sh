@@ -167,6 +167,7 @@ transformPropertyHclToBicep()
 
 
     echo "$tags" > temp.txt
+    cat "temp.txt"
     numLineas=$(cat temp.txt | wc -l)
     count=0
     cat temp.txt | while read line || [[ -n $line ]];
@@ -196,9 +197,9 @@ transformPropertyHclToBicep()
         count=$(($count+1))
        
     done
-
-    sed -i '/^\s*$/d' "temp.txt"
     cat "temp.txt"
+    sed -i '/^\s*$/d' "temp.txt"
+    
     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
     extractedParameters=${extractedParameters%?}
