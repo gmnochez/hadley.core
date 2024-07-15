@@ -214,7 +214,7 @@ transformPropertyHclToBicep()
         fi
 
         if [[ $count == 2 ]]; then 
-          newLine="$key_property:$value_property\n"
+          newLine="$key_property: $value_property\n"
           sed -i "s|$line|$newLine|g"  "./temp.txt"     
           count=0  
         fi
