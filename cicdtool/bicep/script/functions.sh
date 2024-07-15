@@ -149,38 +149,37 @@ transformPropertyHclToBicep()
     fi 
 
     sed -i "s/\(.*\)}/hadley_property\n}/g" "$fileBicep"
-    cat "$fileBicep"
-
-#     sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
-
-#     sed -i "/$arrayProperty/,/}/d" "$fileBicep"
     
+    sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
 
-#     tags=$(echo "$tags" | sed "s|:|=|g")
-#     tags=$(echo "$tags" | sed "s|'|\"|g")
-#     tags=$(echo "$tags" | sed "s|{|[|g")
-#     tags=$(echo "$tags" | sed "s|}|]|g")
-#     tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
-#     echo "$tags" > temp.txt
-#     numLineas=$(cat temp.txt | wc -l)
-#     count=0
-#     cat temp.txt | while read line || [[ -n $line ]];
-#     do
-#         count=$(($count+1))
-#         key=$(echo $line |awk -F '=' '{print $1}')
-#         value=$(echo $line |awk -F '=' '{print $2}')
-#         newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-#         newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
+    tags=$(echo "$tags" | sed "s|[|{\n|g")
+    tags=$(echo "$tags" | sed "s|]|\n}|g")
+    tags=$(echo "$tags" | sed "s|]|\n}|g")
+    tags=$(echo "$tags" | sed "s|{|\n{|g")
+    tags=$(echo "$tags" | sed -r '/^\s*$/d')
+
+
+
+    echo "$tags" > temp.txt
+    numLineas=$(cat temp.txt | wc -l)
+    count=0
+    cat temp.txt | while read line || [[ -n $line ]];
+    do
+        count=$(($count+1))
+        key=$(echo $line |awk -F '=' '{print $1}')
+        value=$(echo $line |awk -F '=' '{print $2}')
+        newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
+        newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
             
-#         if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-#             sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-#         elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-#             sed -i "s|$line|$newLine2|g"  "./temp.txt"
-#         fi
+        if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
+            sed -i "s|$line|$newLine1|g"  "./temp.txt"     
+        elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
+            sed -i "s|$line|$newLine2|g"  "./temp.txt"
+        fi
 
         
-#     done
+    done
 
 #     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
 #     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
@@ -190,21 +189,22 @@ transformPropertyHclToBicep()
 #     rm temp.txt
 
 
-#     # tags : {
-#     #     enviroment: 'daily'
-#     #     company: 'ktc'
-#     # }
+    # tags = [ 
+    #           {
+    #             key = "enviroment" 
+    #             value = "daily"
+    #           },
+    #           { 
+    #             key = "company" 
+    #             value = "ktc"
+    #           }
+    #         ]
 
-#     #  tags = [ 
-#     #            {
-#     #              key = "enviroment" 
-#     #              value = "daily"
-#     #            },
-#     #            { 
-#     #              key = "company" 
-#     #              value = "ktc"
-#     #            }
-#     #          ]
+    # tags : {
+    #     enviroment: 'daily'
+    #     company: 'ktc'
+    # }
+
     echo "true"
 
 }    
