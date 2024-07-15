@@ -109,9 +109,12 @@ existProperty=$(checkPropertyInBicep "$sourceBicepDeploy/param_$file_name.bicep"
     
 if [[ $existProperty == "false" ]];then 
     existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
-    if [[ $existProperty == "true" ]];then 
-        echo "Parameters imported from: $sourceParameters"
-    fi
+else
+    sourceParameters="$sourceBicepDeploy/param_$file_name.bicep"
+fi
+
+if [[ $existProperty == "true" ]];then 
+    echo "Parameters imported from: $sourceParameters"
 fi
 
 cat "$sourceBicepDeploy/param_$file_name.bicep"
