@@ -182,7 +182,7 @@ transformPropertyHclToBicep()
         key=$(echo "$key" | awk '{$1=$1;print}')
         value=$(echo "$value" | sed "s|\"|'|g")
         value=$(echo "$value" | awk '{$1=$1;print}')
-
+        echo $value
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
           matrix[$count,0]=$value        
