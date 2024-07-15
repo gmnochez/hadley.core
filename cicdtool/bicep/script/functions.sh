@@ -170,8 +170,6 @@ transformPropertyHclToBicep()
     numLineas=$(cat temp.txt | wc -l)
     count=0
 
-    cat "temp.txt"
-    cat "$fileBicep"
     cat temp.txt | while read line || [[ -n $line ]];
     do
         count=$(($count+1))
@@ -201,7 +199,7 @@ transformPropertyHclToBicep()
         if [[ $count == 2 ]]; then 
           newLine1="$key:$value\n"
           sed -i "s|$property|$newLine1|g"  "./temp.txt"     
-          $count=0  
+          count=0  
         fi
 
 
