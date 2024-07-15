@@ -176,16 +176,21 @@ transformPropertyHclToBicep()
     cat temp.txt | while read line || [[ -n $line ]];
     do
         count=$(($count+1))
-        key=$(echo $line |awk -F '=' '{print $1}')
+        key=$(echo $line |awk -F '=' '{print $2}')
+        continue
         value=$(echo $line |awk -F '=' '{print $2}')
-        newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-        newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
+        echo $key
+        echo $value
+
+
+        # newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
+        # newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
             
-        if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-            sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-        elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-            sed -i "s|$line|$newLine2|g"  "./temp.txt"
-        fi
+        # if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
+        #     sed -i "s|$line|$newLine1|g"  "./temp.txt"     
+        # elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
+        #     sed -i "s|$line|$newLine2|g"  "./temp.txt"
+        # fi
 
         
     done
