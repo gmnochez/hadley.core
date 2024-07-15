@@ -142,7 +142,4 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 # fi
 
 
-
-echo "$sourceBicepDeploy"
-
 rm -rf "$sourceBicepDeploy"
