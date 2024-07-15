@@ -107,7 +107,8 @@ if [[ $existProperty == "true" ]];then
     echo "Parameters imported from: $fileBicepToHcl"
 fi
 
-
+cat "$fileBicepToHcl" 
+cat "$sourceBicepDeploy/param_$file_name.bicep"
 
 
 # az login \
