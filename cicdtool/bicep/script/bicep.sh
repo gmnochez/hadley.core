@@ -97,6 +97,7 @@ if [[ $existProperty == "false" ]];then
 elif [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/global_$file_name.hcl" "$fileBicepToHcl"  "tags")
     sourceParameters="$sourceBicepDeploy/global_$file_name.hcl"
+    echo "$existProperty"
 fi
 
 # cat "$fileBicepToHcl"
