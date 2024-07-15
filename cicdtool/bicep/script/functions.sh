@@ -193,7 +193,9 @@ transformPropertyHclToBicep()
 
         if [[ $count == 2 ]]; then 
           newLine1="$key:$value\n"
-          echo $newLine1
+          echo "$newLine1"
+          echo "$line"
+          
           sed -i "s|$line|$newLine1|g"  "./temp.txt"     
           count=0  
           key=""
@@ -215,7 +217,7 @@ transformPropertyHclToBicep()
     done
 
     cat "temp.txt"
-
+    rm "temp.txt"
 
 #     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
 #     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
