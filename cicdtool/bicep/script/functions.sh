@@ -201,15 +201,14 @@ transformPropertyHclToBicep()
     done
 
     sed -i '/^\s*$/d' "temp.txt"
-    cat "temp.txt"
-    rm "temp.txt"
 
-#     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
-#     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-#     extractedParameters=${extractedParameters%?}
 
-#     sed -i "s|hadley_property|$extractedParameters|g"  "$fileHcl"
-#     rm temp.txt
+    extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
+    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    extractedParameters=${extractedParameters%?}
+
+    sed -i "s|hadley_property|$extractedParameters|g"  "$fileBicep"
+    rm temp.txt
 
 
     # tags = [ 
