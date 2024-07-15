@@ -192,25 +192,15 @@ transformPropertyHclToBicep()
 
         if [[ $count == 2 ]]; then 
           newLine1="$key_property:$value_property\n"
-          echo "$newLine1"
-          
           sed -i "s|$line|$newLine1|g"  "./temp.txt"     
           count=0  
         fi
 
         count=$(($count+1))
        
-
-        # newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
-        # newLine2="{\n key = "\"$key\""\n value = "$value" \n }"
-            
-        # if [[ $count > 1 ]]  &&  [[ $count < $(($numLineas-1)) ]] ; then 
-        #     sed -i "s|$line|$newLine1|g"  "./temp.txt"     
-        # elif [[ $count > 1 ]]  &&  [[ $count < $numLineas ]]  ; then 
-        #     sed -i "s|$line|$newLine2|g"  "./temp.txt"
-        # fi
-    
     done
+
+    cat "temp.txt" | sed -r '/^\s*$/d'
 
     cat "temp.txt"
     rm "temp.txt"
