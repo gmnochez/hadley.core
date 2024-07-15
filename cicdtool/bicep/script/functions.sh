@@ -190,9 +190,9 @@ transformPropertyHclToBicep()
         if [[ $count == 2 ]]; then 
           echo "$key_property"
           echo "$value_property"
-          prop="$key_property:$value_property\n"
-          echo $prop
-          sed -i "s|$line|$prop|g"  "./temp.txt"     
+          newLine="$key_property $value_property!\n"
+          echo $newLine
+          sed -i "s|$line|$newLine|g"  "./temp.txt"     
           count=0  
         fi
 
