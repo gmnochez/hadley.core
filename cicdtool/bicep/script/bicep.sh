@@ -120,33 +120,31 @@ fi
 cat "$sourceBicepDeploy/param_$file_name.bicep"
 
 
-# az login \
-#     --only-show-errors \
-#     --output none \
-#     --service-principal \
-#     -t $ARM_TENANT_ID \
-#     -u $ARM_CLIENT_ID \
-#     -p $ARM_CLIENT_SECRET
+az login \
+    --only-show-errors \
+    --output none \
+    --service-principal \
+    -t $ARM_TENANT_ID \
+    -u $ARM_CLIENT_ID \
+    -p $ARM_CLIENT_SECRET
 
  
-# terraform apply
-# az deployment group create
-# New-AzResourceGroupDeployment -Confirm
+
 
 
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 
-# if [[ $deploy_action == "create" ]];then 
+if [[ $deploy_action == "create" ]];then 
 
-#     if [[ $resource_action == "plan" ]];then
-#         bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
-#     fi
+    if [[ $resource_action == "plan" ]];then
+        bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
+    fi
 
-#     if [[ $resource_action == "apply" ]];then
-#         bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
-#     fi
-# fi
+    if [[ $resource_action == "apply" ]];then
+        bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
+    fi
+fi
 
 
 rm -rf "$sourceBicepDeploy"
