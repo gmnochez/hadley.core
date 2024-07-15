@@ -15,19 +15,19 @@ global_definition=${12}
 frameworkFullPath=${13}
 
 
-echo "resource_action=$resource_action"
-echo "deploy_action=$deploy_action"
-echo "CICD_ROOT_PATH=$CICD_ROOT_PATH"
-echo "FRAMEWORK_PATH=$FRAMEWORK_PATH"
-echo "module_framework=$module_framework"
-echo "main_config=$main_config"
-echo "resource_type=$resource_type"
-echo "resource_api=$resource_api"
-echo "deploy_path=$deploy_path"
-echo "file_resource=$file_resource"
-echo "enviroment_definition=$enviroment_definition"
-echo "global_definition=$global_definition"
-echo "frameworkFullPath=$frameworkFullPath"
+# echo "resource_action=$resource_action"
+# echo "deploy_action=$deploy_action"
+# echo "CICD_ROOT_PATH=$CICD_ROOT_PATH"
+# echo "FRAMEWORK_PATH=$FRAMEWORK_PATH"
+# echo "module_framework=$module_framework"
+# echo "main_config=$main_config"
+# echo "resource_type=$resource_type"
+# echo "resource_api=$resource_api"
+# echo "deploy_path=$deploy_path"
+# echo "file_resource=$file_resource"
+# echo "enviroment_definition=$enviroment_definition"
+# echo "global_definition=$global_definition"
+# echo "frameworkFullPath=$frameworkFullPath"
 
 
 
