@@ -181,17 +181,11 @@ transformPropertyHclToBicep()
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
           key=$value 
-          echo "$key"       
+          sed -i "s|$line||g"  "./temp.txt"   
         fi
         
         if [[ -n "$key" ]] && [[ $key == "value" ]] ; then 
-          property=$(echo "temp.txt" | sed -n "/key/,/$value/p")
-          property=$(cat "./temp.txt" | sed -n "/key/,/$value/p")
-          property=$(printf '%s\n' "$property" | sed 's,[\/&],\\&,g;s/$/\\/')
-          property=${property%?}
           value=$(echo "$value" | sed "s|\"|'|g")
-          echo "$property"
-          echo "$value"  
         fi
 
         
@@ -199,7 +193,7 @@ transformPropertyHclToBicep()
 
         if [[ $count == 2 ]]; then 
           newLine1="$key:$value\n"
-          sed -i "s|$property|$newLine1|g"  "./temp.txt"     
+          sed -i "s|$line|$newLine1|g"  "./temp.txt"     
           count=0  
           key=""
           value=""
