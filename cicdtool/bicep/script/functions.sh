@@ -172,7 +172,7 @@ transformPropertyHclToBicep()
 
     cat temp.txt | while read line || [[ -n $line ]];
     do
-        count=$(($count+1))
+        
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
 
@@ -198,7 +198,7 @@ transformPropertyHclToBicep()
           count=0  
         fi
 
-
+        count=$(($count+1))
        
 
         # newLine1="{\n key = "\"$key\""\n value = "$value" \n },"
