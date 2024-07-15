@@ -205,7 +205,6 @@ transformPropertyHclToBicep()
     extractedParameters=${extractedParameters%?}
 
     sed -i "s|hadley_property|$extractedParameters|g"  "$fileBicep"
-    cat "$fileBicep"
     rm temp.txt
 
 
