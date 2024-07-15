@@ -179,7 +179,7 @@ transformPropertyHclToBicep()
         value=$(echo "$value" | awk '{$1=$1;print}')
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
-          key_property=$(echo "$value" | sed "s|\"||g") 
+          key_property=$(echo "$value" | sed "s|\"|'|g") 
           sed -i "s|$line||g"  "./temp.txt"   
         fi
         
