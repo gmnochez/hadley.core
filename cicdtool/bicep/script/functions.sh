@@ -199,7 +199,6 @@ transformPropertyHclToBicep()
         count=$(($count+1))
        
     done
-    cat "temp.txt"
     sed -i '/^\s*$/d' "temp.txt"
     
     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")

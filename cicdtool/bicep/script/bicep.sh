@@ -102,16 +102,16 @@ if [[ $existProperty == "false" ]];then
     sourceParameters="$sourceBicepDeploy/global_$file_name.hcl"
 fi
 
-# cat "$fileBicepToHcl"
 
 importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
-transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags"
 
-# existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
+existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
 if [[ $existProperty == "true" ]];then 
     echo "Parameters imported from: $sourceParameters"
 fi
+
+cat "$sourceBicepDeploy/param_$file_name.bicep"
 
 
 # az login \
@@ -143,4 +143,4 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 # fi
 
 
-# rm -rf "$sourceBicepDeploy"
+rm -rf "$sourceBicepDeploy"
