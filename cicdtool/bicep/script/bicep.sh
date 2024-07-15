@@ -140,6 +140,6 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 
 
-echo "$sourceTerraformDeploy"
+echo "$sourceBicepDeploy"
 
-rm -rf "$sourceTerraformDeploy"
+rm -rf "$sourceBicepDeploy"
