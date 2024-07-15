@@ -90,11 +90,13 @@ sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
 sed -i "s|:|=|g" "$fileBicepToHcl"
 sed -i "s|'|\"|g" "$fileBicepToHcl"
 
-
+sourceParameters="$sourceBicepDeploy/main_$file_name.bicep"
 if [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/enviroment_$file_name.hcl" "$fileBicepToHcl"  "tags")
+    sourceParameters="$sourceBicepDeploy/enviroment_$file_name.hcl"
 elif [[ $existProperty == "false" ]];then 
     existProperty=$(copyPropertyFileToFile "$sourceBicepDeploy/global_$file_name.hcl" "$fileBicepToHcl"  "tags")
+    sourceParameters="$sourceBicepDeploy/global_$file_name.hcl"
 fi
 
 # cat "$fileBicepToHcl"
@@ -104,7 +106,7 @@ importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 
 existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
 if [[ $existProperty == "true" ]];then 
-    echo "Parameters imported from: $fileBicepToHcl"
+    echo "Parameters imported from: $sourceParameters"
 fi
 
 cat "$fileBicepToHcl" 
