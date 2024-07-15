@@ -141,6 +141,7 @@ transformPropertyHclToBicep()
     sed -i 's|#[^/]*$||' $fileHcl
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
+    cat "$fileHcl"
     tags=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/]/p")
 
     if [[ -z  $tags ]] ; then
@@ -169,7 +170,6 @@ transformPropertyHclToBicep()
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
     count=0
-    cat "temp.txt"
     cat temp.txt | while read line || [[ -n $line ]];
     do
         
