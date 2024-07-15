@@ -182,12 +182,10 @@ transformPropertyHclToBicep()
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
           key_property=$(echo "$value" | sed "s|\"||g") 
           sed -i "s|$line||g"  "./temp.txt"   
-          echo "$key_property"
         fi
         
         if [[ -n "$key" ]] && [[ $key == "value" ]] ; then 
           value_property=$(echo "$value" | sed "s|\"|'|g")
-          echo "$value_property"
         fi
 
         if [[ $count == 2 ]]; then 
@@ -202,12 +200,12 @@ transformPropertyHclToBicep()
 
     sed -i '/^\s*$/d' "temp.txt"
 
-
     extractedParameters=$(cat "./temp.txt" | sed -n "/$arrayProperty/,/]/p")
     extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
     extractedParameters=${extractedParameters%?}
 
     sed -i "s|hadley_property|$extractedParameters|g"  "$fileBicep"
+    cat "$fileBicep"
     rm temp.txt
 
 
