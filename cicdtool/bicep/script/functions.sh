@@ -200,8 +200,7 @@ transformPropertyHclToBicep()
        
     done
 
-    cat "temp.txt" | sed -r '/^\s*$/d'
-
+    sed -i '/^\s*$/d' "temp.txt"
     cat "temp.txt"
     rm "temp.txt"
 
