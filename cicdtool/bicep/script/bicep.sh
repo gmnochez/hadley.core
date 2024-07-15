@@ -145,4 +145,4 @@ if [[ $deploy_action == "create" ]];then
 fi
 
 
-rm -rf "$sourceBicepDeploy"
+# rm -rf "$sourceBicepDeploy"
