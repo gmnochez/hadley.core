@@ -193,6 +193,7 @@ transformPropertyHclToBicep()
 
         if [[ $count == 2 ]]; then 
           newLine1="$key:$value\n"
+          echo $newLine1
           sed -i "s|$line|$newLine1|g"  "./temp.txt"     
           count=0  
           key=""
