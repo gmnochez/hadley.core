@@ -141,30 +141,30 @@ transformPropertyHclToBicep()
     sed -i 's|#[^/]*$||' $fileHcl
     sed -i 's|//[^/]*$||' $fileBicep
     sed -i 's|#[^/]*$||' $fileBicep
-    tags=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/]/p")
+    # tags=$(cat "$fileHcl" | sed -n "/$arrayProperty/,/]/p")
  
-    if [[ -z  $tags ]] ; then
-      echo "false"
-      return 
-    fi 
+    # if [[ -z  $tags ]] ; then
+    #   echo "false"
+    #   return 
+    # fi 
 
     echo "$fileBicep"
 
-    sed -i "s/\(.*\)}/hadley_property\n}/g" "$fileBicep"
+    # sed -i "s/\(.*\)}/hadley_property\n}/g" "$fileBicep"
     
-    sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
+    # sed -i "s|$arrayProperty|hadley_property\n$arrayProperty|g" "$fileBicep"
 
 
-    tags=$(echo "$tags" | sed "s|[|{\n|g")
-    tags=$(echo "$tags" | sed "s|]|\n}|g")
-    tags=$(echo "$tags" | sed "s|]|\n}|g")
-    tags=$(echo "$tags" | sed "s|{|\n{|g")
-    tags=$(echo "$tags" | sed -r '/^\s*$/d')
+    # tags=$(echo "$tags" | sed "s|[|{\n|g")
+    # tags=$(echo "$tags" | sed "s|]|\n}|g")
+    # tags=$(echo "$tags" | sed "s|]|\n}|g")
+    # tags=$(echo "$tags" | sed "s|{|\n{|g")
+    # tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
 
-    echo "$tags" > temp.txt
-    numLineas=$(cat temp.txt | wc -l)
-    count=0
+    # echo "$tags" > temp.txt
+    # numLineas=$(cat temp.txt | wc -l)
+    # count=0
 
     # cat temp.txt | while read line || [[ -n $line ]];
     # do
