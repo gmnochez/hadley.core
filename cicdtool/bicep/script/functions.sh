@@ -191,8 +191,9 @@ transformPropertyHclToBicep()
           echo "$key_property"
           echo "$value_property"
           newLine="$key_property:$value_property\n"
+          newLine=$(printf '%s\n' "$newLine" | sed 's,[\/&],\\&,g;s/$/\\/')
           echo "$newLine"
-          sed -i "s|$line|$key_property:$value_property\n|g"  "./temp.txt"     
+          sed -i "s|$line|$newLine|g"  "./temp.txt"     
           count=0  
         fi
 
