@@ -157,7 +157,7 @@ transformPropertyHclToBicep()
     tags=$(echo "$tags" | sed "s|{|\n{|g")
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
-    sed -i "s|$tags|hadley_property\n$tags|g" "$fileBicep"
+    sed -i "s|hadley_property|$tags|g" "$fileBicep"
 
 
     echo "$tags" > temp.txt
