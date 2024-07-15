@@ -169,7 +169,7 @@ transformPropertyHclToBicep()
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
     count=0
-
+    cat "temp.txt"
     cat temp.txt | while read line || [[ -n $line ]];
     do
         
