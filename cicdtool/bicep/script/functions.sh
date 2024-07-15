@@ -179,6 +179,7 @@ transformPropertyHclToBicep()
         key=$(echo $line |awk -F '=' '{print $2}')
         continue
         value=$(echo $line |awk -F '=' '{print $2}')
+        echo $line
         echo $key
         echo $value
 
