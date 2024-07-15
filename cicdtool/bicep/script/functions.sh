@@ -178,7 +178,6 @@ transformPropertyHclToBicep()
 
         key=$(echo "$key" | awk '{$1=$1;print}')
         value=$(echo "$value" | awk '{$1=$1;print}')
-        echo $value
 
         if [[ -n "$key" ]] && [[ $key == "key" ]]  ; then 
           key=$value 
@@ -191,6 +190,7 @@ transformPropertyHclToBicep()
           property=$(printf '%s\n' "$property" | sed 's,[\/&],\\&,g;s/$/\\/')
           property=${property%?}
           value=$(echo "$value" | sed "s|\"|'|g")
+          echo "$property"
           echo "$value"  
         fi
 
