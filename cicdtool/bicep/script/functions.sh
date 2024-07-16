@@ -217,9 +217,15 @@ transformPropertyHclToBicep()
     echo "$tags" > temp.txt
     numLineas=$(cat temp.txt | wc -l)
     count=0
+    count2=0
     cat temp.txt | while read line || [[ -n $line ]];
     do
-        
+        if [[ $count2 == 0 ]]; then 
+          newLine2="$arrayProperty : [\n"
+          sed -i "s|$line|$newLine2|g"  "./temp.txt"       
+        fi
+
+
         key=$(echo $line |awk -F '=' '{print $1}')
         value=$(echo $line |awk -F '=' '{print $2}')
 
@@ -242,7 +248,7 @@ transformPropertyHclToBicep()
         fi
 
         count=$(($count+1))
-       
+        count2=$(($count2+1))
     done
     sed -i '/^\s*$/d' "temp.txt"
     
@@ -251,6 +257,7 @@ transformPropertyHclToBicep()
     extractedParameters=${extractedParameters%?}
 
     sed -i "s|hadley_property|$extractedParameters|g"  "$fileBicep"
+
     rm temp.txt
 
 
