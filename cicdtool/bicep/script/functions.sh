@@ -221,7 +221,7 @@ transformPropertyHclToBicep()
     cat temp.txt | while read line || [[ -n $line ]];
     do
         if [[ $count2 == 0 ]]; then 
-          newLine2="$arrayProperty : [\n"
+          newLine2="$arrayProperty : {\n"
           sed -i "s|$line|$newLine2|g"  "./temp.txt"       
         fi
 
