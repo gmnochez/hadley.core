@@ -76,6 +76,27 @@ checkPropertyInBicep()
 }
 
 
+copyParamInBicep()
+{
+    paramFileBicep=$1
+    mainFileBicep=$2
+    
+    sed -i "s|param hadley_definition_param|params :|g" "$paramFileBicep"
+
+    extractedParameters="$(cat $paramFileBicep)"
+    extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
+    extractedParameters=${extractedParameters%?}
+
+    sed -i "s|hadley_resource|$file_name|g" "$mainFileBicep"
+    sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$mainFileBicep"
+    sed -i "s|hadley_params|$extractedParameters|g" "$mainFileBicep"
+
+
+}
+
+
+
+
 
 
 transformPropertyBicepToHcl()

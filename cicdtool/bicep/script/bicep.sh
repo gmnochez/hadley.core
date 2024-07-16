@@ -69,20 +69,13 @@ relpathFileNameImplementation="./implementation_$file_name.bicep"
 fileBicepToHcl="$sourceBicepDeploy/param_$file_name.hcl"
 cp $sourceBicep/$file_name.bicep $fileNameImplementation 
 cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/main_$file_name.bicep"
+cp $sourceMainBicep/main.bicep "$sourceBicepDeploy/deploy_$file_name.bicep"
 cp $deployDirectory/$file_name.bicep "$sourceBicepDeploy/param_$file_name.bicep"
 cp $deployDirectory/$file_name.bicep "$fileBicepToHcl"
 cp $fullPathEnviroment "$sourceBicepDeploy/enviroment_$file_name.hcl"
 cp $fullPathGlobal "$sourceBicepDeploy/global_$file_name.hcl"
 
-sed -i "s|param hadley_definition_param|params :|g" "$sourceBicepDeploy/param_$file_name.bicep"
-
-extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
-extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
-extractedParameters=${extractedParameters%?}
-
-sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
-sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
-sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
+copyParamInBicep "$sourceBicepDeploy/param_$file_name.bicep" "$sourceBicepDeploy/main_$file_name.bicep"
 
 existProperty=$(transformPropertyBicepToHcl "$sourceBicepDeploy/main_$file_name.bicep" "$fileBicepToHcl"  "tags")
 sed -i "s|param hadley_definition_param|locals|g" "$fileBicepToHcl"
@@ -107,7 +100,7 @@ importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 existProperty=$(checkPropertyInBicep "$sourceBicepDeploy/param_$file_name.bicep" "tags")
     
 if [[ $existProperty == "false" ]];then 
-    existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/main_$file_name.bicep" "tags")
+    existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
 else
     sourceParameters="$sourceBicepDeploy/main_$file_name.bicep"
 fi
@@ -118,6 +111,7 @@ fi
 
 
 
+copyParamInBicep "$sourceBicepDeploy/param_$file_name.bicep" "$sourceBicepDeploy/deploy_$file_name.bicep"
 
 
 
@@ -135,7 +129,7 @@ az login \
 
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 cat "$sourceBicepDeploy/param_$file_name.bicep"
-cat "$sourceBicepDeploy/main_$file_name.bicep"
+cat "$sourceBicepDeploy/deploy_$file_name.bicep"
 # if [[ $deploy_action == "create" ]];then 
 
 #     if [[ $resource_action == "plan" ]];then
