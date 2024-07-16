@@ -209,6 +209,7 @@ transformPropertyHclToBicep()
 
     tags=$(echo "$tags" | sed "s|key|\nkey|g")
     tags=$(echo "$tags" | sed "s|value|\nvalue|g")
+    tags=$(echo "$tags" | sed "s|=|:|g")
 
     tags=$(echo "$tags" | sed -r '/^\s*$/d')
 
