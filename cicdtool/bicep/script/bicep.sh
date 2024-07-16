@@ -129,7 +129,7 @@ az login \
 
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
-
+cat "$sourceBicepDeploy/deploy_$file_name.bicep"
 if [[ $deploy_action == "create" ]];then 
 
     if [[ $resource_action == "plan" ]];then
