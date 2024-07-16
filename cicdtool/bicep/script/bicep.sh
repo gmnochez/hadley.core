@@ -80,7 +80,6 @@ extractedParameters="$(cat $sourceBicepDeploy/param_$file_name.bicep)"
 extractedParameters=$(printf '%s\n' "$extractedParameters" | sed 's,[\/&],\\&,g;s/$/\\/')
 extractedParameters=${extractedParameters%?}
 
-
 sed -i "s|hadley_resource|$file_name|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_source_bicep|$relpathFileNameImplementation|g" "$sourceBicepDeploy/main_$file_name.bicep"
 sed -i "s|hadley_params|$extractedParameters|g" "$sourceBicepDeploy/main_$file_name.bicep"
@@ -108,14 +107,18 @@ importSystemAzureVars $fileBicepToHcl $fullPathEnviroment $fullPathGlobal
 existProperty=$(checkPropertyInBicep "$sourceBicepDeploy/param_$file_name.bicep" "tags")
     
 if [[ $existProperty == "false" ]];then 
-    existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
+    existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/main_$file_name.bicep" "tags")
 else
-    sourceParameters="$sourceBicepDeploy/param_$file_name.bicep"
+    sourceParameters="$sourceBicepDeploy/main_$file_name.bicep"
 fi
 
 if [[ $existProperty == "true" ]];then 
     echo "Parameters imported from: $sourceParameters"
 fi
+
+
+
+
 
 
 az login \
