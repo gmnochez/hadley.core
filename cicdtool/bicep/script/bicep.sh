@@ -131,7 +131,7 @@ az login \
 
 
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-
+cat "$sourceBicepDeploy/param_$file_name.bicep"
 cat "$sourceBicepDeploy/main_$file_name.bicep"
 if [[ $deploy_action == "create" ]];then 
 
