@@ -102,7 +102,7 @@ existProperty=$(checkPropertyInBicep "$sourceBicepDeploy/param_$file_name.bicep"
 if [[ $existProperty == "false" ]];then 
     existProperty=$(transformPropertyHclToBicep "$fileBicepToHcl" "$sourceBicepDeploy/param_$file_name.bicep" "tags")
 else
-    sourceParameters="$sourceBicepDeploy/main_$file_name.bicep"
+    sourceParameters="$sourceBicepDeploy/deploy_$file_name.bicep"
 fi
 
 if [[ $existProperty == "true" ]];then 
@@ -130,16 +130,16 @@ az login \
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 cat "$sourceBicepDeploy/param_$file_name.bicep"
 cat "$sourceBicepDeploy/deploy_$file_name.bicep"
-# if [[ $deploy_action == "create" ]];then 
+if [[ $deploy_action == "create" ]];then 
 
-#     if [[ $resource_action == "plan" ]];then
-#         bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
-#     fi
+    if [[ $resource_action == "plan" ]];then
+        bicep_plan "$sourceBicepDeploy/main_$file_name.bicep"
+    fi
 
-#     if [[ $resource_action == "apply" ]];then
-#         bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
-#     fi
-# fi
+    if [[ $resource_action == "apply" ]];then
+        bicep_apply "$sourceBicepDeploy/main_$file_name.bicep"
+    fi
+fi
 
 
-# rm -rf "$sourceBicepDeploy"
+rm -rf "$sourceBicepDeploy"
